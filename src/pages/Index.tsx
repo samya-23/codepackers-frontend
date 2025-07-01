@@ -1,15 +1,6 @@
 import React from 'react';
-import Navbar from '@/components/ui/navbar'; // ✅ Import new navbar
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  ArrowRight, MessageCircle, Brain, Shield,
-  Globe, Users, Zap, BarChart3, Phone, Mic,
-  FileText, Search
-} from 'lucide-react';
-
-import HeroSection from '@/components/HeroSection';
+import Navbar from '@/components/ui/navbar'; // ✅ New styled navbar
+import HeroCarousel from '@/components/HeroCarousel'; // ✅ New hero media carousel
 import PlatformCapabilities from '@/components/PlatformCapabilities';
 import TechnologyExpertise from '@/components/TechnologyExpertise';
 import TeamSection from '@/components/TeamSection';
@@ -18,16 +9,19 @@ import ContactSection from '@/components/ContactSection';
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
-      {/* ✅ Reusable Navigation */}
+      {/* ✅ Navigation Bar */}
       <Navbar />
 
-      <HeroSection />
+      {/* ✅ Hero Carousel with 3 slides */}
+      <HeroCarousel />
+
+      {/* ✅ Main Sections */}
       <PlatformCapabilities />
       <TechnologyExpertise />
       <TeamSection />
       <ContactSection />
 
-      {/* Footer */}
+      {/* ✅ Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
