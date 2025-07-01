@@ -1,0 +1,89 @@
+
+import React from 'react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, MessageCircle, Brain, Shield, Globe, Users, Zap, BarChart3, Phone, Mic, FileText, Search } from 'lucide-react';
+import HeroSection from '@/components/HeroSection';
+import PlatformCapabilities from '@/components/PlatformCapabilities';
+import TechnologyExpertise from '@/components/TechnologyExpertise';
+import TeamSection from '@/components/TeamSection';
+import ContactSection from '@/components/ContactSection';
+
+const Index = () => {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+      {/* Navigation */}
+      <nav className="bg-white/80 backdrop-blur-md border-b border-white/20 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center">
+              {/* <img src="/logo.png" alt="Codepackers Software Solutions" className="h-16 w-auto font-bold text-2xl" /> */}
+              <p className="text-2xl font-bold">Codepackers Software Solutions</p>
+            </div>
+            <div className="hidden md:flex space-x-8">
+              {/* <a href="#platform" className="text-gray-700 hover:text-blue-600 transition-colors">Platform</a> */}
+              <a href="#platform" className="text-gray-700 hover:text-blue-600 transition-colors">Capabilities</a>
+              <a href="#expertise" className="text-gray-700 hover:text-blue-600 transition-colors">Expertise</a>
+              <a href="#team" className="text-gray-700 hover:text-blue-600 transition-colors">Team</a>
+              <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <HeroSection />
+      <PlatformCapabilities />
+      <TechnologyExpertise />
+      <TeamSection />
+      <ContactSection />
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center mb-4">
+                <img src="/logo.png" alt="Codepackers Software Solutions" className="h-8 w-auto" />
+              </div>
+              <p className="text-gray-400">
+                Leading AI conversational agent platform for enterprises in India.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Platform</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li>AI Agents</li>
+                <li>Voice Interface</li>
+                <li>Multi-language Support</li>
+                <li>Enterprise Integration</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Services</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li>Custom Development</li>
+                <li>AI Solutions</li>
+                <li>ERP Systems</li>
+                <li>Data Analytics</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Contact</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li>India</li>
+                <li>suja.sharma@codepackers.com</li>
+                {/* <li>24/7 Support</li> */}
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 Codepackers Software Solutions Pvt Ltd. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Index;
