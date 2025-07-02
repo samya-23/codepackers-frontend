@@ -7,7 +7,7 @@ interface Message {
 }
 
 interface AIChatCarouselProps {
-  onLoopComplete?: () => void; // ✅ NEW PROP
+  onLoopComplete?: () => void; // ✅ Callback for carousel loop
 }
 
 const AIChatCarousel: React.FC<AIChatCarouselProps> = ({ onLoopComplete }) => {
@@ -53,7 +53,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({ onLoopComplete }) => {
             setDisplayedMessages((prev) => {
               const updated = [...prev];
               if (updated[updated.length - 1]?.sender === 'ai') {
-                updated[updated.length - 1].text = aiText;
+                updated[updated.length - 1] = { ...updated[updated.length - 1], text: aiText };
               } else {
                 updated.push({ sender: 'ai', text: aiText });
               }
@@ -88,9 +88,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({ onLoopComplete }) => {
         setDisplayedMessages([]);
         setInputText('');
         setLoopKey((prev) => prev + 1);
-
-        // ✅ Trigger callback for carousel sync
-        onLoopComplete?.();
+        onLoopComplete?.(); // ✅ Notify carousel to move forward
       }, RESET_LOOP_DELAY);
     };
 
@@ -108,7 +106,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({ onLoopComplete }) => {
   }, [inputText]);
 
   return (
-    <div className="chat-carousel-container fixed-height">
+    <div className="chat-carousel-container fixed-height" key={loopKey}>
       <div className="chat-header">
         <div className="avatar-icon">💬</div>
         <div>
@@ -117,7 +115,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({ onLoopComplete }) => {
         </div>
       </div>
 
-      <div className="chat-bubble-wrapper">
+      <div className="chat-bubble-wrapper" aria-live="polite">
         {displayedMessages.map((msg, idx) => (
           <div key={idx} className={`chat-bubble ${msg.sender}`}>
             {msg.text}

@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, EffectFade } from "swiper/modules";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import AIChatCarousel from './AIChatCarousel/AIChatCarousel';
 import SwiperCore from "swiper";
+import AIChatCarousel from "./AIChatCarousel/AIChatCarousel";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
@@ -30,8 +30,10 @@ const HeroCarousel = () => {
         Your browser does not support the video tag.
       </video>
 
+      {/* Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
 
+      {/* Carousel Content */}
       <div className="relative z-20 h-full">
         <Swiper
           onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -47,10 +49,10 @@ const HeroCarousel = () => {
           }}
           effect="fade"
           fadeEffect={{ crossFade: true }}
-          loop={true}
+          loop
           className="h-full"
         >
-          {/* Slide 1 */}
+          {/* Slide 1: Introduction */}
           <SwiperSlide>
             <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white relative">
               <div className="pt-20 md:pt-0">
@@ -77,41 +79,48 @@ const HeroCarousel = () => {
             </div>
           </SwiperSlide>
 
-          {/* Slide 2: Chat */}
+          {/* Slide 2: AI Chat Carousel */}
           <SwiperSlide>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-10 text-white text-left h-full px-6 md:px-16">
-              <div className="flex-1">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                  <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">AI Conversational</span><br />
-                  Agents for Enterprise
-                </h2>
-                <p className="text-lg mb-6 max-w-xl">
-                  Empower your organization with personified AI agents that understand your business, speak your language, and protect your data. From chat to voice, we make AI accessible to everyone.
-                </p>
+            <div className="flex justify-center items-center h-full text-white px-4 md:px-12">
+              <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
+                {/* Left Text Content */}
+                <div>
+                  <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                    <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
+                      AI Conversational
+                    </span>
+                    <br />
+                    Agents for Enterprise
+                  </h2>
+                  <p className="text-lg mb-6 max-w-xl">
+                    Empower your organization with personified AI agents that understand your business, speak your language, and protect your data. From chat to voice, we make AI accessible to everyone.
+                  </p>
 
-                <div className="flex flex-wrap items-center gap-6 mb-6 text-sm font-medium">
-                  <span className="flex items-center gap-2">💬 Chat with your private data</span>
-                  <span className="flex items-center gap-2">🎤 Voice Enabled</span>
-                  <span className="flex items-center gap-2">🌐 Multi-language</span>
+                  <div className="flex flex-wrap items-center gap-4 mb-6 text-sm font-medium">
+                    <span className="flex items-center gap-2"><span>💬</span> Chat with your private data</span>
+                    <span className="flex items-center gap-2"><span>🎤</span> Voice Enabled</span>
+                    <span className="flex items-center gap-2"><span>🌐</span> Multi-language</span>
+                  </div>
+
+                  <a
+                    href="https://www.aptilab.in/signin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition"
+                  >
+                    Try Our Agent <ArrowRight className="w-5 h-5" />
+                  </a>
                 </div>
 
-                <a
-                  href="https://www.aptilab.in/signin"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition"
-                >
-                  Try Our Agent <ArrowRight className="w-5 h-5" />
-                </a>
-              </div>
-
-              <div className="flex-1 w-full max-w-md">
-                <AIChatCarousel onLoopComplete={handleChatLoopComplete} />
+                {/* Right AI Chat Component */}
+                <div className="max-w-screen-xl mx-auto w-full px-4 md:px-8">
+                  <AIChatCarousel onLoopComplete={handleChatLoopComplete} />
+                </div>
               </div>
             </div>
           </SwiperSlide>
 
-          {/* Slide 3 */}
+          {/* Slide 3: Coming Soon */}
           <SwiperSlide>
             <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">More Coming Soon</h2>
@@ -122,7 +131,7 @@ const HeroCarousel = () => {
           </SwiperSlide>
         </Swiper>
 
-        {/* Arrows */}
+        {/* Navigation Arrows */}
         <button className="hero-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 bg-black/30 hover:bg-white/20 text-white rounded-full transition">
           <ChevronLeft size={24} />
         </button>
