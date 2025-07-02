@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, EffectFade } from "swiper/modules";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import AIChatCarousel from './AIChatCarousel/AIChatCarousel';
+import SwiperCore from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import "@/index.css";
 
 const HeroCarousel = () => {
+  const swiperRef = useRef<SwiperCore | null>(null);
+
+  const handleChatLoopComplete = () => {
+    swiperRef.current?.slideNext();
+  };
+
   return (
     <div className="relative w-full h-screen overflow-hidden">
       {/* Background Video */}
@@ -23,12 +30,11 @@ const HeroCarousel = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
 
-      {/* Swiper Carousel */}
       <div className="relative z-20 h-full">
         <Swiper
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
           modules={[Autoplay, Navigation, EffectFade]}
           autoplay={{
             delay: 6000,
@@ -44,7 +50,7 @@ const HeroCarousel = () => {
           loop={true}
           className="h-full"
         >
-          {/* Slide 1: Codepackers */}
+          {/* Slide 1 */}
           <SwiperSlide>
             <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white relative">
               <div className="pt-20 md:pt-0">
@@ -71,10 +77,9 @@ const HeroCarousel = () => {
             </div>
           </SwiperSlide>
 
-          {/* Slide 2: Alaap Framework + Chat */}
+          {/* Slide 2: Chat */}
           <SwiperSlide>
             <div className="flex flex-col md:flex-row items-center justify-center gap-10 text-white text-left h-full px-6 md:px-16">
-              {/* Text Content */}
               <div className="flex-1">
                 <h2 className="text-4xl md:text-5xl font-bold mb-6">
                   <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">AI Conversational</span><br />
@@ -85,12 +90,11 @@ const HeroCarousel = () => {
                 </p>
 
                 <div className="flex flex-wrap items-center gap-6 mb-6 text-sm font-medium">
-                  <span className="flex items-center gap-2"><span>💬</span> Chat with your private data</span>
-                  <span className="flex items-center gap-2"><span>🎤</span> Voice Enabled</span>
-                  <span className="flex items-center gap-2"><span>🌐</span> Multi-language</span>
+                  <span className="flex items-center gap-2">💬 Chat with your private data</span>
+                  <span className="flex items-center gap-2">🎤 Voice Enabled</span>
+                  <span className="flex items-center gap-2">🌐 Multi-language</span>
                 </div>
 
-                {/* ✅ Updated External Link */}
                 <a
                   href="https://www.aptilab.in/signin"
                   target="_blank"
@@ -101,9 +105,8 @@ const HeroCarousel = () => {
                 </a>
               </div>
 
-              {/* AI Chatbox */}
               <div className="flex-1 w-full max-w-md">
-                <AIChatCarousel />
+                <AIChatCarousel onLoopComplete={handleChatLoopComplete} />
               </div>
             </div>
           </SwiperSlide>
@@ -120,16 +123,10 @@ const HeroCarousel = () => {
         </Swiper>
 
         {/* Arrows */}
-        <button
-          className="hero-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 bg-black/30 hover:bg-white/20 text-white rounded-full transition"
-          aria-label="Previous"
-        >
+        <button className="hero-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 bg-black/30 hover:bg-white/20 text-white rounded-full transition">
           <ChevronLeft size={24} />
         </button>
-        <button
-          className="hero-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 bg-black/30 hover:bg-white/20 text-white rounded-full transition"
-          aria-label="Next"
-        >
+        <button className="hero-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 bg-black/30 hover:bg-white/20 text-white rounded-full transition">
           <ChevronRight size={24} />
         </button>
       </div>

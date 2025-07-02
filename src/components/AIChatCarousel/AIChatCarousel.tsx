@@ -6,7 +6,11 @@ interface Message {
   text: string;
 }
 
-const AIChatCarousel: React.FC = () => {
+interface AIChatCarouselProps {
+  onLoopComplete?: () => void; // ✅ NEW PROP
+}
+
+const AIChatCarousel: React.FC<AIChatCarouselProps> = ({ onLoopComplete }) => {
   const messages: Message[] = useMemo(() => [
     { sender: 'user', text: "Show me the Q3 sales report for the Delhi region" },
     { sender: 'ai', text: "I've found the Q3 sales report for Delhi. The region showed 23% growth with ₹2.4 crores in revenue." },
@@ -84,6 +88,9 @@ const AIChatCarousel: React.FC = () => {
         setDisplayedMessages([]);
         setInputText('');
         setLoopKey((prev) => prev + 1);
+
+        // ✅ Trigger callback for carousel sync
+        onLoopComplete?.();
       }, RESET_LOOP_DELAY);
     };
 
@@ -92,7 +99,7 @@ const AIChatCarousel: React.FC = () => {
     return () => {
       isCancelled = true;
     };
-  }, [loopKey, messages]);
+  }, [loopKey, messages, onLoopComplete]);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -106,7 +113,7 @@ const AIChatCarousel: React.FC = () => {
         <div className="avatar-icon">💬</div>
         <div>
           <div className="chat-title">Paul - My Enterprise AI Agent</div>
-          <div className="chat-subtitle">Smart. Secure. Scalable.</div>
+          <div className="chat-subtitle">Multilingual • Secure • Scalable</div>
         </div>
       </div>
 
@@ -153,6 +160,10 @@ const AIChatCarousel: React.FC = () => {
             </svg>
           ) : '➤'}
         </button>
+      </div>
+
+      <div className="chat-footer">
+        <span className="powered-text">Powered by Alaap platform</span>
       </div>
     </div>
   );
