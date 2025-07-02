@@ -1,13 +1,12 @@
-// src/components/HeroCarousel.tsx
-
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import { ArrowRight } from "lucide-react";
+import { Navigation, Autoplay, EffectFade } from "swiper/modules";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import AIChatCarousel from './AIChatCarousel/AIChatCarousel';
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
-import "@/index.css"; // Ensure Tailwind is loaded
+import "swiper/css/effect-fade";
+import "@/index.css";
 
 const HeroCarousel = () => {
   return (
@@ -24,15 +23,24 @@ const HeroCarousel = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Dark Overlay */}
+      {/* Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
 
       {/* Swiper Carousel */}
       <div className="relative z-20 h-full">
         <Swiper
-          modules={[Pagination, Navigation]}
-          pagination={{ clickable: true }}
-          navigation
+          modules={[Autoplay, Navigation, EffectFade]}
+          autoplay={{
+            delay: 6000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          navigation={{
+            nextEl: ".hero-swiper-button-next",
+            prevEl: ".hero-swiper-button-prev",
+          }}
+          effect="fade"
+          fadeEffect={{ crossFade: true }}
           loop={true}
           className="h-full"
         >
@@ -48,20 +56,14 @@ const HeroCarousel = () => {
                 </p>
               </div>
 
-              {/* Bottom Buttons */}
               <div className="absolute bottom-16 px-4 md:px-0 w-full flex flex-wrap justify-center gap-4">
-                {[
-                  { label: "Capabilities", href: "#platform" },
-                  { label: "Expertise", href: "#expertise" },
-                  { label: "Team", href: "#team" },
-                  { label: "Contact", href: "#contact" },
-                ].map((item) => (
+                {["Capabilities", "Expertise", "Team", "Contact"].map((label) => (
                   <a
-                    key={item.label}
-                    href={item.href}
+                    key={label}
+                    href={`#${label.toLowerCase()}`}
                     className="group flex items-center justify-between gap-2 min-w-[190px] px-6 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
                   >
-                    <span>{item.label}</span>
+                    <span>{label}</span>
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
                   </a>
                 ))}
@@ -69,28 +71,44 @@ const HeroCarousel = () => {
             </div>
           </SwiperSlide>
 
-          {/* Slide 2: Alaap & Pustak */}
+          {/* Slide 2: Alaap Framework + Chat */}
           <SwiperSlide>
-            <div className="flex flex-col items-center justify-center text-center h-full px-6 text-white">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Frameworks</h2>
-              <div className="max-w-4xl w-full grid md:grid-cols-2 gap-6">
-                <div className="bg-white/10 rounded-xl p-6 shadow-lg backdrop-blur-sm">
-                  <h3 className="text-2xl font-semibold mb-2 text-blue-300">Alaap</h3>
-                  <p className="text-sm">
-                    Alaap is our conversational AI framework — enabling personalized voice/chat agents for enterprises with multi-language support.
-                  </p>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-10 text-white text-left h-full px-6 md:px-16">
+              {/* Text Content */}
+              <div className="flex-1">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                  <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">AI Conversational</span><br />
+                  Agents for Enterprise
+                </h2>
+                <p className="text-lg mb-6 max-w-xl">
+                  Empower your organization with personified AI agents that understand your business, speak your language, and protect your data. From chat to voice, we make AI accessible to everyone.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-6 mb-6 text-sm font-medium">
+                  <span className="flex items-center gap-2"><span>💬</span> Chat with your private data</span>
+                  <span className="flex items-center gap-2"><span>🎤</span> Voice Enabled</span>
+                  <span className="flex items-center gap-2"><span>🌐</span> Multi-language</span>
                 </div>
-                <div className="bg-white/10 rounded-xl p-6 shadow-lg backdrop-blur-sm">
-                  <h3 className="text-2xl font-semibold mb-2 text-green-300">Pustak</h3>
-                  <p className="text-sm">
-                    Pustak is a document-based AI system powering intelligent search, recommendations, and automation for text-heavy platforms.
-                  </p>
-                </div>
+
+                {/* ✅ Updated External Link */}
+                <a
+                  href="https://www.aptilab.in/signin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition"
+                >
+                  Try Our Agent <ArrowRight className="w-5 h-5" />
+                </a>
+              </div>
+
+              {/* AI Chatbox */}
+              <div className="flex-1 w-full max-w-md">
+                <AIChatCarousel />
               </div>
             </div>
           </SwiperSlide>
 
-          {/* Slide 3: Coming Soon */}
+          {/* Slide 3 */}
           <SwiperSlide>
             <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">More Coming Soon</h2>
@@ -100,6 +118,20 @@ const HeroCarousel = () => {
             </div>
           </SwiperSlide>
         </Swiper>
+
+        {/* Arrows */}
+        <button
+          className="hero-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 bg-black/30 hover:bg-white/20 text-white rounded-full transition"
+          aria-label="Previous"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          className="hero-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 bg-black/30 hover:bg-white/20 text-white rounded-full transition"
+          aria-label="Next"
+        >
+          <ChevronRight size={24} />
+        </button>
       </div>
     </div>
   );
