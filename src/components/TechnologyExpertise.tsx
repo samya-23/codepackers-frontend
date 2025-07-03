@@ -26,12 +26,37 @@ import {
   Settings,
 } from "lucide-react";
 
-// Decorative Background
+// Decorative Background Blob
 const BackgroundBlob = () => (
   <div className="absolute -top-24 left-0 w-full h-96 bg-gradient-to-r from-blue-100 to-purple-200 opacity-30 blur-3xl rounded-full pointer-events-none" />
 );
 
-// Expertise Areas Data
+// Subtle SVG Pattern Overlay
+const PatternOverlay = () => (
+  <div className="absolute inset-0 z-0 pointer-events-none">
+    <svg
+      className="w-full h-full opacity-10"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <defs>
+        <pattern
+          id="dot-grid"
+          x="0"
+          y="0"
+          width="20"
+          height="20"
+          patternUnits="userSpaceOnUse"
+        >
+          <circle cx="1" cy="1" r="1" fill="#94a3b8" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dot-grid)" />
+    </svg>
+  </div>
+);
+
+// Expertise Areas
 const expertiseAreas = [
   {
     icon: BrainCircuit,
@@ -97,7 +122,7 @@ const expertiseAreas = [
   },
 ];
 
-// Frameworks Data
+// Frameworks
 const frameworks = {
   Alaap: {
     title: "Alaap – Conversational AI Framework",
@@ -151,14 +176,15 @@ const TechnologyExpertise = () => {
       className="relative py-28 px-6 lg:px-24 bg-gradient-to-b from-white via-slate-50 to-slate-100 overflow-hidden"
     >
       <BackgroundBlob />
+      <PatternOverlay />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Title */}
+        {/* Title & Description */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-8"
         >
           <h2 className="text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
             Technology{" "}
@@ -167,6 +193,15 @@ const TechnologyExpertise = () => {
             </span>
           </h2>
         </motion.div>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-center max-w-3xl mx-auto text-gray-600 text-lg mb-16"
+        >
+          Our team brings deep expertise across multiple domains and cutting-edge
+          technologies, enabling us to deliver comprehensive enterprise solutions.
+        </motion.p>
 
         {/* Expertise Cards */}
         <AnimatePresence mode="wait">
@@ -188,9 +223,8 @@ const TechnologyExpertise = () => {
                   visible: { opacity: 1, y: 0 },
                 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="h-full"
               >
-                <Card className="h-full flex flex-col bg-white/80 border border-white/30 backdrop-blur-xl rounded-2xl shadow-xl transition-all hover:shadow-2xl">
+                <Card className="h-full flex flex-col bg-white/80 border border-white/30 backdrop-blur-xl rounded-2xl shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300">
                   <CardHeader className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-xl flex items-center justify-center shadow-md">
                       <area.icon className="w-6 h-6" />
@@ -231,7 +265,7 @@ const TechnologyExpertise = () => {
           </h3>
         </motion.div>
 
-        {/* Framework Tabs */}
+        {/* Framework Switcher */}
         <div className="mt-6 flex justify-center gap-4 flex-wrap">
           {Object.keys(frameworks).map((name) => (
             <button
@@ -255,7 +289,7 @@ const TechnologyExpertise = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="flex flex-col lg:flex-row gap-12 mt-12 items-start"
         >
-          {/* Text + Badges */}
+          {/* Left - Text + Badges */}
           <div className="lg:w-1/2 flex flex-col justify-center space-y-6">
             <h4 className="text-2xl font-bold text-gray-900">
               {frameworks[activeFramework].title}
@@ -294,7 +328,7 @@ const TechnologyExpertise = () => {
             </motion.div>
           </div>
 
-          {/* Image Carousel */}
+          {/* Right - Carousel */}
           <div className="lg:w-1/2 flex items-center justify-center">
             <div className="bg-gradient-to-br from-white/70 to-white/90 border border-white/40 backdrop-blur-lg rounded-2xl p-4 shadow-2xl w-full max-w-xl">
               <Swiper
@@ -325,7 +359,7 @@ const TechnologyExpertise = () => {
         </motion.div>
       </div>
 
-      {/* Image Zoom Modal */}
+      {/* Zoom Modal */}
       <AnimatePresence>
         {zoomedImage && (
           <motion.div

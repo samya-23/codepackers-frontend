@@ -116,8 +116,23 @@ const PlatformCapabilities = () => {
 
   return (
     <section className="relative py-28 bg-gradient-to-b from-white via-slate-50 to-slate-100 px-6 lg:px-20 overflow-hidden">
-      {/* Soft glowing radial background */}
+      {/* Radial Glow */}
       <div className="absolute inset-0 pointer-events-none opacity-30 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-200 via-transparent to-transparent"></div>
+
+      {/* Subtle Grid Pattern Overlay */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        aria-hidden="true"
+      >
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <defs>
+            <pattern id="dot-grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" className="text-gray-300" fill="currentColor" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#dot-grid)" />
+        </svg>
+      </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Title */}
