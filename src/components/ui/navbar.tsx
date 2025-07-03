@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, Lock, ChevronDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./button";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [language, setLanguage] = useState("EN");
   const [langDropdown, setLangDropdown] = useState(false);
@@ -19,13 +21,12 @@ const Navbar = () => {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 100);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const goToAdmin = () => navigate("/admin/login");
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-sm transition-colors duration-300">
@@ -48,7 +49,7 @@ const Navbar = () => {
               </a>
             ))}
 
-            {/* Language Dropdown (Desktop) */}
+            {/* Language Dropdown */}
             <div className="relative">
               <button
                 onClick={toggleLang}
@@ -79,6 +80,7 @@ const Navbar = () => {
             {/* Admin Panel Button */}
             <Button
               variant="ghost"
+              onClick={goToAdmin}
               className={`text-sm font-semibold flex items-center gap-1 border px-3 py-1.5 rounded-md backdrop-blur-lg transition-all shadow-sm ${
                 isScrolled
                   ? "text-black border-black hover:text-blue-600 hover:border-blue-600"
@@ -115,7 +117,7 @@ const Navbar = () => {
               </a>
             ))}
 
-            {/* Language Dropdown (Mobile) */}
+            {/* Language Dropdown */}
             <div className="relative">
               <button
                 onClick={toggleLang}
@@ -143,9 +145,10 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Admin Panel Button Mobile */}
+            {/* Admin Panel (Mobile) */}
             <Button
               variant="outline"
+              onClick={goToAdmin}
               className="w-full text-sm flex items-center justify-center gap-1 mt-2 text-white border-white/50 hover:border-blue-400 hover:text-blue-400"
             >
               <Lock size={16} />
