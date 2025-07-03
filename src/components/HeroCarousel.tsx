@@ -60,7 +60,9 @@ const HeroCarousel = () => {
                   Codepackers Software Solutions
                 </h1>
                 <p className="max-w-3xl text-lg md:text-xl mx-auto drop-shadow-md">
-                  Codepackers is a software design and development company. Our team combines years of expertise with modern AI-driven practices to deliver scalable, future-ready solutions.
+                  Codepackers is a software design and development company. Our
+                  team combines years of expertise with modern AI-driven
+                  practices to deliver scalable, future-ready solutions.
                 </p>
               </div>
 
@@ -82,10 +84,11 @@ const HeroCarousel = () => {
           {/* Slide 2: AI Chat Carousel */}
           <SwiperSlide>
             <div className="flex justify-center items-center h-full text-white px-4 md:px-12">
-              <div className="w-full max-w-[1440px] grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center px-4">
+              <div className="w-full max-w-[1440px] grid grid-cols-1 md:grid-cols-2 items-center px-10">
+
 
                 {/* Left Text Content */}
-                <div>
+                <div className="ml-12">
                   <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
                     <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
                       AI Conversational
@@ -94,30 +97,39 @@ const HeroCarousel = () => {
                     Agents for Enterprise
                   </h2>
                   <p className="text-lg mb-6 max-w-xl">
-                    Empower your organization with personified AI agents that understand your business, speak your language, and protect your data. From chat to voice, we make AI accessible to everyone.
+                    Empower your organization with personified AI agents that
+                    understand your business, speak your language, and protect
+                    your data. From chat to voice, we make AI accessible to
+                    everyone.
                   </p>
 
                   <div className="flex flex-wrap items-center gap-4 mb-6 text-sm font-medium">
-                    <span className="flex items-center gap-2"><span>💬</span> Chat with your private data</span>
-                    <span className="flex items-center gap-2"><span>🎤</span> Voice Enabled</span>
-                    <span className="flex items-center gap-2"><span>🌐</span> Multi-language</span>
+                    <span className="flex items-center gap-2">
+                      <span>💬</span> Chat with your private data
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <span>🎤</span> Voice Enabled
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <span>🌐</span> Multi-language
+                    </span>
                   </div>
 
                   <a
-                    href="https://www.aptilab.in/signin"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition"
-                  >
-                    Try Our Agent <ArrowRight className="w-5 h-5" />
-                  </a>
+  href="https://www.aptilab.in/signin"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg"
+>
+  Try Our Agent <ArrowRight className="w-5 h-5" />
+</a>
+
                 </div>
 
                 {/* Right AI Chat Component */}
-                <div className="w-full md:w-[560px] lg:w-[640px] xl:w-[720px] transition-all duration-500 ease-in-out">
-  <AIChatCarousel onLoopComplete={handleChatLoopComplete} />
-</div>
-
+                <div className="w-full md:w-[560px] lg:w-[640px] xl:w-[720px] mr-12 transition-all duration-500 ease-in-out">
+                  <AIChatCarousel onLoopComplete={handleChatLoopComplete} />
+                </div>
               </div>
             </div>
           </SwiperSlide>
@@ -125,9 +137,12 @@ const HeroCarousel = () => {
           {/* Slide 3: Coming Soon */}
           <SwiperSlide>
             <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">More Coming Soon</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                More Coming Soon
+              </h2>
               <p className="max-w-2xl text-lg">
-                We are constantly evolving. Stay tuned for updates on our client success stories, innovation labs, and partner ecosystem.
+                We are constantly evolving. Stay tuned for updates on our client
+                success stories, innovation labs, and partner ecosystem.
               </p>
             </div>
           </SwiperSlide>

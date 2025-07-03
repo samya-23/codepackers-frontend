@@ -1,24 +1,18 @@
 .chat-carousel-container {
-  width: 100%;
-  max-width: 620px;
-  background: linear-gradient(135deg, #f7f8fd, #fbfaff);
-  border-radius: 24px;
-  padding: 24px;
-  margin: auto;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+  width: 480px;
+  height: 480px; /* Increased from ~440 */
+  padding: 20px 20px 18px 20px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  overflow: hidden;
-  position: relative;
-  transform: translateZ(0);
-  -webkit-font-smoothing: antialiased;
-  backface-visibility: hidden;
-}
-
-.fixed-height {
-  height: 440px;
+  justify-content: space-between;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  position: absolute;
+  top: 50%;
+  left: 58%;
+  transform: translateY(-50%);
 }
 
 .chat-header {
@@ -45,12 +39,12 @@
 
 .chat-title {
   font-weight: 700;
-  font-size: 17px;
+  font-size: 18px;
   color: #1d1d1f;
 }
 
 .chat-subtitle {
-  font-size: 13px;
+  font-size: 14px;
   color: #666;
 }
 
@@ -65,7 +59,6 @@
   scroll-behavior: smooth;
 }
 
-/* Scrollbar */
 .chat-bubble-wrapper::-webkit-scrollbar {
   width: 6px;
 }
@@ -84,6 +77,7 @@
   word-break: break-word;
   animation: fadeInUp 0.4s ease forwards;
   transition: all 0.2s ease-in-out;
+  position: relative;
 }
 
 .chat-bubble.user {
@@ -232,7 +226,6 @@
   height: 18px;
 }
 
-/* Footer */
 .chat-footer {
   text-align: center;
   font-size: 12px;
@@ -248,7 +241,6 @@
   to { opacity: 0.85; transform: translateY(0); }
 }
 
-/* Animation for message entry */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -260,6 +252,9 @@
     padding: 16px;
     border-radius: 16px;
     height: auto;
+    right: auto;
+    left: auto;
+    transform: none;
   }
 
   .chat-title {
@@ -305,4 +300,54 @@
   .chat-carousel-container {
     max-width: 480px;
   }
+}
+.left-banner-text h1 {
+  font-size: 3.5rem;
+  line-height: 1.2;
+  max-width: 620px;
+}
+
+.left-banner-text p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  max-width: 540px;
+  margin-top: 1rem;
+}
+
+.left-banner-text {
+  padding-left: 80px;
+}
+/* Button fix - Try Our Agent button */
+.try-agent-btn {
+  background: linear-gradient(135deg, #e6e4ff, #f1efff);
+  color: #2d2d2d;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.try-agent-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Layout fix - spacing adjustments */
+.left-text-section {
+  margin-left: 48px; /* Increased for better balance */
+}
+
+.right-banner-section {
+  margin-right: 48px; /* Matching left side */
+}
+
+/* If you're using a flex container, make sure it's justified correctly */
+.main-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px; /* Optional: manage center spacing */
 }
