@@ -115,11 +115,11 @@ const PlatformCapabilities = () => {
   const currentCards = frameworks[selectedFramework];
 
   return (
-    <section className="relative py-24 px-6 lg:px-20 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden">
-      {/* Abstract Light Backgrounds */}
-      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400 opacity-20 rounded-full blur-2xl animate-pulse" />
-      <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+    <section id="capabilities" className="relative overflow-hidden py-24 px-6 lg:px-20 bg-gradient-to-br from-white via-slate-50 to-slate-100">
+      {/* Background Glow Blobs */}
+      <div className="absolute -top-20 -left-32 w-[450px] h-[450px] bg-pink-400 opacity-20 blur-3xl rounded-full z-0" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400 opacity-20 blur-2xl rounded-full z-0" />
+      <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true">
         <defs>
           <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
             <circle cx="1" cy="1" r="1" fill="#e2e8f0" />
@@ -128,6 +128,7 @@ const PlatformCapabilities = () => {
         <rect width="100%" height="100%" fill="url(#dots)" />
       </svg>
 
+      {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto text-center space-y-10">
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
@@ -143,7 +144,7 @@ const PlatformCapabilities = () => {
 
         {/* Tabs */}
         <div className="flex justify-center gap-4 mt-8">
-          {(["ALAAP", "PUSTAK"]).map((fw) => (
+          {["ALAAP", "PUSTAK"].map((fw) => (
             <button
               key={fw}
               onClick={() => setSelectedFramework(fw)}
@@ -234,7 +235,9 @@ const PlatformCapabilities = () => {
                 >
                   ← Back
                 </button>
-                <span className="text-xs text-gray-500">Capability {activeSlide + 1} of {currentCards.length}</span>
+                <span className="text-xs text-gray-500">
+                  Capability {activeSlide + 1} of {currentCards.length}
+                </span>
                 <button
                   onClick={() => swiperRef.current?.slideNext()}
                   disabled={activeSlide === currentCards.length - 1}

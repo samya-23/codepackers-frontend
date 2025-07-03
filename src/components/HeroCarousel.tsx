@@ -60,10 +60,12 @@ const HeroCarousel = () => {
                   Codepackers Software Solutions
                 </h1>
                 <p className="max-w-3xl text-lg md:text-xl mx-auto drop-shadow-md">
-                  Codepackers is a software design and development company. Our
-                  team combines years of expertise with modern AI-driven
-                  practices to deliver scalable, future-ready solutions.
-                </p>
+  Codepackers is a software design and development company.
+</p>
+<p className="max-w-3xl text-lg md:text-xl mx-auto drop-shadow-md mt-4">
+  Our team combines years of expertise with modern AI-driven practices to deliver scalable, future-ready solutions.
+</p>
+
               </div>
 
               <div className="absolute bottom-16 px-4 md:px-0 w-full flex flex-wrap justify-center gap-4">
