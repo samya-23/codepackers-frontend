@@ -144,31 +144,38 @@ const PlatformCapabilities = () => {
         </div>
 
         {/* Capability Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {currentCards.map((cap, i) => (
-            <motion.div
-              key={i}
-              onClick={() => {
-                setModalIndex(i);
-                setActiveSlide(i);
-                setModalOpen(true);
-              }}
-              whileHover={{
-                scale: 1.03,
-                y: -4,
-                boxShadow: "0 8px 30px rgba(99,102,241,0.25)"
-              }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="cursor-pointer group bg-white/10 border border-white/20 backdrop-blur-md rounded-3xl p-6"
-            >
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg mb-4">
-                <cap.icon className="text-white w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">{cap.title}</h3>
-              <p className="text-sm text-gray-600">{cap.short}</p>
-            </motion.div>
-          ))}
+        {/* Capability Cards with Animation on Framework Switch */}
+<AnimatePresence mode="wait">
+  <motion.div
+    key={selectedFramework}
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    transition={{ duration: 0.4, ease: "easeInOut" }}
+    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+  >
+    {currentCards.map((cap, i) => (
+      <motion.div
+        key={i}
+        onClick={() => {
+          setModalIndex(i);
+          setActiveSlide(i);
+          setModalOpen(true);
+        }}
+        whileHover={{ scale: 1.03, y: -4, boxShadow: "0 8px 30px rgba(99,102,241,0.25)" }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        className="cursor-pointer group bg-white/10 border border-white/20 backdrop-blur-md rounded-3xl p-6"
+      >
+        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg mb-4">
+          <cap.icon className="text-white w-6 h-6" />
         </div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-1">{cap.title}</h3>
+        <p className="text-sm text-gray-600">{cap.short}</p>
+      </motion.div>
+    ))}
+  </motion.div>
+</AnimatePresence>
+
       </div>
 
       {/* Modal */}
