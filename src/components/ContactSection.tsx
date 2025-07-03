@@ -95,8 +95,9 @@ const ContactSection = () => {
       id="contact"
       className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
     >
-      <div className="absolute -top-10 -left-10 w-96 h-96 bg-purple-300 opacity-30 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-300 opacity-30 rounded-full blur-2xl animate-pulse" />
+      {/* Abstract Light Backgrounds */}
+      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400 opacity-20 rounded-full blur-2xl animate-pulse" />
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
         <defs>
           <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -115,63 +116,71 @@ const ContactSection = () => {
           variants={fadeUp}
           className="text-center"
         >
-          <h2 className="text-5xl font-extrabold text-gray-900">
-            Get <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Started</span>
+          <h2 className="text-5xl font-extrabold text-gray-900 font-[Inter_Tight]">
+            Get{" "}
+            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+              Started
+            </span>
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-            Ready to transform your enterprise communication with AI? Let's discuss how our platform can meet your specific needs.
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto font-light">
+            Ready to transform your enterprise communication with AI? Let's discuss how our
+            platform can meet your specific needs.
           </p>
         </motion.div>
 
         {/* Benefits & Contact Info */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Benefits */}
+          {/* Why Codepackers */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <Card className="bg-white/80 backdrop-blur-xl border border-white/20 shadow-xl">
-              <CardHeader>
-                <CardTitle className="text-xl font-semibold text-gray-900">Why Choose Codepackers?</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="text-gray-700">{benefit}</span>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
+            <motion.div whileHover={{ scale: 1.02 }}>
+              <Card className="bg-white/30 backdrop-blur-2xl border border-white/20 shadow-xl">
+                <CardHeader>
+                  <CardTitle className="text-xl font-semibold text-gray-900">Why Choose Codepackers?</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {benefits.map((benefit, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-500" />
+                      <span className="text-gray-700">{benefit}</span>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </motion.div>
           </motion.div>
 
           {/* Contact Info */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <Card className="bg-white/80 backdrop-blur-xl border border-white/20 shadow-xl">
-              <CardHeader>
-                <CardTitle className="text-xl font-semibold text-gray-900">Contact Information</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center gap-2 text-gray-700">
-                  <MapPin className="w-4 h-4 text-blue-600" /> India
-                </div>
-                <div className="flex items-center gap-2 text-gray-700">
-                  <img src="/icons/email-icon.svg" className="w-4 h-4" alt="email" />
-                  suja.sharma@codepackers.com
-                </div>
-                <h4 className="font-semibold text-gray-900 mt-4">Serving Industries:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {industries.map((industry, index) => (
-                    <Badge key={index} variant="secondary" className="bg-blue-50 text-blue-700">
-                      {industry}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <motion.div whileHover={{ scale: 1.02 }}>
+              <Card className="bg-white/30 backdrop-blur-2xl border border-white/20 shadow-xl">
+                <CardHeader>
+                  <CardTitle className="text-xl font-semibold text-gray-900">Contact Information</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center gap-2 text-gray-700">
+                    <MapPin className="w-4 h-4 text-blue-600" /> India
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-700">
+                    <img src="/icons/email-icon.svg" className="w-4 h-4" alt="email" />
+                    suja.sharma@codepackers.com
+                  </div>
+                  <h4 className="font-semibold text-gray-900 mt-4">Serving Industries:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {industries.map((industry, index) => (
+                      <Badge key={index} variant="secondary" className="bg-blue-50 text-blue-700">
+                        {industry}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           </motion.div>
         </div>
 
-        {/* Form */}
+        {/* Contact Form */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-          <Card className="bg-white/80 backdrop-blur-xl border border-white/20 shadow-2xl">
+          <Card className="bg-white/30 backdrop-blur-2xl border border-white/20 shadow-2xl">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-gray-900">Drop Your Details</CardTitle>
             </CardHeader>
@@ -200,6 +209,7 @@ const ContactSection = () => {
                     variant="outline"
                     onClick={() => setOpenModal("email")}
                     disabled={!submitted || querySent}
+                    aria-label="Send via Email"
                   >
                     <img src="/icons/email-icon.svg" className="w-4 h-4 mr-2" alt="email" />
                     Send via Email
@@ -210,6 +220,7 @@ const ContactSection = () => {
                     variant="outline"
                     onClick={() => setOpenModal("whatsapp")}
                     disabled={!submitted || querySent}
+                    aria-label="Send via WhatsApp"
                   >
                     <img src="/icons/whatsapp-icon.svg" className="w-4 h-4 mr-2" alt="whatsapp" />
                     Send via WhatsApp
@@ -221,7 +232,7 @@ const ContactSection = () => {
         </motion.div>
       </div>
 
-      {/* Modal (Placed outside form to avoid refresh issues) */}
+      {/* Modal */}
       <Dialog open={openModal !== null} onOpenChange={() => setOpenModal(null)}>
         <DialogContent className="sm:max-w-md bg-white rounded-2xl shadow-2xl border border-gray-200">
           <DialogHeader>
