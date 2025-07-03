@@ -1,36 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, MapPin, CheckCircle, Send, MessageSquare } from 'lucide-react';
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter
+} from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { CheckCircle, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  })
+};
 
 const ContactSection = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const { name, email, phone, message } = formData;
-    if (!name || !email || !phone || !message) {
-      toast({ title: "All fields are required.", variant: "destructive" });
-      return;
-    }
-
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll contact you within 48 hours.",
-    });
-    setSubmitted(true);
-  };
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const [querySent, setQuerySent] = useState(false);
+  const [openModal, setOpenModal] = useState<"email" | "whatsapp" | null>(null);
+  const [modalMessage, setModalMessage] = useState("");
 
   const benefits = [
     "AI agent Framework",
@@ -41,96 +45,210 @@ const ContactSection = () => {
     "Scalable solutions"
   ];
 
+  const industries = [
+    "Education",
+    "Healthcare",
+    "E-commerce",
+    "E-governance",
+    "Manufacturing",
+    "Telecom",
+    "Homeland Security"
+  ];
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const { name, email, phone } = formData;
+    if (!name || !email || !phone) {
+      toast({ title: "All fields are required.", variant: "destructive" });
+      return;
+    }
+    setSubmitted(true);
+    setQuerySent(false);
+    toast({
+      title: "Details Saved!",
+      description: "Now you can send your query via Email or WhatsApp."
+    });
+  };
+
+  const handleFinalSend = (platform: "email" | "whatsapp") => {
+    toast({
+      title: `${platform === "email" ? "Email" : "WhatsApp"} Sent`,
+      description: "Your message has been recorded. We'll get back soon."
+    });
+    setModalMessage("");
+    setOpenModal(null);
+    setQuerySent(true);
+  };
+
+  const handleReset = () => {
+    setFormData({ name: "", email: "", phone: "" });
+    setSubmitted(false);
+    setQuerySent(false);
+  };
+
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-white/30">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Get <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Started</span>
+    <section
+      id="contact"
+      className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
+    >
+      <div className="absolute -top-10 -left-10 w-96 h-96 bg-purple-300 opacity-30 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-300 opacity-30 rounded-full blur-2xl animate-pulse" />
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+        <defs>
+          <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="1" fill="#e2e8f0" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dots)" />
+      </svg>
+
+      <div className="relative z-10 max-w-7xl mx-auto space-y-20">
+        {/* Heading */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          className="text-center"
+        >
+          <h2 className="text-5xl font-extrabold text-gray-900">
+            Get <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Started</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to transform your enterprise communication with AI?
-            Let’s discuss how our platform can meet your specific needs.
+          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+            Ready to transform your enterprise communication with AI? Let's discuss how our platform can meet your specific needs.
           </p>
+        </motion.div>
+
+        {/* Benefits & Contact Info */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Benefits */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+            <Card className="bg-white/80 backdrop-blur-xl border border-white/20 shadow-xl">
+              <CardHeader>
+                <CardTitle className="text-xl font-semibold text-gray-900">Why Choose Codepackers?</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {benefits.map((benefit, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <span className="text-gray-700">{benefit}</span>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Contact Info */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+            <Card className="bg-white/80 backdrop-blur-xl border border-white/20 shadow-xl">
+              <CardHeader>
+                <CardTitle className="text-xl font-semibold text-gray-900">Contact Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-2 text-gray-700">
+                  <MapPin className="w-4 h-4 text-blue-600" /> India
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <img src="/icons/email-icon.svg" className="w-4 h-4" alt="email" />
+                  suja.sharma@codepackers.com
+                </div>
+                <h4 className="font-semibold text-gray-900 mt-4">Serving Industries:</h4>
+                <div className="flex flex-wrap gap-2">
+                  {industries.map((industry, index) => (
+                    <Badge key={index} variant="secondary" className="bg-blue-50 text-blue-700">
+                      {industry}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Why Choose Us Card */}
-          <Card className="bg-white/70 backdrop-blur-lg border-white/20 shadow-xl lg:col-span-1">
+        {/* Form */}
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+          <Card className="bg-white/80 backdrop-blur-xl border border-white/20 shadow-2xl">
             <CardHeader>
-              <CardTitle className="text-xl text-gray-900">Why Choose Codepackers?</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-700">{benefit}</span>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-
-          {/* Contact Form */}
-          <Card className="bg-white/70 backdrop-blur-lg border-white/20 shadow-xl lg:col-span-2">
-            <CardHeader>
-              <CardTitle className="text-xl text-gray-900">Drop Us a Line</CardTitle>
+              <CardTitle className="text-xl font-semibold text-gray-900">Drop Your Details</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={submitted ? handleReset : handleSubmit} className="space-y-6">
                 <div>
                   <Label htmlFor="name">Name</Label>
-                  <Input type="text" name="name" value={formData.name} onChange={handleChange} />
+                  <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" />
+                </div>
+                <div>
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input name="phone" value={formData.phone} onChange={handleChange} placeholder="Your Number" />
                 </div>
                 <div>
                   <Label htmlFor="email">Email</Label>
-                  <Input type="email" name="email" value={formData.email} onChange={handleChange} />
+                  <Input name="email" value={formData.email} onChange={handleChange} placeholder="Your Email" />
                 </div>
-                <div>
-                  <Label htmlFor="phone">Phone</Label>
-                  <Input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
-                </div>
-                <div>
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea name="message" rows={4} value={formData.message} onChange={handleChange} />
-                </div>
+
                 <div className="flex flex-wrap gap-4 pt-2">
-                  <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
-                    Send
+                  <Button type="submit" className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+                    {submitted ? "Submit Another Response" : "Submit"}
                   </Button>
+
                   <Button
+                    type="button"
                     variant="outline"
-                    className="flex items-center space-x-2"
-                    disabled={!submitted}
+                    onClick={() => setOpenModal("email")}
+                    disabled={!submitted || querySent}
                   >
-                    <Mail className="w-4 h-4" />
-                    <span>Send via Email</span>
+                    <img src="/icons/email-icon.svg" className="w-4 h-4 mr-2" alt="email" />
+                    Send via Email
                   </Button>
+
                   <Button
+                    type="button"
                     variant="outline"
-                    className="flex items-center space-x-2"
-                    disabled={!submitted}
+                    onClick={() => setOpenModal("whatsapp")}
+                    disabled={!submitted || querySent}
                   >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>Send via WhatsApp</span>
+                    <img src="/icons/whatsapp-icon.svg" className="w-4 h-4 mr-2" alt="whatsapp" />
+                    Send via WhatsApp
                   </Button>
                 </div>
               </form>
             </CardContent>
           </Card>
-        </div>
-
-        {/* Industries Served Section */}
-        <div className="mt-12 text-center">
-          <h4 className="font-semibold text-gray-900 mb-3">Serving Industries:</h4>
-          <div className="flex flex-wrap justify-center gap-2">
-            {["Education", "Healthcare", "E-commerce", "E-governance", "Manufacturing", "Telecom", "Homeland Security"].map((industry, index) => (
-              <Badge key={index} variant="secondary" className="bg-blue-50 text-blue-700">
-                {industry}
-              </Badge>
-            ))}
-          </div>
-        </div>
+        </motion.div>
       </div>
+
+      {/* Modal (Placed outside form to avoid refresh issues) */}
+      <Dialog open={openModal !== null} onOpenChange={() => setOpenModal(null)}>
+        <DialogContent className="sm:max-w-md bg-white rounded-2xl shadow-2xl border border-gray-200">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-gray-800 mb-2">
+              {openModal === "email" ? "Send via Email" : "Send via WhatsApp"}
+            </DialogTitle>
+            <p className="text-gray-500 text-sm">Please enter your query message below</p>
+          </DialogHeader>
+          <textarea
+            className="w-full mt-4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            rows={4}
+            placeholder="Write your message..."
+            value={modalMessage}
+            onChange={(e) => setModalMessage(e.target.value)}
+          />
+          <DialogFooter className="mt-4">
+            <Button
+              type="button"
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+              onClick={() => handleFinalSend(openModal!)}
+              disabled={!modalMessage.trim()}
+            >
+              Send Now
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
