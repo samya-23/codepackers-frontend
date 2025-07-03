@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, X, Lock, ChevronDown } from "lucide-react";
 import { Button } from "./button";
 
@@ -6,6 +6,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [language, setLanguage] = useState("EN");
   const [langDropdown, setLangDropdown] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMenu = () => setMobileOpen(!mobileOpen);
   const toggleLang = () => setLangDropdown(!langDropdown);
@@ -17,12 +18,21 @@ const Navbar = () => {
     { name: "Contact", href: "#contact" },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-sm">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-sm transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <div className="text-xl md:text-2xl font-extrabold text-white tracking-tight drop-shadow-md">
+          <div className={`text-xl md:text-2xl font-extrabold tracking-tight drop-shadow-md ${isScrolled ? "text-black" : "text-white"}`}>
             Codepackers Software Solutions
           </div>
 
@@ -32,7 +42,7 @@ const Navbar = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-white text-sm font-medium hover:text-blue-300 px-3 py-2 transition rounded-md"
+                className={`text-sm font-medium hover:text-blue-500 px-3 py-2 transition rounded-md ${isScrolled ? "text-black" : "text-white"}`}
               >
                 {item.name}
               </a>
@@ -42,7 +52,7 @@ const Navbar = () => {
             <div className="relative">
               <button
                 onClick={toggleLang}
-                className="flex items-center gap-1 text-white px-3 py-1 text-sm rounded-md hover:bg-white/10 transition"
+                className={`flex items-center gap-1 px-3 py-1 text-sm rounded-md hover:bg-white/10 transition ${isScrolled ? "text-black" : "text-white"}`}
               >
                 {language} <ChevronDown size={16} />
               </button>
@@ -69,7 +79,11 @@ const Navbar = () => {
             {/* Admin Panel Button */}
             <Button
               variant="ghost"
-              className="text-sm font-semibold flex items-center gap-1 border border-white/50 hover:border-blue-400 hover:text-blue-400 text-white px-3 py-1.5 rounded-md backdrop-blur-lg transition-all shadow-sm"
+              className={`text-sm font-semibold flex items-center gap-1 border px-3 py-1.5 rounded-md backdrop-blur-lg transition-all shadow-sm ${
+                isScrolled
+                  ? "text-black border-black hover:text-blue-600 hover:border-blue-600"
+                  : "text-white border-white/50 hover:text-blue-400 hover:border-blue-400"
+              }`}
             >
               <Lock size={16} className="mb-[1px]" />
               Admin Panel
@@ -80,7 +94,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="text-white hover:text-blue-300"
+              className={`hover:text-blue-300 ${isScrolled ? "text-black" : "text-white"}`}
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
               <span className="sr-only">Open menu</span>

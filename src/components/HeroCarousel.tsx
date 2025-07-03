@@ -82,7 +82,8 @@ const HeroCarousel = () => {
           {/* Slide 2: AI Chat Carousel */}
           <SwiperSlide>
             <div className="flex justify-center items-center h-full text-white px-4 md:px-12">
-              <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
+              <div className="w-full max-w-[1440px] grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center px-4">
+
                 {/* Left Text Content */}
                 <div>
                   <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
@@ -113,9 +114,10 @@ const HeroCarousel = () => {
                 </div>
 
                 {/* Right AI Chat Component */}
-                <div className="max-w-screen-xl mx-auto w-full px-4 md:px-8">
-                  <AIChatCarousel onLoopComplete={handleChatLoopComplete} />
-                </div>
+                <div className="w-full md:w-[560px] lg:w-[640px] xl:w-[720px] transition-all duration-500 ease-in-out">
+  <AIChatCarousel onLoopComplete={handleChatLoopComplete} />
+</div>
+
               </div>
             </div>
           </SwiperSlide>
