@@ -115,18 +115,28 @@ const PlatformCapabilities = () => {
   const currentCards = frameworks[selectedFramework];
 
   return (
-    <section className="relative py-28 bg-gradient-to-b from-white via-slate-50 to-slate-100 px-6 lg:px-20">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative py-28 bg-gradient-to-b from-white via-slate-50 to-slate-100 px-6 lg:px-20 overflow-hidden">
+      {/* Soft glowing radial background */}
+      <div className="absolute inset-0 pointer-events-none opacity-30 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-200 via-transparent to-transparent"></div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Title */}
         <div className="text-center mb-12">
-          <h2 className="text-5xl font-extrabold tracking-tight text-gray-900">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-5xl font-extrabold tracking-tight text-gray-900"
+          >
             Platform <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-text-glow">Capabilities</span>
-          </h2>
+          </motion.h2>
           <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
             Purpose-built features for conversational AI and enterprise systems
           </p>
         </div>
 
-        {/* Framework Toggle Buttons */}
+        {/* Toggle Buttons */}
         <div className="flex justify-center gap-4 mb-10">
           {(["ALAAP", "PUSTAK"] as const).map((fw) => (
             <button
@@ -143,39 +153,52 @@ const PlatformCapabilities = () => {
           ))}
         </div>
 
-        {/* Capability Cards */}
-        {/* Capability Cards with Animation on Framework Switch */}
-<AnimatePresence mode="wait">
-  <motion.div
-    key={selectedFramework}
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -20 }}
-    transition={{ duration: 0.4, ease: "easeInOut" }}
-    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
-  >
-    {currentCards.map((cap, i) => (
-      <motion.div
-        key={i}
-        onClick={() => {
-          setModalIndex(i);
-          setActiveSlide(i);
-          setModalOpen(true);
-        }}
-        whileHover={{ scale: 1.03, y: -4, boxShadow: "0 8px 30px rgba(99,102,241,0.25)" }}
-        transition={{ duration: 0.25, ease: "easeOut" }}
-        className="cursor-pointer group bg-white/10 border border-white/20 backdrop-blur-md rounded-3xl p-6"
-      >
-        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg mb-4">
-          <cap.icon className="text-white w-6 h-6" />
-        </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-1">{cap.title}</h3>
-        <p className="text-sm text-gray-600">{cap.short}</p>
-      </motion.div>
-    ))}
-  </motion.div>
-</AnimatePresence>
-
+        {/* Cards */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedFramework}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.1
+                }
+              }
+            }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+          >
+            {currentCards.map((cap, i) => (
+              <motion.div
+                key={i}
+                onClick={() => {
+                  setModalIndex(i);
+                  setActiveSlide(i);
+                  setModalOpen(true);
+                }}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { opacity: 1, y: 0 }
+                }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                whileHover={{
+                  scale: 1.03,
+                  y: -4,
+                  boxShadow: "0 8px 30px rgba(99,102,241,0.25)"
+                }}
+                className="cursor-pointer group bg-white/10 border border-white/20 backdrop-blur-xl rounded-3xl p-6 transition-transform duration-300"
+              >
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg mb-4">
+                  <cap.icon className="text-white w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">{cap.title}</h3>
+                <p className="text-sm text-gray-600">{cap.short}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Modal */}
@@ -185,26 +208,14 @@ const PlatformCapabilities = () => {
             className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md flex items-center justify-center px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{
-              opacity: 0,
-              transition: { duration: 0.4, ease: "easeInOut", delay: 0.05 }
-            }}
+            exit={{ opacity: 0, transition: { duration: 0.4 } }}
             onClick={() => setModalOpen(false)}
           >
             <motion.div
-              className="relative bg-white/80 dark:bg-white/10 backdrop-blur-2xl border border-white/30 shadow-[0_12px_40px_rgba(0,0,0,0.25)] rounded-3xl max-w-2xl w-full overflow-hidden transition-all duration-300"
+              className="relative bg-white/80 dark:bg-white/10 backdrop-blur-2xl border border-white/30 shadow-[0_12px_40px_rgba(0,0,0,0.25)] rounded-3xl max-w-2xl w-full overflow-hidden"
               initial={{ scale: 0.9, opacity: 0, y: 30 }}
-              animate={{ scale: 1, opacity: 1, y: 0, transition: { delay: 0.1, duration: 0.4 } }}
-              exit={{
-                scale: 0.92,
-                opacity: 0,
-                y: 40,
-                filter: "blur(4px)",
-                transition: {
-                  duration: 0.45,
-                  ease: [0.4, 0, 0.2, 1]
-                }
-              }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.92, opacity: 0, y: 40, transition: { duration: 0.4 } }}
               onClick={(e) => e.stopPropagation()}
             >
               <Swiper
@@ -235,19 +246,22 @@ const PlatformCapabilities = () => {
                 ))}
               </Swiper>
 
-              {/* Modal Nav */}
+              {/* Modal Footer */}
               <div className="flex flex-col items-center border-t bg-white px-6 py-4 space-y-3">
                 <div className="flex gap-2 justify-center pt-2">
                   {currentCards.map((_, idx) => (
                     <motion.div
                       key={idx}
-                      className={`h-2 rounded-full ${activeSlide === idx ? "bg-gradient-to-r from-blue-500 to-purple-500 w-6" : "bg-gray-300 w-2"}`}
+                      className={`h-2 rounded-full ${
+                        activeSlide === idx
+                          ? "bg-gradient-to-r from-blue-500 to-purple-500 w-6"
+                          : "bg-gray-300 w-2"
+                      }`}
                       layout
                       transition={{ duration: 0.3 }}
                     />
                   ))}
                 </div>
-
                 <div className="flex justify-between w-full">
                   <button
                     onClick={() => swiperRef.current?.slidePrev()}
