@@ -32,7 +32,7 @@ const ContactSection = () => {
   const { toast } = useToast();
   const backendUrl =
     import.meta.env.VITE_REACT_APP_BACKEND_URL || "http://localhost:8000";
-
+  const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "9835775694"; // ✅ ADDED
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -328,20 +328,33 @@ const ContactSection = () => {
               type="button"
               className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white"
               onClick={() => {
-                const platform = openModal!;
-                const trimmedMessage = modalMessage.trim();
-                if (!trimmedMessage) return;
-                const encodedMessage = encodeURIComponent(trimmedMessage);
+  const platform = openModal!;
+  const trimmedMessage = modalMessage.trim();
+  if (!trimmedMessage || !formData.name || !formData.email || !formData.phone || !visitorId) return;
 
-                if (platform === "whatsapp") {
-                  const whatsappUrl = `https://wa.me/9835775694?text=${encodedMessage}`;
-                  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-                  handleFinalSend(platform);
-                  return;
-                }
+  if (platform === "whatsapp") {
+    const fullMessage = `
+Hello Team,
 
-                handleFinalSend(platform);
-              }}
+Visitor Details:
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Query ID: ${visitorId}
+
+Message:
+${trimmedMessage}
+`;
+
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(fullMessage)}`; // ✅ UPDATED
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    handleFinalSend(platform);
+    return;
+  }
+
+  handleFinalSend(platform);
+}}
+
               disabled={!modalMessage.trim()}
             >
               Send Now
