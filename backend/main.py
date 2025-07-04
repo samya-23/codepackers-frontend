@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List
 from datetime import datetime
 import json
@@ -16,7 +16,7 @@ class Visitor(BaseModel):
     phone: str
     message: str = ""
     source: str = "form"
-    timestamp: str = datetime.now().isoformat()
+    timestamp: str = Field(default_factory=lambda: datetime.now().isoformat())
     queryMethod: List[str] = []
     queryId: str = ""
 
@@ -48,3 +48,6 @@ async def submit_form(visitor: Visitor):
 @app.get("/dashboard")
 def get_dashboard():
     return load_data()
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)
