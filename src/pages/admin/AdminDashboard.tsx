@@ -11,6 +11,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Papa from "papaparse";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
 
 interface Visitor {
   name: string;
@@ -97,6 +100,15 @@ const AdminDashboard: React.FC = () => {
     fetchVisitors();
   }, []);
 
+  useEffect(() => {
+  const escHandler = (e: KeyboardEvent) => {
+    if (e.key === "Escape") setSelectedVisitor(null);
+  };
+  document.addEventListener("keydown", escHandler);
+  return () => document.removeEventListener("keydown", escHandler);
+}, []);
+
+
   const handleLogout = () => {
     localStorage.removeItem("loggedIn");
     localStorage.removeItem("sessionExpiry");
@@ -140,6 +152,26 @@ const AdminDashboard: React.FC = () => {
     },
     []
   );
+  const handleExportPDF = () => {
+  if (!selectedVisitor) return;
+
+  const doc = new jsPDF();
+  doc.setFontSize(14);
+  doc.text("Query Details", 10, 10);
+  doc.setFontSize(12);
+  doc.text(`Name: ${selectedVisitor.name}`, 10, 20);
+  doc.text(`Email: ${selectedVisitor.email}`, 10, 30);
+  doc.text(`Phone: ${selectedVisitor.phone}`, 10, 40);
+  doc.text(`Submitted At: ${new Date(selectedVisitor.timestamp || "").toLocaleString()}`, 10, 50);
+  doc.text(`Query ID: ${selectedVisitor.queryId || "—"}`, 10, 60);
+  doc.text(`Query Method: ${selectedVisitor.queryMethod?.join(", ") || "—"}`, 10, 70);
+
+  const lines = doc.splitTextToSize(`Message: ${selectedVisitor.message || "—"}`, 180);
+  doc.text(lines, 10, 80);
+
+  doc.save(`query_${selectedVisitor.queryId || "visitor"}.pdf`);
+};
+
 
   return (
     <div className="dashboard-container">
@@ -194,35 +226,46 @@ const AdminDashboard: React.FC = () => {
                   <th>Phone</th>
                   <th>Submitted At</th>
                   <th>Query ID</th>
-                  <th>Source</th>
                   <th>Query Method</th>
                   <th>Message</th>
                 </tr>
               </thead>
               <tbody>
-                {paginatedData.map((visitor, index) => (
-                  <tr
-                    key={index}
-                    className={
-                      visitor.source === "whatsapp" ? "whatsapp-row" : ""
-                    }
-                  >
-                    <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                    <td>{visitor.name}</td>
-                    <td>{visitor.email}</td>
-                    <td>{visitor.phone}</td>
-                    <td>
-                      {visitor.timestamp
-                        ? new Date(visitor.timestamp).toLocaleString()
-                        : "N/A"}
-                    </td>
-                    <td>{visitor.queryId || "—"}</td>
-                    <td>{visitor.source || "form"}</td>
-                    <td>{visitor.queryMethod?.join(", ") || "—"}</td>
-                    <td>{visitor.message || "—"}</td>
-                  </tr>
-                ))}
-              </tbody>
+  {paginatedData.map((visitor, index) => (
+    <tr
+      key={index}
+      className={
+        visitor.source === "whatsapp" ? "whatsapp-row" : ""
+      }
+    >
+      <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
+      <td>{visitor.name}</td>
+      <td>{visitor.email}</td>
+      <td>{visitor.phone}</td>
+      <td>
+        {visitor.timestamp
+          ? new Date(visitor.timestamp).toLocaleString()
+          : "N/A"}
+      </td>
+      <td>{visitor.queryId || "—"}</td>
+      <td>{visitor.queryMethod?.join(", ") || "—"}</td>
+      <td>
+        {visitor.message ? (
+          <span
+            className="clickable-link"
+            onClick={() => setSelectedVisitor(visitor)}
+            style={{ color: "#007bff", cursor: "pointer" }}
+          >
+            Click Here
+          </span>
+        ) : (
+          "—"
+        )}
+      </td>
+    </tr>
+  ))}
+</tbody>
+
             </table>
 
             <div className="pagination">
@@ -263,6 +306,47 @@ const AdminDashboard: React.FC = () => {
           </div>
         </div>
       )}
+
+      {selectedVisitor && (
+        <div
+  className="modal-overlay"
+  onClick={(e) => {
+    if (e.target === e.currentTarget) setSelectedVisitor(null);
+  }}
+>
+
+          <div className="modal-box">
+            <h3>Query Details</h3>
+            <p><strong>Name:</strong> {selectedVisitor.name}</p>
+            <p><strong>Email:</strong> {selectedVisitor.email}</p>
+            <p><strong>Phone:</strong> {selectedVisitor.phone}</p>
+            <p><strong>Submitted At:</strong> {new Date(selectedVisitor.timestamp || "").toLocaleString()}</p>
+            <p><strong>Query ID:</strong> {selectedVisitor.queryId || "—"}</p>
+            <p><strong>Query Method:</strong> {selectedVisitor.queryMethod?.join(", ") || "—"}</p>
+            <p><strong>Message:</strong> {selectedVisitor.message || "—"}</p>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <button
+                className="modal-btn"
+                onClick={() => {
+                  if (selectedVisitor?.message) {
+                    navigator.clipboard.writeText(selectedVisitor.message);
+                    alert("Message copied!");
+                  }
+                }}
+              >
+                Copy Message
+              </button>
+              <button className="modal-btn" onClick={handleExportPDF}>
+    Export PDF
+  </button>
+              <button className="modal-btn" onClick={() => setSelectedVisitor(null)}>
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

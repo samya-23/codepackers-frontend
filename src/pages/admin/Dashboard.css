@@ -161,21 +161,22 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  animation: fadeIn 0.3s ease;
 }
 
 .modal-box {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  text-align: center;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: left;
   max-width: 400px;
   width: 90%;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .modal-box h3 {
@@ -188,17 +189,17 @@ body {
 }
 
 .modal-btn {
-  background-color: #1e2a60;
+  margin-top: 1rem;
+  background-color: #007bff;
   color: white;
   border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
 }
 
 .modal-btn:hover {
-  background-color: #142049;
+  background-color: #0056b3;
 }
 
 /* ✅ Responsive Design */
@@ -318,4 +319,7 @@ body {
 .whatsapp-icon:hover {
   color: #0056b3;
 }
-
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

@@ -30,7 +30,8 @@ const fadeUp = {
 
 const ContactSection = () => {
   const { toast } = useToast();
-  const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+  const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL || "http://localhost:8000";
+
   const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
   const [submitted, setSubmitted] = useState(false);
   const [querySent, setQuerySent] = useState(false);
@@ -117,7 +118,6 @@ const ContactSection = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${import.meta.env.VITE_ADMIN_PASSWORD}`,
       },
       body: JSON.stringify(payload),
     });
@@ -133,8 +133,20 @@ const ContactSection = () => {
       });
 
       setModalMessage("");
-      setOpenModal(null);
       setQuerySent(true);
+
+      if (platform === "whatsapp") {
+  const phoneEncoded = encodeURIComponent(formData.phone);
+  const textEncoded = encodeURIComponent(modalMessage);
+  const waLink = `https://wa.me/9835775694?text=${textEncoded}`;
+  window.open(waLink, "_blank"); // Opens in new tab
+
+  setTimeout(() => {
+  setOpenModal(null);
+}, 1000);
+}
+
+
     } catch (error) {
       console.error("Send Error", error); // 👈 helpful for debugging
       toast({

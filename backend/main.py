@@ -1,11 +1,11 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List
 from datetime import datetime
-import json, os, hashlib
+import json, os, hashlib, uuid, smtplib
 from dotenv import load_dotenv
-import uuid
+from email.message import EmailMessage
 
 load_dotenv()
 
@@ -25,9 +25,9 @@ class Visitor(BaseModel):
 
 class QueryUpdate(BaseModel):
     message: str
-    method: str  # must be "email" or "whatsapp"
+    method: str  # either "email" or "whatsapp"
 
-# CORS setup
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -35,6 +35,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Utility Functions
 def load_data():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r") as f:
@@ -45,20 +46,40 @@ def save_data(data):
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
+def send_email(subject: str, body: str):
+    sender = os.getenv("EMAIL_USER")
+    password = os.getenv("EMAIL_PASS")
+    receiver = os.getenv("RECEIVER_EMAIL")
+
+    msg = EmailMessage()
+    msg.set_content(body)
+    msg["Subject"] = subject
+    msg["From"] = sender
+    msg["To"] = receiver
+
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+            smtp.login(sender, password)
+            smtp.send_message(msg)
+    except Exception as e:
+        print("EMAIL ERROR:", e)
+        raise HTTPException(status_code=500, detail="Failed to send email")
+
+# Routes
 @app.post("/submit-form")
 async def submit_form(visitor: Visitor):
     data = load_data()
     visitor_dict = visitor.dict()
 
     unique_id = hashlib.sha256((visitor.email + visitor.timestamp).encode()).hexdigest()[:10]
-    visitor_dict["id"] = unique_id
+    visitor_dict["queryId"] = unique_id  # <-- use this instead of "id"
     visitor_dict["queryMethod"] = []
     visitor_dict["message"] = ""
-    visitor_dict["queryId"] = ""
 
     data.append(visitor_dict)
     save_data(data)
     return {"message": "Form submitted successfully", "id": unique_id}
+
 
 @app.post("/update-query/{visitor_id}")
 async def update_query(visitor_id: str, query: QueryUpdate):
@@ -72,6 +93,23 @@ async def update_query(visitor_id: str, query: QueryUpdate):
             v["message"] = query.message
             if not v.get("queryId"):
                 v["queryId"] = str(uuid.uuid4())[:8]
+
+            if query.method == "email":
+                subject = f"New Query from {v['name']}"
+                body = f"""
+You received a new query via Email.
+
+Name: {v['name']}
+Email: {v['email']}
+Phone: {v['phone']}
+
+Message:
+{query.message}
+
+Query ID: {v['queryId']}
+                """
+                send_email(subject, body)
+
             updated = True
             break
 
