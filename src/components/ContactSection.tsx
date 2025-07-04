@@ -124,18 +124,13 @@ const ContactSection = () => {
 
     if (!response.ok) throw new Error("Failed to mark as sent");
 
-    if (platform === "whatsapp") {
-      const textEncoded = encodeURIComponent(modalMessage.trim());
-      const waLink = `https://wa.me/9835775694?text=${textEncoded}`;
-      // 🔥 Open WHATSAPP immediately
-      window.location.href = waLink; // ✅ Direct navigation ensures reliability
-      return;
+    // 🔁 WhatsApp redirection handled onClick instead (see below)
+    if (platform === "email") {
+      toast({
+        title: "Email Sent",
+        description: "Your message has been recorded. We'll get back soon.",
+      });
     }
-
-    toast({
-      title: `${platform === "email" ? "Email" : "WhatsApp"} Sent`,
-      description: "Your message has been recorded. We'll get back soon.",
-    });
 
     setModalMessage("");
     setQuerySent(true);
@@ -390,7 +385,19 @@ const ContactSection = () => {
             <Button
               type="button"
               className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-              onClick={() => handleFinalSend(openModal!)}
+              onClick={() => {
+  const platform = openModal!;
+  if (platform === "whatsapp") {
+    const textEncoded = encodeURIComponent(modalMessage.trim());
+    const waLink = `https://wa.me/9835775694?text=${textEncoded}`;
+    window.open(waLink, "_blank");
+    handleFinalSend(platform); // ✅ save to DB
+    return; // ✅ prevents duplicate execution
+  }
+  handleFinalSend(platform); // email
+}}
+
+
               disabled={!modalMessage.trim()}
             >
               Send Now
