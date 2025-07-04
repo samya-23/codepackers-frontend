@@ -32,3 +32,8 @@ backend/venv/
 __pycache__/
 *.pyc
 
+# Backend
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/submissions.json

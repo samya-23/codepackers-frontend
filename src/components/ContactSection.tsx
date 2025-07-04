@@ -30,6 +30,7 @@ const fadeUp = {
 
 const ContactSection = () => {
   const { toast } = useToast();
+  const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
   const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
   const [submitted, setSubmitted] = useState(false);
   const [querySent, setQuerySent] = useState(false);
@@ -70,7 +71,7 @@ const ContactSection = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/submit-form", {
+      const response = await fetch(`${backendUrl}/submit-form`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -111,7 +112,7 @@ const ContactSection = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/admin/mark-sent/${visitorId}/${backendPlatform}`,
+        `${backendUrl}/admin/mark-sent/${visitorId}/${backendPlatform}`,
         {
           method: "POST",
           headers: {
