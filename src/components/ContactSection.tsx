@@ -108,9 +108,9 @@ const ContactSection = () => {
   if (!visitorId) return;
 
   const payload = {
-    platform: platform === "email" ? "mail" : platform,
-    message: modalMessage,
-  };
+  method: platform, // "email" or "whatsapp"
+  message: modalMessage,
+};
 
   try {
     const response = await fetch(`${backendUrl}/update-query/${visitorId}`, {
@@ -136,6 +136,7 @@ const ContactSection = () => {
       setOpenModal(null);
       setQuerySent(true);
     } catch (error) {
+      console.error("Send Error", error); // 👈 helpful for debugging
       toast({
         title: "Send Failed",
         description: "Could not send message. Try again.",

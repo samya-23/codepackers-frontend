@@ -1,4 +1,3 @@
-# main.py (updated backend)
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -26,7 +25,7 @@ class Visitor(BaseModel):
 
 class QueryUpdate(BaseModel):
     message: str
-    method: str  # either "email" or "whatsapp"
+    method: str  # must be "email" or "whatsapp"
 
 # CORS setup
 app.add_middleware(
@@ -51,7 +50,6 @@ async def submit_form(visitor: Visitor):
     data = load_data()
     visitor_dict = visitor.dict()
 
-    # Generate unique ID
     unique_id = hashlib.sha256((visitor.email + visitor.timestamp).encode()).hexdigest()[:10]
     visitor_dict["id"] = unique_id
     visitor_dict["queryMethod"] = []
