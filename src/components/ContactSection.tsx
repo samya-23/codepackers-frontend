@@ -106,12 +106,12 @@ const ContactSection = () => {
   };
 
   const handleFinalSend = async (platform: "email" | "whatsapp") => {
-  if (!visitorId) return;
+  if (!visitorId || !modalMessage.trim()) return;
 
   const payload = {
-  method: platform, // "email" or "whatsapp"
-  message: modalMessage,
-};
+    method: platform,
+    message: modalMessage.trim(),
+  };
 
   try {
     const response = await fetch(`${backendUrl}/update-query/${visitorId}`, {
@@ -122,53 +122,34 @@ const ContactSection = () => {
       body: JSON.stringify(payload),
     });
 
+    if (!response.ok) throw new Error("Failed to mark as sent");
 
-      if (!response.ok) {
-        throw new Error("Failed to mark as sent");
-      }
-
-      toast({
-        title: `${platform === "email" ? "Email" : "WhatsApp"} Sent`,
-        description: "Your message has been recorded. We'll get back soon.",
-      });
-
-      setModalMessage("");
-      setQuerySent(true);
-
-      if (platform === "whatsapp") {
-        const textEncoded = encodeURIComponent(modalMessage.trim());
-        const waLink = `https://wa.me/9835775694?text=${textEncoded}`;
-        window.open(waLink, "_blank"); // open WhatsApp in new tab
-
-        // 👉 Show a toast reminding user to click 'Send' on WhatsApp
-        toast({
-          title: "Redirected to WhatsApp!",
-          description: "Click 'Send' there to complete your query.",
-        });
-        
-        // Let modal stay open a few more seconds as a subtle reminder
-        setTimeout(() => {
-          toast({
-            title: "Now click 'Send' in WhatsApp",
-            description: "Your query was saved. Please complete submission on WhatsApp.",
-          });
-          setOpenModal(null);  // Close modal only after reminder
-          setModalMessage(""); // Reset message
-          setQuerySent(true);  // Optional flag
-        }, 2000);
-      }
-
-
-
-    } catch (error) {
-      console.error("Send Error", error); // 👈 helpful for debugging
-      toast({
-        title: "Send Failed",
-        description: "Could not send message. Try again.",
-        variant: "destructive",
-      });
+    if (platform === "whatsapp") {
+      const textEncoded = encodeURIComponent(modalMessage.trim());
+      const waLink = `https://wa.me/9835775694?text=${textEncoded}`;
+      // 🔥 Open WHATSAPP immediately
+      window.location.href = waLink; // ✅ Direct navigation ensures reliability
+      return;
     }
-  };
+
+    toast({
+      title: `${platform === "email" ? "Email" : "WhatsApp"} Sent`,
+      description: "Your message has been recorded. We'll get back soon.",
+    });
+
+    setModalMessage("");
+    setQuerySent(true);
+    setOpenModal(null);
+  } catch (error) {
+    console.error("Send Error", error);
+    toast({
+      title: "Send Failed",
+      description: "Could not send message. Try again.",
+      variant: "destructive",
+    });
+  }
+};
+
 
   const handleReset = () => {
     setFormData({ name: "", email: "", phone: "" });
@@ -386,7 +367,9 @@ const ContactSection = () => {
       </div>
 
       {/* Modal */}
-      <Dialog open={openModal !== null} onOpenChange={() => setOpenModal(null)}>
+      <Dialog open={openModal !== null} onOpenChange={(open) => {
+  if (!open && !querySent) setOpenModal(null);
+}}>
         <DialogContent className="sm:max-w-md bg-white rounded-2xl shadow-2xl border border-gray-200">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-gray-800 mb-2">
