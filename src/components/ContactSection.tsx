@@ -105,22 +105,23 @@ const ContactSection = () => {
   };
 
   const handleFinalSend = async (platform: "email" | "whatsapp") => {
-    if (!visitorId) return;
+  if (!visitorId) return;
 
-    // Map 'email' to 'mail' because backend expects 'mail'
-    const backendPlatform = platform === "email" ? "mail" : platform;
+  const payload = {
+    platform: platform === "email" ? "mail" : platform,
+    message: modalMessage,
+  };
 
-    try {
-      const response = await fetch(
-        `${backendUrl}/admin/mark-sent/${visitorId}/${backendPlatform}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_ADMIN_PASSWORD}`,
-          },
-        }
-      );
+  try {
+    const response = await fetch(`${backendUrl}/update-query/${visitorId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${import.meta.env.VITE_ADMIN_PASSWORD}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
 
       if (!response.ok) {
         throw new Error("Failed to mark as sent");

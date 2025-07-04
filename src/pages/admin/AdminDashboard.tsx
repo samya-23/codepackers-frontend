@@ -23,7 +23,7 @@ interface Visitor {
   queryId?: string;
 }
 
-const API_BASE_URL = "https://codepackers-frontend-1.onrender.com";
+const API_BASE_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -59,6 +59,15 @@ const AdminDashboard: React.FC = () => {
       return () => clearInterval(interval);
     }
   }, []);
+
+  const filterVisitors = (query: string, source: string) => {
+    return visitorData.filter(
+      (v) =>
+        (source === "all" ? true : (v.source || "form") === source) &&
+        (v.name.toLowerCase().includes(query) ||
+          v.email.toLowerCase().includes(query))
+    );
+  };
 
   useEffect(() => {
     const fetchVisitors = async () => {
@@ -97,12 +106,7 @@ const AdminDashboard: React.FC = () => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
-    const filtered = visitorData.filter(
-      (v) =>
-        v.name.toLowerCase().includes(query) ||
-        v.email.toLowerCase().includes(query)
-    );
-    setFilteredData(filtered);
+    setFilteredData(filterVisitors(query, selectedSource));
     setCurrentPage(1);
   };
 
@@ -162,16 +166,7 @@ const AdminDashboard: React.FC = () => {
             onChange={(e) => {
               const val = e.target.value;
               setSelectedSource(val);
-              const filtered = visitorData
-                .filter((v) =>
-                  val === "all" ? true : (v.source || "form") === val
-                )
-                .filter(
-                  (v) =>
-                    v.name.toLowerCase().includes(searchQuery) ||
-                    v.email.toLowerCase().includes(searchQuery)
-                );
-              setFilteredData(filtered);
+              setFilteredData(filterVisitors(searchQuery, val));
               setCurrentPage(1);
             }}
           >
@@ -199,6 +194,9 @@ const AdminDashboard: React.FC = () => {
                   <th>Phone</th>
                   <th>Submitted At</th>
                   <th>Query ID</th>
+                  <th>Source</th>
+                  <th>Query Method</th>
+                  <th>Message</th>
                 </tr>
               </thead>
               <tbody>
@@ -219,6 +217,9 @@ const AdminDashboard: React.FC = () => {
                         : "N/A"}
                     </td>
                     <td>{visitor.queryId || "—"}</td>
+                    <td>{visitor.source || "form"}</td>
+                    <td>{visitor.queryMethod?.join(", ") || "—"}</td>
+                    <td>{visitor.message || "—"}</td>
                   </tr>
                 ))}
               </tbody>

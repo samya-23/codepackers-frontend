@@ -1,10 +1,14 @@
-from fastapi import FastAPI, Request
+# main.py (updated backend)
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List
 from datetime import datetime
-import json
-import os
+import json, os, hashlib
+from dotenv import load_dotenv
+import uuid
+
+load_dotenv()
 
 app = FastAPI()
 
@@ -20,7 +24,11 @@ class Visitor(BaseModel):
     queryMethod: List[str] = []
     queryId: str = ""
 
-# CORS for frontend access
+class QueryUpdate(BaseModel):
+    message: str
+    method: str  # either "email" or "whatsapp"
+
+# CORS setup
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -43,25 +51,42 @@ async def submit_form(visitor: Visitor):
     data = load_data()
     visitor_dict = visitor.dict()
 
-    # Generate a unique ID (hash of email + timestamp)
-    import hashlib
+    # Generate unique ID
     unique_id = hashlib.sha256((visitor.email + visitor.timestamp).encode()).hexdigest()[:10]
     visitor_dict["id"] = unique_id
+    visitor_dict["queryMethod"] = []
+    visitor_dict["message"] = ""
+    visitor_dict["queryId"] = ""
 
     data.append(visitor_dict)
     save_data(data)
     return {"message": "Form submitted successfully", "id": unique_id}
 
+@app.post("/update-query/{visitor_id}")
+async def update_query(visitor_id: str, query: QueryUpdate):
+    data = load_data()
+    updated = False
+
+    for v in data:
+        if v.get("id") == visitor_id:
+            if query.method not in v["queryMethod"]:
+                v["queryMethod"].append(query.method)
+            v["message"] = query.message
+            if not v.get("queryId"):
+                v["queryId"] = str(uuid.uuid4())[:8]
+            updated = True
+            break
+
+    if not updated:
+        raise HTTPException(status_code=404, detail="Visitor not found")
+
+    save_data(data)
+    return {"message": "Query updated successfully"}
 
 @app.get("/dashboard")
 def get_dashboard():
     return load_data()
 
-# ✅ Root route added here
 @app.get("/")
 def root():
-    return {"message": "API is live. Use /submit-form to post data or /dashboard to view data."}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000)
+    return {"message": "API is live. Use /submit-form and /dashboard."}
