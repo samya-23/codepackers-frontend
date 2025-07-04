@@ -171,6 +171,15 @@ const AdminDashboard: React.FC = () => {
 
   doc.save(`query_${selectedVisitor.queryId || "visitor"}.pdf`);
 };
+useEffect(() => {
+  if (sessionExpired) {
+    const timeout = setTimeout(() => {
+      navigate("/admin", { replace: true });
+    }, 300000); // ⏱️ 5-minute auto redirect (300,000 ms)
+
+    return () => clearTimeout(timeout);
+  }
+}, [sessionExpired, navigate]);
 
 
   return (

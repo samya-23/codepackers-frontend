@@ -388,13 +388,17 @@ const ContactSection = () => {
               onClick={() => {
   const platform = openModal!;
   if (platform === "whatsapp") {
+    // ✅ Open WhatsApp FIRST before triggering async logic
     const textEncoded = encodeURIComponent(modalMessage.trim());
     const waLink = `https://wa.me/9835775694?text=${textEncoded}`;
-    window.open(waLink, "_blank");
-    handleFinalSend(platform); // ✅ save to DB
-    return; // ✅ prevents duplicate execution
+    window.open(waLink, "_blank"); // Open instantly before any await or state update
+
+    setTimeout(() => handleFinalSend(platform), 300); // non-blocking DB save after redirect
+    return;
   }
-  handleFinalSend(platform); // email
+
+  // For email, no redirection — so call directly
+  handleFinalSend(platform);
 }}
 
 
