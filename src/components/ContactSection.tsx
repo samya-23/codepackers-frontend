@@ -136,15 +136,28 @@ const ContactSection = () => {
       setQuerySent(true);
 
       if (platform === "whatsapp") {
-  const phoneEncoded = encodeURIComponent(formData.phone);
-  const textEncoded = encodeURIComponent(modalMessage);
-  const waLink = `https://wa.me/9835775694?text=${textEncoded}`;
-  window.open(waLink, "_blank"); // Opens in new tab
+        const textEncoded = encodeURIComponent(modalMessage.trim());
+        const waLink = `https://wa.me/9835775694?text=${textEncoded}`;
+        window.open(waLink, "_blank"); // open WhatsApp in new tab
 
-  setTimeout(() => {
-  setOpenModal(null);
-}, 1000);
-}
+        // 👉 Show a toast reminding user to click 'Send' on WhatsApp
+        toast({
+          title: "Redirected to WhatsApp!",
+          description: "Click 'Send' there to complete your query.",
+        });
+        
+        // Let modal stay open a few more seconds as a subtle reminder
+        setTimeout(() => {
+          toast({
+            title: "Now click 'Send' in WhatsApp",
+            description: "Your query was saved. Please complete submission on WhatsApp.",
+          });
+          setOpenModal(null);  // Close modal only after reminder
+          setModalMessage(""); // Reset message
+          setQuerySent(true);  // Optional flag
+        }, 2000);
+      }
+
 
 
     } catch (error) {

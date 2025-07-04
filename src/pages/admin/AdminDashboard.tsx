@@ -314,8 +314,10 @@ const AdminDashboard: React.FC = () => {
     if (e.target === e.currentTarget) setSelectedVisitor(null);
   }}
 >
-
-          <div className="modal-box">
+  <div
+    className="modal-box"
+    onClick={(e) => e.stopPropagation()} // 👈 This prevents overlay click event
+  >
             <h3>Query Details</h3>
             <p><strong>Name:</strong> {selectedVisitor.name}</p>
             <p><strong>Email:</strong> {selectedVisitor.email}</p>
