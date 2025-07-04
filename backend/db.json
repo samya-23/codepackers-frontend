@@ -1,0 +1,14 @@
+{
+  "dashboard": [
+    {
+      "name": "Samya Soni",
+      "email": "samya.soni1435@gmail.com",
+      "phone": "+911234567890",
+      "source": "form",
+      "timestamp": "2025-06-27T12:40:48",
+      "queryId": "1",
+      "sent": true,
+      "sent_via": "email"
+    }
+  ]
+}

@@ -9,7 +9,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter
+  DialogFooter,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle, MapPin } from "lucide-react";
@@ -17,15 +17,15 @@ import { motion } from "framer-motion";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: (i = 0) => ({
+  visible: {
     opacity: 1,
     y: 0,
     transition: {
-      delay: i * 0.1,
+      delay: 0.1,
       duration: 0.6,
-      ease: "easeOut"
-    }
-  })
+      ease: "easeOut" as const,
+    },
+  },
 };
 
 const ContactSection = () => {
@@ -35,6 +35,7 @@ const ContactSection = () => {
   const [querySent, setQuerySent] = useState(false);
   const [openModal, setOpenModal] = useState<"email" | "whatsapp" | null>(null);
   const [modalMessage, setModalMessage] = useState("");
+  const [visitorId, setVisitorId] = useState<string | null>(null); // to store Mongo _id
 
   const benefits = [
     "AI agent Framework",
@@ -42,7 +43,7 @@ const ContactSection = () => {
     "Enterprise-grade security",
     "Multilingual capabilities",
     "Rapid deployment",
-    "Scalable solutions"
+    "Scalable solutions",
   ];
 
   const industries = [
@@ -52,42 +53,100 @@ const ContactSection = () => {
     "E-governance",
     "Manufacturing",
     "Telecom",
-    "Homeland Security"
+    "Homeland Security",
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const { name, email, phone } = formData;
+
     if (!name || !email || !phone) {
       toast({ title: "All fields are required.", variant: "destructive" });
       return;
     }
-    setSubmitted(true);
-    setQuerySent(false);
-    toast({
-      title: "Details Saved!",
-      description: "Now you can send your query via Email or WhatsApp."
-    });
+
+    try {
+      const response = await fetch("http://localhost:3001/submit-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          message: "initial contact",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send data to backend");
+      }
+
+      const result = await response.json();
+      setVisitorId(result.id);
+      setSubmitted(true);
+      setQuerySent(false);
+
+      toast({
+        title: "Details Saved!",
+        description: "Now you can send your query via Email or WhatsApp.",
+      });
+    } catch (error) {
+      toast({
+        title: "Submission Failed",
+        description: "Could not save details. Try again.",
+        variant: "destructive",
+      });
+    }
   };
 
-  const handleFinalSend = (platform: "email" | "whatsapp") => {
-    toast({
-      title: `${platform === "email" ? "Email" : "WhatsApp"} Sent`,
-      description: "Your message has been recorded. We'll get back soon."
-    });
-    setModalMessage("");
-    setOpenModal(null);
-    setQuerySent(true);
+  const handleFinalSend = async (platform: "email" | "whatsapp") => {
+    if (!visitorId) return;
+
+    // Map 'email' to 'mail' because backend expects 'mail'
+    const backendPlatform = platform === "email" ? "mail" : platform;
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/admin/mark-sent/${visitorId}/${backendPlatform}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_ADMIN_PASSWORD}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to mark as sent");
+      }
+
+      toast({
+        title: `${platform === "email" ? "Email" : "WhatsApp"} Sent`,
+        description: "Your message has been recorded. We'll get back soon.",
+      });
+
+      setModalMessage("");
+      setOpenModal(null);
+      setQuerySent(true);
+    } catch (error) {
+      toast({
+        title: "Send Failed",
+        description: "Could not send message. Try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleReset = () => {
     setFormData({ name: "", email: "", phone: "" });
     setSubmitted(false);
     setQuerySent(false);
+    setVisitorId(null);
   };
 
   return (
@@ -95,12 +154,20 @@ const ContactSection = () => {
       id="contact"
       className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
     >
-      {/* Abstract Light Backgrounds */}
+      {/* Background and Dots */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400 opacity-20 rounded-full blur-2xl animate-pulse" />
-      <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      >
         <defs>
-          <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern
+            id="dots"
+            width="40"
+            height="40"
+            patternUnits="userSpaceOnUse"
+          >
             <circle cx="1" cy="1" r="1" fill="#e2e8f0" />
           </pattern>
         </defs>
@@ -123,19 +190,26 @@ const ContactSection = () => {
             </span>
           </h2>
           <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto font-light">
-            Ready to transform your enterprise communication with AI? Let's discuss how our
-            platform can meet your specific needs.
+            Ready to transform your enterprise communication with AI? Let's
+            discuss how our platform can meet your specific needs.
           </p>
         </motion.div>
 
-        {/* Benefits & Contact Info */}
+        {/* Benefits & Info */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Why Codepackers */}
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+          {/* Why Us */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+          >
             <motion.div whileHover={{ scale: 1.02 }}>
               <Card className="bg-white/30 backdrop-blur-2xl border border-white/20 shadow-xl">
                 <CardHeader>
-                  <CardTitle className="text-xl font-semibold text-gray-900">Why Choose Codepackers?</CardTitle>
+                  <CardTitle className="text-xl font-semibold text-gray-900">
+                    Why Choose Codepackers?
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   {benefits.map((benefit, index) => (
@@ -150,24 +224,41 @@ const ContactSection = () => {
           </motion.div>
 
           {/* Contact Info */}
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+          >
             <motion.div whileHover={{ scale: 1.02 }}>
               <Card className="bg-white/30 backdrop-blur-2xl border border-white/20 shadow-xl">
                 <CardHeader>
-                  <CardTitle className="text-xl font-semibold text-gray-900">Contact Information</CardTitle>
+                  <CardTitle className="text-xl font-semibold text-gray-900">
+                    Contact Information
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center gap-2 text-gray-700">
                     <MapPin className="w-4 h-4 text-blue-600" /> India
                   </div>
                   <div className="flex items-center gap-2 text-gray-700">
-                    <img src="/icons/email-icon.svg" className="w-4 h-4" alt="email" />
+                    <img
+                      src="/icons/email-icon.svg"
+                      className="w-4 h-4"
+                      alt="email"
+                    />
                     suja.sharma@codepackers.com
                   </div>
-                  <h4 className="font-semibold text-gray-900 mt-4">Serving Industries:</h4>
+                  <h4 className="font-semibold text-gray-900 mt-4">
+                    Serving Industries:
+                  </h4>
                   <div className="flex flex-wrap gap-2">
                     {industries.map((industry, index) => (
-                      <Badge key={index} variant="secondary" className="bg-blue-50 text-blue-700">
+                      <Badge
+                        key={index}
+                        variant="secondary"
+                        className="bg-blue-50 text-blue-700"
+                      >
                         {industry}
                       </Badge>
                     ))}
@@ -178,29 +269,57 @@ const ContactSection = () => {
           </motion.div>
         </div>
 
-        {/* Contact Form */}
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+        {/* Form */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+        >
           <Card className="bg-white/30 backdrop-blur-2xl border border-white/20 shadow-2xl">
             <CardHeader>
-              <CardTitle className="text-xl font-semibold text-gray-900">Drop Your Details</CardTitle>
+              <CardTitle className="text-xl font-semibold text-gray-900">
+                Drop Your Details
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={submitted ? handleReset : handleSubmit} className="space-y-6">
+              <form
+                onSubmit={submitted ? handleReset : handleSubmit}
+                className="space-y-6"
+              >
                 <div>
                   <Label htmlFor="name">Name</Label>
-                  <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" />
+                  <Input
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your Name"
+                  />
                 </div>
                 <div>
                   <Label htmlFor="phone">Phone Number</Label>
-                  <Input name="phone" value={formData.phone} onChange={handleChange} placeholder="Your Number" />
+                  <Input
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Your Number"
+                  />
                 </div>
                 <div>
                   <Label htmlFor="email">Email</Label>
-                  <Input name="email" value={formData.email} onChange={handleChange} placeholder="Your Email" />
+                  <Input
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Your Email"
+                  />
                 </div>
 
                 <div className="flex flex-wrap gap-4 pt-2">
-                  <Button type="submit" className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+                  <Button
+                    type="submit"
+                    className="bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+                  >
                     {submitted ? "Submit Another Response" : "Submit"}
                   </Button>
 
@@ -209,9 +328,12 @@ const ContactSection = () => {
                     variant="outline"
                     onClick={() => setOpenModal("email")}
                     disabled={!submitted || querySent}
-                    aria-label="Send via Email"
                   >
-                    <img src="/icons/email-icon.svg" className="w-4 h-4 mr-2" alt="email" />
+                    <img
+                      src="/icons/email-icon.svg"
+                      className="w-4 h-4 mr-2"
+                      alt="email"
+                    />
                     Send via Email
                   </Button>
 
@@ -220,9 +342,12 @@ const ContactSection = () => {
                     variant="outline"
                     onClick={() => setOpenModal("whatsapp")}
                     disabled={!submitted || querySent}
-                    aria-label="Send via WhatsApp"
                   >
-                    <img src="/icons/whatsapp-icon.svg" className="w-4 h-4 mr-2" alt="whatsapp" />
+                    <img
+                      src="/icons/whatsapp-icon.svg"
+                      className="w-4 h-4 mr-2"
+                      alt="whatsapp"
+                    />
                     Send via WhatsApp
                   </Button>
                 </div>
@@ -239,7 +364,9 @@ const ContactSection = () => {
             <DialogTitle className="text-2xl font-bold text-gray-800 mb-2">
               {openModal === "email" ? "Send via Email" : "Send via WhatsApp"}
             </DialogTitle>
-            <p className="text-gray-500 text-sm">Please enter your query message below</p>
+            <p className="text-gray-500 text-sm">
+              Please enter your query message below
+            </p>
           </DialogHeader>
           <textarea
             className="w-full mt-4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"

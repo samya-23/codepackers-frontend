@@ -23,7 +23,7 @@ interface Visitor {
   queryId?: string;
 }
 
-const API_BASE_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+const API_BASE_URL = "http://localhost:3001";
 
 const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ const AdminDashboard: React.FC = () => {
   useEffect(() => {
     const fetchVisitors = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/visitors`);
+        const res = await fetch(`${API_BASE_URL}/dashboard`);
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         if (Array.isArray(data)) {
@@ -148,7 +148,9 @@ const AdminDashboard: React.FC = () => {
 
       <div className="table-wrapper">
         <div className="dashboard-tools">
-          <div className="stats-box">👥 Total Visitors: {filteredData.length}</div>
+          <div className="stats-box">
+            👥 Total Visitors: {filteredData.length}
+          </div>
           <input
             type="text"
             placeholder="Search by Name or Email"
@@ -161,7 +163,9 @@ const AdminDashboard: React.FC = () => {
               const val = e.target.value;
               setSelectedSource(val);
               const filtered = visitorData
-                .filter((v) => (val === "all" ? true : (v.source || "form") === val))
+                .filter((v) =>
+                  val === "all" ? true : (v.source || "form") === val
+                )
                 .filter(
                   (v) =>
                     v.name.toLowerCase().includes(searchQuery) ||
@@ -201,7 +205,9 @@ const AdminDashboard: React.FC = () => {
                 {paginatedData.map((visitor, index) => (
                   <tr
                     key={index}
-                    className={visitor.source === "whatsapp" ? "whatsapp-row" : ""}
+                    className={
+                      visitor.source === "whatsapp" ? "whatsapp-row" : ""
+                    }
                   >
                     <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
                     <td>{visitor.name}</td>
