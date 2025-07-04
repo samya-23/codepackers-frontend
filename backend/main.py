@@ -7,11 +7,15 @@ import json, os, hashlib, uuid, smtplib
 from dotenv import load_dotenv
 from email.message import EmailMessage
 
+# Load environment variables from .env
 load_dotenv()
 
 app = FastAPI()
 
+# File to store visitor data
 DATA_FILE = "submissions.json"
+
+# --------- Models --------- #
 
 class Visitor(BaseModel):
     name: str
@@ -25,9 +29,10 @@ class Visitor(BaseModel):
 
 class QueryUpdate(BaseModel):
     message: str
-    method: str  # either "email" or "whatsapp"
+    method: str  # "email" or "whatsapp"
 
-# CORS
+# --------- CORS Setup --------- #
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -35,7 +40,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Utility Functions
+# --------- Utility Functions --------- #
+
 def load_data():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r") as f:
@@ -51,6 +57,9 @@ def send_email(subject: str, body: str):
     password = os.getenv("EMAIL_PASS")
     receiver = os.getenv("RECEIVER_EMAIL")
 
+    if not sender or not password or not receiver:
+        raise HTTPException(status_code=500, detail="Email configuration is incomplete")
+
     msg = EmailMessage()
     msg.set_content(body)
     msg["Subject"] = subject
@@ -65,17 +74,19 @@ def send_email(subject: str, body: str):
         print("EMAIL ERROR:", e)
         raise HTTPException(status_code=500, detail="Failed to send email")
 
-# Routes
+# --------- Routes --------- #
+
 @app.post("/submit-form")
 async def submit_form(visitor: Visitor):
     data = load_data()
     visitor_dict = visitor.dict()
 
+    # Generate unique query ID
     unique_id = hashlib.sha256((visitor.email + visitor.timestamp).encode()).hexdigest()[:10]
     visitor_dict["queryId"] = unique_id
-    visitor_dict["id"] = unique_id  # ✅ Important fix to avoid 404 in update-query
+    visitor_dict["id"] = unique_id
     visitor_dict["queryMethod"] = []
-    visitor_dict["message"] = ""
+    visitor_dict["message"] = ""  # Clear message on initial submission
 
     data.append(visitor_dict)
     save_data(data)
@@ -88,12 +99,18 @@ async def update_query(visitor_id: str, query: QueryUpdate):
 
     for v in data:
         if v.get("id") == visitor_id:
+            # Update method if not already included
             if query.method not in v["queryMethod"]:
                 v["queryMethod"].append(query.method)
+
+            # Update message
             v["message"] = query.message
+
+            # Generate a query ID if missing
             if not v.get("queryId"):
                 v["queryId"] = str(uuid.uuid4())[:8]
 
+            # Send email if selected
             if query.method == "email":
                 subject = f"New Query from {v['name']}"
                 body = f"""
@@ -107,7 +124,7 @@ Message:
 {query.message}
 
 Query ID: {v['queryId']}
-                """
+                """.strip()
                 send_email(subject, body)
 
             updated = True

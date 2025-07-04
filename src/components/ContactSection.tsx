@@ -30,14 +30,21 @@ const fadeUp = {
 
 const ContactSection = () => {
   const { toast } = useToast();
-  const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL || "http://localhost:8000";
+  const backendUrl =
+    import.meta.env.VITE_REACT_APP_BACKEND_URL || "http://localhost:8000";
 
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
   const [submitted, setSubmitted] = useState(false);
   const [querySent, setQuerySent] = useState(false);
-  const [openModal, setOpenModal] = useState<"email" | "whatsapp" | null>(null);
+  const [openModal, setOpenModal] = useState<"email" | "whatsapp" | null>(
+    null
+  );
   const [modalMessage, setModalMessage] = useState("");
-  const [visitorId, setVisitorId] = useState<string | null>(null); // to store Mongo _id
+  const [visitorId, setVisitorId] = useState<string | null>(null);
 
   const benefits = [
     "AI agent Framework",
@@ -106,45 +113,46 @@ const ContactSection = () => {
   };
 
   const handleFinalSend = async (platform: "email" | "whatsapp") => {
-  if (!visitorId || !modalMessage.trim()) return;
+    if (!visitorId || !modalMessage.trim()) return;
 
-  const payload = {
-    method: platform,
-    message: modalMessage.trim(),
-  };
+    const payload = {
+      method: platform,
+      message: modalMessage.trim(),
+    };
 
-  try {
-    const response = await fetch(`${backendUrl}/update-query/${visitorId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
+    try {
+      const response = await fetch(
+        `${backendUrl}/update-query/${visitorId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
-    if (!response.ok) throw new Error("Failed to mark as sent");
+      if (!response.ok) throw new Error("Failed to mark as sent");
 
-    // 🔁 WhatsApp redirection handled onClick instead (see below)
-    if (platform === "email") {
+      if (platform === "email") {
+        toast({
+          title: "Email Sent",
+          description: "Your message has been recorded. We'll get back soon.",
+        });
+      }
+
+      setModalMessage("");
+      setQuerySent(true);
+      setOpenModal(null);
+    } catch (error) {
+      console.error("Send Error", error);
       toast({
-        title: "Email Sent",
-        description: "Your message has been recorded. We'll get back soon.",
+        title: "Send Failed",
+        description: "Could not send message. Try again.",
+        variant: "destructive",
       });
     }
-
-    setModalMessage("");
-    setQuerySent(true);
-    setOpenModal(null);
-  } catch (error) {
-    console.error("Send Error", error);
-    toast({
-      title: "Send Failed",
-      description: "Could not send message. Try again.",
-      variant: "destructive",
-    });
-  }
-};
-
+  };
 
   const handleReset = () => {
     setFormData({ name: "", email: "", phone: "" });
@@ -158,20 +166,12 @@ const ContactSection = () => {
       id="contact"
       className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
     >
-      {/* Background and Dots */}
+      {/* Background */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400 opacity-20 rounded-full blur-2xl animate-pulse" />
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        aria-hidden="true"
-      >
+      <svg className="absolute inset-0 w-full h-full pointer-events-none">
         <defs>
-          <pattern
-            id="dots"
-            width="40"
-            height="40"
-            patternUnits="userSpaceOnUse"
-          >
+          <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
             <circle cx="1" cy="1" r="1" fill="#e2e8f0" />
           </pattern>
         </defs>
@@ -199,15 +199,10 @@ const ContactSection = () => {
           </p>
         </motion.div>
 
-        {/* Benefits & Info */}
+        {/* Benefits + Info */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Why Us */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-          >
+          {/* Benefits */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <motion.div whileHover={{ scale: 1.02 }}>
               <Card className="bg-white/30 backdrop-blur-2xl border border-white/20 shadow-xl">
                 <CardHeader>
@@ -227,13 +222,8 @@ const ContactSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Contact Info */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-          >
+          {/* Info */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <motion.div whileHover={{ scale: 1.02 }}>
               <Card className="bg-white/30 backdrop-blur-2xl border border-white/20 shadow-xl">
                 <CardHeader>
@@ -246,23 +236,13 @@ const ContactSection = () => {
                     <MapPin className="w-4 h-4 text-blue-600" /> India
                   </div>
                   <div className="flex items-center gap-2 text-gray-700">
-                    <img
-                      src="/icons/email-icon.svg"
-                      className="w-4 h-4"
-                      alt="email"
-                    />
+                    <img src="/icons/email-icon.svg" className="w-4 h-4" alt="email" />
                     suja.sharma@codepackers.com
                   </div>
-                  <h4 className="font-semibold text-gray-900 mt-4">
-                    Serving Industries:
-                  </h4>
+                  <h4 className="font-semibold text-gray-900 mt-4">Serving Industries:</h4>
                   <div className="flex flex-wrap gap-2">
                     {industries.map((industry, index) => (
-                      <Badge
-                        key={index}
-                        variant="secondary"
-                        className="bg-blue-50 text-blue-700"
-                      >
+                      <Badge key={index} variant="secondary" className="bg-blue-50 text-blue-700">
                         {industry}
                       </Badge>
                     ))}
@@ -274,12 +254,7 @@ const ContactSection = () => {
         </div>
 
         {/* Form */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUp}
-        >
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
           <Card className="bg-white/30 backdrop-blur-2xl border border-white/20 shadow-2xl">
             <CardHeader>
               <CardTitle className="text-xl font-semibold text-gray-900">
@@ -287,71 +262,40 @@ const ContactSection = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <form
-                onSubmit={submitted ? handleReset : handleSubmit}
-                className="space-y-6"
-              >
+              <form onSubmit={submitted ? handleReset : handleSubmit} className="space-y-6">
                 <div>
                   <Label htmlFor="name">Name</Label>
-                  <Input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your Name"
-                  />
+                  <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" />
                 </div>
                 <div>
                   <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Your Number"
-                  />
+                  <Input name="phone" value={formData.phone} onChange={handleChange} placeholder="Your Number" />
                 </div>
                 <div>
                   <Label htmlFor="email">Email</Label>
-                  <Input
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Your Email"
-                  />
+                  <Input name="email" value={formData.email} onChange={handleChange} placeholder="Your Email" />
                 </div>
 
                 <div className="flex flex-wrap gap-4 pt-2">
-                  <Button
-                    type="submit"
-                    className="bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-                  >
+                  <Button type="submit" className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
                     {submitted ? "Submit Another Response" : "Submit"}
                   </Button>
-
                   <Button
                     type="button"
                     variant="outline"
                     onClick={() => setOpenModal("email")}
                     disabled={!submitted || querySent}
                   >
-                    <img
-                      src="/icons/email-icon.svg"
-                      className="w-4 h-4 mr-2"
-                      alt="email"
-                    />
+                    <img src="/icons/email-icon.svg" className="w-4 h-4 mr-2" alt="email" />
                     Send via Email
                   </Button>
-
                   <Button
                     type="button"
                     variant="outline"
                     onClick={() => setOpenModal("whatsapp")}
                     disabled={!submitted || querySent}
                   >
-                    <img
-                      src="/icons/whatsapp-icon.svg"
-                      className="w-4 h-4 mr-2"
-                      alt="whatsapp"
-                    />
+                    <img src="/icons/whatsapp-icon.svg" className="w-4 h-4 mr-2" alt="whatsapp" />
                     Send via WhatsApp
                   </Button>
                 </div>
@@ -363,16 +307,14 @@ const ContactSection = () => {
 
       {/* Modal */}
       <Dialog open={openModal !== null} onOpenChange={(open) => {
-  if (!open && !querySent) setOpenModal(null);
-}}>
+        if (!open && !querySent) setOpenModal(null);
+      }}>
         <DialogContent className="sm:max-w-md bg-white rounded-2xl shadow-2xl border border-gray-200">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-gray-800 mb-2">
               {openModal === "email" ? "Send via Email" : "Send via WhatsApp"}
             </DialogTitle>
-            <p className="text-gray-500 text-sm">
-              Please enter your query message below
-            </p>
+            <p className="text-gray-500 text-sm">Please enter your query message below</p>
           </DialogHeader>
           <textarea
             className="w-full mt-4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
@@ -386,22 +328,20 @@ const ContactSection = () => {
               type="button"
               className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white"
               onClick={() => {
-  const platform = openModal!;
-  if (platform === "whatsapp") {
-    // ✅ Open WhatsApp FIRST before triggering async logic
-    const textEncoded = encodeURIComponent(modalMessage.trim());
-    const waLink = `https://wa.me/9835775694?text=${textEncoded}`;
-    window.open(waLink, "_blank"); // Open instantly before any await or state update
+                const platform = openModal!;
+                const trimmedMessage = modalMessage.trim();
+                if (!trimmedMessage) return;
+                const encodedMessage = encodeURIComponent(trimmedMessage);
 
-    setTimeout(() => handleFinalSend(platform), 300); // non-blocking DB save after redirect
-    return;
-  }
+                if (platform === "whatsapp") {
+                  const whatsappUrl = `https://wa.me/9835775694?text=${encodedMessage}`;
+                  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+                  handleFinalSend(platform);
+                  return;
+                }
 
-  // For email, no redirection — so call directly
-  handleFinalSend(platform);
-}}
-
-
+                handleFinalSend(platform);
+              }}
               disabled={!modalMessage.trim()}
             >
               Send Now

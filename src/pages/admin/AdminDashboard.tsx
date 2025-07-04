@@ -64,13 +64,16 @@ const AdminDashboard: React.FC = () => {
   }, []);
 
   const filterVisitors = (query: string, source: string) => {
-    return visitorData.filter(
-      (v) =>
-        (source === "all" ? true : (v.source || "form") === source) &&
-        (v.name.toLowerCase().includes(query) ||
-          v.email.toLowerCase().includes(query))
-    );
-  };
+  const lowerQuery = query.toLowerCase();
+  return visitorData.filter((visitor) => {
+    const sourceMatch = source === "all" || (visitor.source || "form") === source;
+    const queryMatch =
+      visitor.name.toLowerCase().includes(lowerQuery) ||
+      visitor.email.toLowerCase().includes(lowerQuery);
+    return sourceMatch && queryMatch;
+  });
+};
+
 
   useEffect(() => {
     const fetchVisitors = async () => {
@@ -79,11 +82,11 @@ const AdminDashboard: React.FC = () => {
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         if (Array.isArray(data)) {
-          data.sort(
-            (a, b) =>
-              new Date(b.timestamp || 0).getTime() -
-              new Date(a.timestamp || 0).getTime()
-          );
+          data.sort((a, b) =>
+  new Date(b.timestamp || 0).getTime() -
+  new Date(a.timestamp || 0).getTime()
+);
+
           setVisitorData(data);
           setFilteredData(data);
         } else throw new Error("Invalid format");
@@ -143,8 +146,9 @@ const AdminDashboard: React.FC = () => {
   const chartData = filteredData.reduce<{ date: string; count: number }[]>(
     (acc, curr) => {
       const date = curr.timestamp
-        ? new Date(curr.timestamp).toLocaleDateString()
-        : "Unknown";
+  ? new Date(curr.timestamp).toISOString().split("T")[0]
+  : "Unknown";
+
       const existing = acc.find((item) => item.date === date);
       if (existing) existing.count += 1;
       else acc.push({ date, count: 1 });
