@@ -23,7 +23,7 @@ interface Visitor {
   queryId?: string;
 }
 
-const API_BASE_URL = "https://your-backend-service.onrender.com";
+const API_BASE_URL = "https://codepackers-frontend-1.onrender.com";
 
 const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();

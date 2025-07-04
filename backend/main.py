@@ -41,9 +41,17 @@ def save_data(data):
 @app.post("/submit-form")
 async def submit_form(visitor: Visitor):
     data = load_data()
-    data.append(visitor.dict())
+    visitor_dict = visitor.dict()
+
+    # Generate a unique ID (hash of email + timestamp)
+    import hashlib
+    unique_id = hashlib.sha256((visitor.email + visitor.timestamp).encode()).hexdigest()[:10]
+    visitor_dict["id"] = unique_id
+
+    data.append(visitor_dict)
     save_data(data)
-    return {"message": "Form submitted successfully"}
+    return {"message": "Form submitted successfully", "id": unique_id}
+
 
 @app.get("/dashboard")
 def get_dashboard():
