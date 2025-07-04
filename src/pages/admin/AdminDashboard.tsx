@@ -23,7 +23,7 @@ interface Visitor {
   queryId?: string;
 }
 
-const API_BASE_URL = "http://localhost:3001";
+const API_BASE_URL = "https://your-backend-service.onrender.com";
 
 const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
