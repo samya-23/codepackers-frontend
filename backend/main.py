@@ -48,6 +48,12 @@ async def submit_form(visitor: Visitor):
 @app.get("/dashboard")
 def get_dashboard():
     return load_data()
+
+# ✅ Root route added here
+@app.get("/")
+def root():
+    return {"message": "API is live. Use /submit-form to post data or /dashboard to view data."}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000)
