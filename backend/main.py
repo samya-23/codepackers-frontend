@@ -72,14 +72,14 @@ async def submit_form(visitor: Visitor):
     visitor_dict = visitor.dict()
 
     unique_id = hashlib.sha256((visitor.email + visitor.timestamp).encode()).hexdigest()[:10]
-    visitor_dict["queryId"] = unique_id  # <-- use this instead of "id"
+    visitor_dict["queryId"] = unique_id
+    visitor_dict["id"] = unique_id  # ✅ Important fix to avoid 404 in update-query
     visitor_dict["queryMethod"] = []
     visitor_dict["message"] = ""
 
     data.append(visitor_dict)
     save_data(data)
     return {"message": "Form submitted successfully", "id": unique_id}
-
 
 @app.post("/update-query/{visitor_id}")
 async def update_query(visitor_id: str, query: QueryUpdate):
