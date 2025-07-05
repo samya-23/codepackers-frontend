@@ -17,18 +17,15 @@ const HeroCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [chatLoopKey, setChatLoopKey] = useState(0);
 
-  // Trigger AIChatCarousel reset when user reaches 2nd slide
   const handleSlideChange = (swiper: SwiperCore) => {
     setActiveIndex(swiper.realIndex);
-
     if (swiper.realIndex === 1) {
-      setChatLoopKey((prev) => prev + 1); // Triggers typing once per view
+      setChatLoopKey((prev) => prev + 1);
     }
   };
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      {/* Background Video */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover z-0"
         autoPlay
@@ -40,10 +37,8 @@ const HeroCarousel = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
 
-      {/* Carousel */}
       <div className="relative z-20 h-full">
         <Swiper
           onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -79,7 +74,6 @@ const HeroCarousel = () => {
                 </p>
               </div>
 
-              {/* Navigation Buttons */}
               <div className="absolute bottom-12 md:bottom-16 px-4 w-full flex flex-wrap justify-center gap-3 md:gap-4">
                 {["Capabilities", "Expertise", "Team", "Contact"].map((label) => (
                   <a
@@ -137,12 +131,8 @@ const HeroCarousel = () => {
                   </a>
                 </div>
 
-                {/* AI Chat Carousel */}
                 <div className="w-full px-4 md:px-0 md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto transition-all duration-500 ease-in-out">
-                  <AIChatCarousel
-                    loopKey={chatLoopKey}
-                    run={activeIndex === 1}
-                  />
+                  <AIChatCarousel loopKey={chatLoopKey} run={activeIndex === 1} />
                 </div>
               </div>
             </div>
@@ -160,6 +150,52 @@ const HeroCarousel = () => {
               </p>
             </div>
           </SwiperSlide>
+
+          {/* Slide 4 - Pustak Framework */}
+          {/* Slide 4 - Pustak Framework */}
+<SwiperSlide>
+  <div className="flex justify-center items-center h-full text-white px-4 md:px-8">
+    <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center min-h-full px-0 md:px-10 py-8">
+      
+      {/* Text Section */}
+      <div className="text-center md:text-left px-2 md:px-8">
+        <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">
+  <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
+    Pustak Framework
+  </span>
+  <br />
+  <span className="whitespace-nowrap">ERP + Workflow Simplified</span>
+</h2>
+        <p className="text-base md:text-lg mb-6 max-w-xl mx-auto md:mx-0">
+          A powerful, modular framework built for enterprise operations like CRM,
+          HRMS, Projects, SCM & more. Includes user control, dashboards, audit logs,
+          notifications & role-based access.
+        </p>
+
+        <div className="flex flex-wrap gap-x-4 gap-y-2 mb-6 text-sm font-medium justify-center md:justify-start whitespace-nowrap">
+  <span className="flex items-center gap-1">🔐 Role-Based Access</span>
+  <span className="flex items-center gap-1">📊 Reports & Dashboards</span>
+  <span className="flex items-center gap-1">🧩 Modular Architecture</span>
+</div>
+
+
+
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg"
+        >
+          Contact Us <ArrowRight className="w-5 h-5" />
+        </a>
+      </div>
+
+      {/* Reserved Right Section */}
+      <div className="w-full md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto px-4 md:px-0">
+        {/* Placeholder for future visuals */}
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
+
         </Swiper>
 
         {/* Navigation Arrows */}
