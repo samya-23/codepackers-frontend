@@ -1,132 +1,171 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
-import './AIChatCarousel.css';
+import React, { useEffect, useState, useRef, useMemo } from "react";
+import "./AIChatCarousel.css";
 
 interface Message {
-  sender: 'user' | 'ai';
+  sender: "user" | "ai";
   text: string;
 }
 
 interface AIChatCarouselProps {
-  onLoopComplete?: () => void; // ✅ Callback for carousel loop
+  onLoopComplete?: () => void;
+  loopKey: number;
+  run: boolean;
 }
 
-const AIChatCarousel: React.FC<AIChatCarouselProps> = ({ onLoopComplete }) => {
-  const messages: Message[] = useMemo(() => [
-    { sender: 'user', text: "Show me the Q3 sales report for the Delhi region" },
-    { sender: 'ai', text: "I've found the Q3 sales report for Delhi. The region showed 23% growth with ₹2.4 crores in revenue." },
-    { sender: 'user', text: "Please, provide me a breakdown of top three product categories" },
-  ], []);
+const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
+  onLoopComplete,
+  loopKey,
+  run,
+}) => {
+  const messages: Message[] = useMemo(
+    () => [
+      { sender: "user", text: "Show me the Q3 sales report for the Delhi region" },
+      { sender: "ai", text: "I've found the Q3 sales report for Delhi. The region showed 23% growth with ₹2.4 crores in revenue." },
+      { sender: "user", text: "Please, provide me a breakdown of top three product categories" },
+    ],
+    []
+  );
 
-  const HUMAN_TYPING_SPEED = 100;
-  const BOT_TYPING_SPEED = 20;
-  const RESET_LOOP_DELAY = 5000;
-  const BOT_TYPING_INDICATOR_DELAY = 800;
+  const FAST_AI_TYPING_SPEED = 0.6;
+  const SLOW_USER_TYPING_SPEED = 3;
+  const TOTAL_LOOP_TIME = 5000;
+  const TYPING_INDICATOR_DURATION = 400;
+  const FADE_OUT_DURATION = 300;
+  const POST_MSG_HOLD = 100;
 
   const [displayedMessages, setDisplayedMessages] = useState<Message[]>([]);
-  const [inputText, setInputText] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
+  const [inputText, setInputText] = useState("");
   const [botTyping, setBotTyping] = useState(false);
   const [sendClicked, setSendClicked] = useState(false);
-  const [loopKey, setLoopKey] = useState(0);
-  const [showPause, setShowPause] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
 
   const inputRef = useRef<HTMLDivElement>(null);
+  const chatBubbleWrapperRef = useRef<HTMLDivElement>(null);
+
+  const createMessage = (sender: "user" | "ai", text: string): Message => ({ sender, text });
 
   useEffect(() => {
+    if (!run) return;
     let isCancelled = false;
 
-    const playChatSequence = async () => {
-      for (let i = 0; i < messages.length; i++) {
-        const currentMsg = messages[i];
-        if (isCancelled) return;
-
-        if (currentMsg.sender === 'ai') {
-          setBotTyping(true);
-          setShowPause(true);
-          await new Promise((r) => setTimeout(r, BOT_TYPING_INDICATOR_DELAY));
-          setBotTyping(false);
-
-          let aiText = '';
-          for (let c = 0; c < currentMsg.text.length; c++) {
-            if (isCancelled) return;
-            aiText += currentMsg.text[c];
-            setDisplayedMessages((prev) => {
-              const updated = [...prev];
-              if (updated[updated.length - 1]?.sender === 'ai') {
-                updated[updated.length - 1] = { ...updated[updated.length - 1], text: aiText };
-              } else {
-                updated.push({ sender: 'ai', text: aiText });
-              }
-              return updated;
-            });
-            await new Promise((r) => setTimeout(r, BOT_TYPING_SPEED));
-          }
-          setShowPause(false);
-        }
-
-        if (currentMsg.sender === 'user') {
-          setIsTyping(true);
-          let userInput = '';
-          for (let c = 0; c < currentMsg.text.length; c++) {
-            if (isCancelled) return;
-            userInput += currentMsg.text[c];
-            setInputText(userInput);
-            await new Promise((r) => setTimeout(r, HUMAN_TYPING_SPEED));
-          }
-
-          setSendClicked(true);
-          await new Promise((r) => setTimeout(r, 400));
-          setDisplayedMessages((prev) => [...prev, { sender: 'user', text: userInput }]);
-          setInputText('');
-          setSendClicked(false);
-          setIsTyping(false);
-        }
+    const typeMessage = async (
+      msg: Message,
+      typingSpeed: number,
+      isAI: boolean
+    ) => {
+      if (!isAI) {
+        setSendClicked(true);
+      } else {
+        setBotTyping(true);
+        await new Promise((r) => setTimeout(r, TYPING_INDICATOR_DURATION));
+        setBotTyping(false);
       }
 
+      let typed = "";
+      for (let c of msg.text) {
+        if (isCancelled) return;
+        typed += c;
+
+        if (isAI) {
+          setDisplayedMessages((prev) => {
+            const updated = [...prev];
+            if (updated[updated.length - 1]?.sender === "ai") {
+              updated[updated.length - 1] = createMessage("ai", typed);
+            } else {
+              updated.push(createMessage("ai", typed));
+            }
+            return updated.slice(-3);
+          });
+        } else {
+          setInputText(typed);
+        }
+
+        await new Promise((r) => setTimeout(r, typingSpeed));
+      }
+
+      if (!isAI) {
+        await new Promise((r) => setTimeout(r, 80));
+        setDisplayedMessages((prev) => [...prev, createMessage("user", typed)].slice(-3));
+        setInputText("");
+        setSendClicked(false);
+      }
+    };
+
+    const playChat = async () => {
+      const startTime = performance.now();
+
+      await typeMessage(messages[0], SLOW_USER_TYPING_SPEED, false);
+      await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
+
+      await typeMessage(messages[1], FAST_AI_TYPING_SPEED, true);
+      await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
+
+      await typeMessage(messages[2], SLOW_USER_TYPING_SPEED, false);
+      await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
+
+      const timeSpent = performance.now() - startTime;
+      const remaining = Math.max(0, TOTAL_LOOP_TIME - timeSpent - FADE_OUT_DURATION);
+      await new Promise((r) => setTimeout(r, remaining));
+
+      if (isCancelled) return;
+      
+      // First trigger fade-out
+      setFadeOut(true);
+      
+      // Then clear messages after fade-out starts
       setTimeout(() => {
         if (isCancelled) return;
         setDisplayedMessages([]);
-        setInputText('');
-        setLoopKey((prev) => prev + 1);
-        onLoopComplete?.(); // ✅ Notify carousel to move forward
-      }, RESET_LOOP_DELAY);
+        setInputText("");
+        setFadeOut(false);
+        onLoopComplete?.();
+      }, FADE_OUT_DURATION);
     };
 
-    playChatSequence();
-
+    playChat();
     return () => {
       isCancelled = true;
     };
-  }, [loopKey, messages, onLoopComplete]);
+  }, [loopKey, run]);
 
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.scrollTop = inputRef.current.scrollHeight;
     }
-  }, [inputText]);
+    if (chatBubbleWrapperRef.current) {
+      chatBubbleWrapperRef.current.scrollTop = chatBubbleWrapperRef.current.scrollHeight;
+    }
+  }, [inputText, displayedMessages]);
 
   return (
-    <div className="chat-carousel-container fixed-height" key={loopKey}>
+    <div
+      className={`chat-carousel-container fixed-height ${fadeOut ? "fade-out" : ""}`}
+      key={loopKey}
+    >
       <div className="chat-header">
-        <div className="avatar-icon">💬</div>
+        <div className="avatar-icon" aria-hidden="true">💬</div>
         <div>
           <div className="chat-title">Paul - My Enterprise AI Agent</div>
           <div className="chat-subtitle">Multilingual • Secure • Scalable</div>
         </div>
       </div>
 
-      <div className="chat-bubble-wrapper" aria-live="polite">
+      <div 
+        className="chat-bubble-wrapper fixed-3" 
+        role="log" 
+        aria-live="polite"
+        ref={chatBubbleWrapperRef}
+      >
         {displayedMessages.map((msg, idx) => (
           <div key={idx} className={`chat-bubble ${msg.sender}`}>
             {msg.text}
           </div>
         ))}
-
         {botTyping && (
-          <div className="chat-bubble ai typing-indicator">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
+          <div className="chat-bubble ai typing-indicator" aria-label="AI is typing">
+            <span className="dot" />
+            <span className="dot" />
+            <span className="dot" />
           </div>
         )}
       </div>
@@ -137,6 +176,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({ onLoopComplete }) => {
           contentEditable={false}
           tabIndex={-1}
           ref={inputRef}
+          aria-label="Typing simulation area"
         >
           {inputText ? (
             <>
@@ -151,12 +191,12 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({ onLoopComplete }) => {
           )}
         </div>
 
-        <button className={`send-btn ${sendClicked ? 'clicked' : ''}`} disabled>
-          {showPause ? (
-            <svg width="18" height="18" viewBox="0 0 18 18" className="pause-square-icon">
-              <rect x="3" y="3" width="12" height="12" rx="3" fill="white" />
-            </svg>
-          ) : '➤'}
+        <button
+          className={`send-btn ${sendClicked ? "clicked" : ""}`}
+          disabled
+          aria-label="Send button"
+        >
+          ➤
         </button>
       </div>
 
