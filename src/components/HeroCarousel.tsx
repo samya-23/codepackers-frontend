@@ -138,7 +138,7 @@ const HeroCarousel = () => {
                 </div>
 
                 {/* AI Chat Carousel */}
-                <div className="w-full px-4 md:px-0 md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto transition-all duration-500 ease-in-out bg-white rounded-xl overflow-hidden shadow-xl">
+                <div className="w-full px-4 md:px-0 md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto transition-all duration-500 ease-in-out">
                   <AIChatCarousel
                     loopKey={chatLoopKey}
                     run={activeIndex === 1}
