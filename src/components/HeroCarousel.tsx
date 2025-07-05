@@ -98,7 +98,7 @@ const HeroCarousel = () => {
           {/* Slide 2 - AI Chat Preview */}
           <SwiperSlide>
             <div className="flex justify-center items-center h-full text-white px-4 md:px-8">
-              <div className="w-full max-w-[1440px] grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-4 px-0 md:px-10 py-12 md:py-0">
+              <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center min-h-full px-0 md:px-10 py-8">
                 {/* Text */}
                 <div className="text-center md:text-left px-2 md:px-8">
                   <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">

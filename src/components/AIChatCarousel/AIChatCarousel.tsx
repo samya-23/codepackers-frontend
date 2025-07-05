@@ -19,9 +19,19 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
 }) => {
   const messages: Message[] = useMemo(
     () => [
-      { sender: "user", text: "Show me the Q3 sales report for the Delhi region" },
-      { sender: "ai", text: "I've found the Q3 sales report for Delhi. The region showed 23% growth with ₹2.4 crores in revenue." },
-      { sender: "user", text: "Please, provide me a breakdown of top three product categories" },
+      {
+        sender: "user",
+        text: "Show me the Q3 sales report for the Delhi region",
+      },
+      {
+        sender: "ai",
+        text:
+          "I've found the Q3 sales report for Delhi. The region showed 23% growth with ₹2.4 crores in revenue.",
+      },
+      {
+        sender: "user",
+        text: "Please, provide me a breakdown of top three product categories",
+      },
     ],
     []
   );
@@ -39,7 +49,10 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
   const inputRef = useRef<HTMLDivElement>(null);
   const chatBubbleWrapperRef = useRef<HTMLDivElement>(null);
 
-  const createMessage = (sender: "user" | "ai", text: string): Message => ({ sender, text });
+  const createMessage = (sender: "user" | "ai", text: string): Message => ({
+    sender,
+    text,
+  });
 
   useEffect(() => {
     if (!run) return;
@@ -82,7 +95,9 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
 
       if (!isAI) {
         await new Promise((r) => setTimeout(r, 80));
-        setDisplayedMessages((prev) => [...prev, createMessage("user", typed)].slice(-3));
+        setDisplayedMessages((prev) =>
+          [...prev, createMessage("user", typed)].slice(-3)
+        );
         setInputText("");
         setSendClicked(false);
       }
@@ -101,8 +116,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
       await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
 
       await typeMessage(messages[2], SLOW_USER_TYPING_SPEED, false);
-      
-      // Don't clear messages or trigger fade-out, just keep them displayed
+
       onLoopComplete?.();
     };
 
@@ -117,23 +131,35 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
       inputRef.current.scrollTop = inputRef.current.scrollHeight;
     }
     if (chatBubbleWrapperRef.current) {
-      chatBubbleWrapperRef.current.scrollTop = chatBubbleWrapperRef.current.scrollHeight;
+      chatBubbleWrapperRef.current.scrollTop =
+        chatBubbleWrapperRef.current.scrollHeight;
     }
   }, [inputText, displayedMessages]);
 
   return (
-    <div className="chat-carousel-container fixed-height" key={loopKey}>
-      <div className="chat-header">
-        <div className="avatar-icon" aria-hidden="true">💬</div>
+    <div
+      className="chat-carousel-container flex flex-col justify-between px-6 py-6 md:px-8 md:py-8 max-w-md rounded-3xl shadow-xl bg-white space-y-4"
+      key={loopKey}
+    >
+      {/* Header */}
+      <div className="chat-header flex items-center gap-3">
+        <div className="avatar-icon text-2xl" aria-hidden="true">
+          💬
+        </div>
         <div>
-          <div className="chat-title">Paul - My Enterprise AI Agent</div>
-          <div className="chat-subtitle">Multilingual • Secure • Scalable</div>
+          <div className="chat-title font-semibold text-base">
+            Paul - My Enterprise AI Agent
+          </div>
+          <div className="chat-subtitle text-sm text-gray-500">
+            Multilingual • Secure • Scalable
+          </div>
         </div>
       </div>
 
-      <div 
-        className="chat-bubble-wrapper fixed-3" 
-        role="log" 
+      {/* Chat bubbles */}
+      <div
+        className="chat-bubble-wrapper flex-1 overflow-y-auto max-h-64 space-y-3 pr-1"
+        role="log"
         aria-live="polite"
         ref={chatBubbleWrapperRef}
       >
@@ -143,7 +169,10 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
           </div>
         ))}
         {botTyping && (
-          <div className="chat-bubble ai typing-indicator" aria-label="AI is typing">
+          <div
+            className="chat-bubble ai typing-indicator"
+            aria-label="AI is typing"
+          >
             <span className="dot" />
             <span className="dot" />
             <span className="dot" />
@@ -151,9 +180,10 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
         )}
       </div>
 
+      {/* Input simulation */}
       <div className="chat-input-area">
         <div
-          className="fake-input"
+          className="fake-input border rounded-xl px-4 py-2 min-h-[40px] text-sm flex items-center"
           contentEditable={false}
           tabIndex={-1}
           ref={inputRef}
@@ -167,13 +197,15 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
           ) : (
             <>
               <span className="cursor" />
-              <span className="placeholder-text">Ask me anything...</span>
+              <span className="placeholder-text text-gray-400">
+                Ask me anything...
+              </span>
             </>
           )}
         </div>
 
         <button
-          className={`send-btn ${sendClicked ? "clicked" : ""}`}
+          className={`send-btn ${sendClicked ? "clicked" : ""} ml-2 text-lg`}
           disabled
           aria-label="Send button"
         >
@@ -181,8 +213,9 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
         </button>
       </div>
 
-      <div className="chat-footer">
-        <span className="powered-text">Powered by Alaap platform</span>
+      {/* Footer */}
+      <div className="chat-footer text-xs text-gray-400 text-right">
+        Powered by Alaap platform
       </div>
     </div>
   );
