@@ -28,16 +28,13 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
 
   const FAST_AI_TYPING_SPEED = 0.6;
   const SLOW_USER_TYPING_SPEED = 3;
-  const TOTAL_LOOP_TIME = 5000;
   const TYPING_INDICATOR_DURATION = 400;
-  const FADE_OUT_DURATION = 300;
   const POST_MSG_HOLD = 100;
 
   const [displayedMessages, setDisplayedMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState("");
   const [botTyping, setBotTyping] = useState(false);
   const [sendClicked, setSendClicked] = useState(false);
-  const [fadeOut, setFadeOut] = useState(false);
 
   const inputRef = useRef<HTMLDivElement>(null);
   const chatBubbleWrapperRef = useRef<HTMLDivElement>(null);
@@ -92,7 +89,10 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
     };
 
     const playChat = async () => {
-      const startTime = performance.now();
+      setDisplayedMessages([]);
+      setInputText("");
+      setBotTyping(false);
+      setSendClicked(false);
 
       await typeMessage(messages[0], SLOW_USER_TYPING_SPEED, false);
       await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
@@ -101,25 +101,9 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
       await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
 
       await typeMessage(messages[2], SLOW_USER_TYPING_SPEED, false);
-      await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
-
-      const timeSpent = performance.now() - startTime;
-      const remaining = Math.max(0, TOTAL_LOOP_TIME - timeSpent - FADE_OUT_DURATION);
-      await new Promise((r) => setTimeout(r, remaining));
-
-      if (isCancelled) return;
       
-      // First trigger fade-out
-      setFadeOut(true);
-      
-      // Then clear messages after fade-out starts
-      setTimeout(() => {
-        if (isCancelled) return;
-        setDisplayedMessages([]);
-        setInputText("");
-        setFadeOut(false);
-        onLoopComplete?.();
-      }, FADE_OUT_DURATION);
+      // Don't clear messages or trigger fade-out, just keep them displayed
+      onLoopComplete?.();
     };
 
     playChat();
@@ -138,10 +122,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
   }, [inputText, displayedMessages]);
 
   return (
-    <div
-      className={`chat-carousel-container fixed-height ${fadeOut ? "fade-out" : ""}`}
-      key={loopKey}
-    >
+    <div className="chat-carousel-container fixed-height" key={loopKey}>
       <div className="chat-header">
         <div className="avatar-icon" aria-hidden="true">💬</div>
         <div>
