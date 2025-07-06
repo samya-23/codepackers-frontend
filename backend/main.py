@@ -13,7 +13,7 @@ load_dotenv()
 
 app = FastAPI()
 
-frontend_dist_path = os.path.join(os.path.dirname(__file__), "dist")
+frontend_dist_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "dist"))
 
 # Mount static files at root
 app.mount("/", StaticFiles(directory=frontend_dist_path, html=True), name="frontend")
