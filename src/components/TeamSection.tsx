@@ -222,6 +222,67 @@ const TeamSection = () => {
             </Swiper>
           </div>
         </motion.div>
+
+{/* Our Technical Skills Section */}
+<motion.div
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  variants={fadeUp}
+  className="mt-20 bg-white/40 backdrop-blur-xl rounded-3xl p-10 border border-white/20 shadow-2xl overflow-hidden"
+>
+  <h3 className="text-3xl font-bold text-center mb-8 text-gray-900">
+    Our <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Technical Skills</span>
+  </h3>
+
+  <div className="relative w-full overflow-hidden">
+    <div className="flex w-max animate-slide space-x-10">
+      {[
+        { name: "MySQL", iconSrc: "/icons/mysql.svg" },
+        { name: "PostgreSQL", iconSrc: "/icons/postgresql.svg" },
+        { name: "MongoDB", iconSrc: "/icons/mongodb.svg" },
+        { name: "Node.js", iconSrc: "/icons/nodejs.svg" },
+        { name: "Express", iconSrc: "/icons/express.svg" },
+        { name: "Django", iconSrc: "/icons/django.svg" },
+        { name: "Flask", iconSrc: "/icons/flask.svg" },
+        { name: "Laravel", iconSrc: "/icons/laravel.svg" },
+        { name: "React", iconSrc: "/icons/react.svg" },
+        { name: "Vue.js", iconSrc: "/icons/vue.svg" },
+        { name: "Flutter", iconSrc: "/icons/flutter.svg" },
+        { name: "HTML5", iconSrc: "/icons/html5.svg" },
+        { name: "CSS3", iconSrc: "/icons/css3.svg" },
+        { name: "React Native", iconSrc: "/icons/react-native.svg" },
+        { name: "Swift", iconSrc: "/icons/swift.svg" },
+        { name: "Kotlin", iconSrc: "/icons/kotlin.svg" },
+      ]
+        .concat([
+          { name: "MySQL", iconSrc: "/icons/mysql.svg" },
+          { name: "PostgreSQL", iconSrc: "/icons/postgresql.svg" },
+          { name: "MongoDB", iconSrc: "/icons/mongodb.svg" },
+        ])
+        .map(({ name, iconSrc }, idx) => (
+          <motion.div
+            key={idx}
+            className="flex flex-col items-center gap-2 w-24 p-4 bg-white/70 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
+            animate={{
+              y: [0, -5, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: idx * 0.1,
+            }}
+          >
+            <img src={iconSrc} alt={name} className="w-12 h-12 object-contain" />
+            <span className="text-xs font-medium text-gray-800 text-center">{name}</span>
+          </motion.div>
+        ))}
+    </div>
+  </div>
+</motion.div>
+
+
       </div>
     </section>
   );

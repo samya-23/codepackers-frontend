@@ -4,6 +4,7 @@ import HeroCarousel from "@/components/HeroCarousel";
 import PlatformCapabilities from "@/components/PlatformCapabilities";
 import TechnologyExpertise from "@/components/TechnologyExpertise";
 import TeamSection from "@/components/TeamSection";
+import DevelopmentApproach from "@/components/DevelopmentApproach"; // 🆕 Newly added section
 import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
       <PlatformCapabilities />
       <TechnologyExpertise />
       <TeamSection />
+      <DevelopmentApproach /> {/* 🆕 Our Development Approach section */}
       <ContactSection />
 
       {/* ✅ Footer */}

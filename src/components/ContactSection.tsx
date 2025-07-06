@@ -71,13 +71,19 @@ const ContactSection = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const { name, email, phone } = formData;
+  e.preventDefault();
+  const { name, email, phone } = formData;
 
-    if (!name || !email || !phone) {
-      toast({ title: "All fields are required.", variant: "destructive" });
-      return;
-    }
+  if (!name.trim()) {
+    toast({ title: "Please enter your name.", variant: "destructive" });
+    return;
+  }
+  if (!email.trim()) {
+    toast({ title: "Please enter your email.", variant: "destructive" });
+    return;
+  }
+
+
 
     try {
       const response = await fetch(`${backendUrl}/submit-form`, {
@@ -371,31 +377,40 @@ const ContactSection = () => {
               type="button"
               className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white"
               onClick={() => {
-                const platform = openModal!;
-                const trimmedMessage = modalMessage.trim();
-                if (!trimmedMessage || !formData.name || !formData.email || !formData.phone || !visitorId) return;
+  const platform = openModal!;
+  const trimmedMessage = modalMessage.trim();
 
-                if (platform === "whatsapp") {
-                  const fullMessage = `
+  if (!trimmedMessage || !formData.name.trim() || !formData.email.trim() || !visitorId) {
+    toast({
+      title: "Message Required",
+      description: "Please type your message before sending.",
+      variant: "destructive",
+    });
+    return;
+  }
+
+  if (platform === "whatsapp") {
+    const fullMessage = `
 Hello Team,
 
 Visitor Details:
 Name: ${formData.name}
 Email: ${formData.email}
-Phone: ${formData.phone}
+Phone: ${formData.phone || "Not provided"}
 Query ID: ${visitorId}
 
 Message:
 ${trimmedMessage}
-`;
-                  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(fullMessage)}`;
-                  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-                  handleFinalSend(platform);
-                  return;
-                }
+    `;
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(fullMessage)}`;
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    handleFinalSend(platform);
+    return;
+  }
 
-                handleFinalSend(platform);
-              }}
+  handleFinalSend(platform);
+}}
+
               disabled={!modalMessage.trim()}
             >
               Send Now
