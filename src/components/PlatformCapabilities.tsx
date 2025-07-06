@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import { useTranslation, Trans } from 'react-i18next';
 import {
   MessageCircle, Mic, Shield, Globe, Users, BarChart3,
   Bot, Database, MonitorSmartphone, PhoneCall, Link2, LineChart
@@ -117,8 +118,8 @@ const PlatformCapabilities = () => {
   return (
     <section id="capabilities" className="relative overflow-hidden py-24 px-6 lg:px-20 bg-gradient-to-br from-white via-slate-50 to-slate-100">
       {/* Background Glow Blobs */}
-      <div className="absolute -top-20 -left-32 w-[450px] h-[450px] bg-pink-400 opacity-20 blur-3xl rounded-full z-0" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400 opacity-20 blur-2xl rounded-full z-0" />
+      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
       <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true">
         <defs>
           <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -142,45 +143,82 @@ const PlatformCapabilities = () => {
           Purpose-built features for conversational AI and enterprise systems
         </p>
 
-        {/* Tabs */}
-        <div className="flex justify-center gap-4 mt-8">
-          {["ALAAP", "PUSTAK"].map((fw) => (
-            <button
-              key={fw}
-              onClick={() => setSelectedFramework(fw)}
-              className={`px-5 py-2 text-sm font-semibold rounded-full border shadow-sm transition ${
-                selectedFramework === fw
-                  ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white"
-                  : "bg-white border-gray-300 text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              {fw}
-            </button>
-          ))}
-        </div>
+        {/* Capability Cards Carousel - Final Updated Design */}
+<div className="mt-12">
+  <Swiper
+  spaceBetween={30}
+  slidesPerView={1}
+  loop={true}
+  autoplay={{ delay: 5000, disableOnInteraction: false }}
+  pagination={false} // ✅ correct
+  navigation={{
+    nextEl: ".custom-next",
+    prevEl: ".custom-prev",
+  }}
+  modules={[Navigation, Autoplay]} // ✅ no Pagination module needed
+  className="relative"
+>
 
-        {/* Capability Cards */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {currentCards.map((cap, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.05, y: -4 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => {
-                setModalIndex(i);
-                setActiveSlide(i);
-                setModalOpen(true);
-              }}
-              className="cursor-pointer bg-white/30 backdrop-blur-2xl rounded-3xl p-6 border border-white/20 shadow-xl hover:shadow-2xl"
+
+    {[["ALAAP", frameworks.ALAAP], ["PUSTAK", frameworks.PUSTAK]].map(
+      ([label, cards], slideIndex) => (
+        <SwiperSlide key={label}>
+          <div className="flex flex-col items-center">
+            <h2
+              className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text mb-2"
             >
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white mb-4">
-                <cap.icon className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800">{cap.title}</h3>
-              <p className="text-sm text-gray-600 mt-2">{cap.short}</p>
-            </motion.div>
-          ))}
-        </div>
+              {label}
+            </h2>
+            <p className="text-sm text-gray-600 mb-6">
+              Click on any card to know more
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 sm:px-8">
+              {cards.map((cap, i) => {
+                const globalIndex = slideIndex === 0 ? i : frameworks.ALAAP.length + i;
+                return (
+                  <motion.div
+                    key={globalIndex}
+                    whileHover={{ scale: 1.05, y: -4 }}
+                    transition={{ duration: 0.3 }}
+                    onClick={() => {
+                      setModalIndex(globalIndex);
+                      setActiveSlide(globalIndex);
+                      setSelectedFramework(label);
+                      setModalOpen(true);
+                    }}
+                    className="cursor-pointer bg-white/30 backdrop-blur-2xl rounded-3xl p-6 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300"
+                  >
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-white mb-4">
+                      <cap.icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-800">{cap.title}</h3>
+                    <p className="text-sm text-gray-600 mt-2">{cap.short}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            
+
+
+          </div>
+        </SwiperSlide>
+      )
+    )}
+  </Swiper>
+  <div className="mt-8 flex justify-center gap-4">
+  <button className="custom-prev w-10 h-10 rounded-full bg-white shadow-md border hover:bg-gray-100 flex items-center justify-center text-blue-500 hover:text-purple-500 transition">
+    ◀
+  </button>
+  <button className="custom-next w-10 h-10 rounded-full bg-white shadow-md border hover:bg-gray-100 flex items-center justify-center text-blue-500 hover:text-purple-500 transition">
+    ▶
+  </button>
+</div>
+</div>
+
+
+
       </div>
 
       {/* Modal */}
@@ -231,7 +269,7 @@ const PlatformCapabilities = () => {
                 <button
                   onClick={() => swiperRef.current?.slidePrev()}
                   disabled={activeSlide === 0}
-                  className="text-sm px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow disabled:opacity-40"
+                  className="text-sm px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow disabled:opacity-40"
                 >
                   ← Back
                 </button>
@@ -241,7 +279,7 @@ const PlatformCapabilities = () => {
                 <button
                   onClick={() => swiperRef.current?.slideNext()}
                   disabled={activeSlide === currentCards.length - 1}
-                  className="text-sm px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow disabled:opacity-40"
+                  className="text-sm px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow disabled:opacity-40"
                 >
                   Next →
                 </button>

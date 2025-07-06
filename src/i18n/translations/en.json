@@ -3,5 +3,93 @@
     "home": "Home",
     "about": "About",
     "contact": "Contact"
+  },
+  "platformCapabilities": {
+    "title": "Platform <1>Capabilities</1>",
+    "subtitle": "Purpose-built features for conversational AI and enterprise systems",
+    "cardNote": "Click on any card to know more",
+    "modal": {
+      "back": "← Back",
+      "next": "Next →",
+      "slideIndicator": "Capability {{current}} of {{total}}"
+    },
+    "ALAAP": {
+      "name": "ALAAP",
+      "cards": [
+        {
+          "title": "Multi-Channel Communication",
+          "short": "Chat, voice messages, internet calls, and telephone integration",
+          "description": "Chat, voice messages, internet calls, and telephone integration",
+          "features": ["WhatsApp Integration", "Voice Calls", "Web Chat", "Mobile Apps"]
+        },
+        {
+          "title": "Voice Intelligence",
+          "short": "Real-time speech recognition and customizable voices",
+          "description": "Real-time speech recognition and synthesis with customizable voices",
+          "features": ["Male/Female Voices", "Accent Control", "Live Transcription", "Voice Commands"]
+        },
+        {
+          "title": "Enterprise Security",
+          "short": "Private knowledge with enterprise-grade security",
+          "description": "Private knowledge repositories with enterprise-grade security",
+          "features": ["Data Privacy", "User Authentication", "Secure APIs", "Compliance Ready"]
+        },
+        {
+          "title": "Multilingual Support",
+          "short": "Break barriers with smart translation & localization",
+          "description": "Break language barriers with intelligent translation and localization",
+          "features": ["50+ Languages", "Real-time Translation", "Cultural Context", "Voice Synthesis"]
+        },
+        {
+          "title": "Advanced Analytics",
+          "short": "Insights into sentiment, usage & behavior",
+          "description": "Deep insights into conversations, sentiment, and user behavior",
+          "features": ["Sentiment Analysis", "Intent Recognition", "Usage Analytics", "Performance Metrics"]
+        },
+        {
+          "title": "User Management",
+          "short": "Group & role management for user access",
+          "description": "Comprehensive user and group management with role-based access",
+          "features": ["Role Management", "Group Controls", "Guest Access", "Admin Dashboard"]
+        }
+      ]
+    },
+    "PUSTAK": {
+      "name": "PUSTAK",
+      "cards": [
+        {
+          "title": "AI Conversational Agents",
+          "short": "Human-like AI chatbots and voice assistants for enterprises",
+          "description": "These are advanced AI agents, like chatbots and voice assistants..."
+        },
+        {
+          "title": "ERP Solutions / Data Management",
+          "short": "CRM, HR, Inventory, Tasks, Visitors data entry and analytics",
+          "description": "Comprehensive systems for managing crucial business data..."
+        },
+        {
+          "title": "Web and Mobile Applications",
+          "short": "Data entry, storage & workflow apps for all devices",
+          "description": "Tailored software designed for diverse platforms..."
+        },
+        {
+          "title": "Communication Systems",
+          "short": "Multilingual Chat, Voice/Video Calls with Translation",
+          "description": "Sophisticated platforms facilitating real-time communication..."
+        },
+        {
+          "title": "Software Systems Integration",
+          "short": "Connecting tools, platforms & databases into smart ecosystem",
+          "description": "The process of connecting disparate software applications..."
+        },
+        {
+          "title": "Data Analytics",
+          "short": "Visualizing insights using dashboards and AI-driven tools",
+          "description": "The process of examining raw data to extract meaningful insights..."
+        }
+      ]
+    }
   }
+
 }
+

@@ -25,7 +25,8 @@ import {
   Hospital,
   BusFront,
 } from "lucide-react";
-
+import Lottie from "lottie-react";
+const pustakLottie = "/assets/pustak-lottie.json";
 
 import AIChatCarousel from "./AIChatCarousel/AIChatCarousel";
 
@@ -39,13 +40,20 @@ const HeroCarousel = () => {
   const swiperRef = useRef<SwiperCore | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [chatLoopKey, setChatLoopKey] = useState(0);
-
+const [pustakLoopKey, setPustakLoopKey] = useState(0); // 👉 Add this
   const handleSlideChange = (swiper: SwiperCore) => {
-    setActiveIndex(swiper.realIndex);
-    if (swiper.realIndex === 1) {
-      setChatLoopKey((prev) => prev + 1);
-    }
-  };
+  const index = swiper.realIndex;
+  setActiveIndex(index);
+
+  if (index === 1) {
+    setChatLoopKey((prev) => prev + 1);
+  }
+
+  if (index === 3) {
+    setPustakLoopKey((prev) => prev + 1); // 👉 trigger Slide 4 Lottie only when visited
+  }
+};
+
   const alaapFeatures = [
   [<Bot size={32} stroke="url(#icon-gradient)" />, "Website chatbots & voicebots"],
   [<Headset size={32} stroke="url(#icon-gradient)" />, "Customer Helpdesks"],
@@ -283,10 +291,23 @@ const pustakFeatures = [
         </a>
       </div>
 
-      {/* Reserved Right Section */}
-      <div className="w-full md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto px-4 md:px-0">
-        {/* Placeholder for future visuals */}
-      </div>
+      {/* Animated Lottie Visual */}
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 1 }}
+  className="w-full md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto px-4 md:px-0 flex justify-center items-center"
+>
+  <Lottie
+  key={pustakLoopKey} // 👉 animation will restart only when slide becomes active
+  path={pustakLottie}
+  loop={false}
+  autoplay={true}
+  className="w-full h-auto"
+/>
+
+</motion.div>
+
     </div>
   </div>
 </SwiperSlide>

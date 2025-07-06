@@ -3,5 +3,98 @@
     "home": "Inicio",
     "about": "Acerca de",
     "contact": "Contacto"
+  },
+  "platformCapabilities": {
+    "title": "Capacidades de la <1>Plataforma</1>",
+    "subtitle": "Funciones diseñadas para IA conversacional y sistemas empresariales",
+    "cardNote": "Haz clic en cualquier tarjeta para saber más",
+    "modal": {
+      "back": "← Atrás",
+      "next": "Siguiente →",
+      "slideIndicator": "Capacidad {{current}} de {{total}}"
+    },
+    "ALAAP": {
+      "name": "ALAAP",
+      "cards": [
+        {
+          "title": "Comunicación Multicanal",
+          "short": "Chat, mensajes de voz, llamadas por internet e integración telefónica",
+          "description": "Chat, mensajes de voz, llamadas por internet e integración telefónica",
+          "features": ["Integración con WhatsApp", "Llamadas de voz", "Chat web", "Aplicaciones móviles"]
+        },
+        {
+          "title": "Inteligencia de Voz",
+          "short": "Reconocimiento de voz en tiempo real y voces personalizables",
+          "description": "Reconocimiento y síntesis de voz en tiempo real con voces personalizables",
+          "features": ["Voces masculinas/femeninas", "Control de acento", "Transcripción en vivo", "Comandos por voz"]
+        },
+        {
+          "title": "Seguridad Empresarial",
+          "short": "Conocimiento privado con seguridad de nivel empresarial",
+          "description": "Repositorios de conocimiento privado con seguridad de nivel empresarial",
+          "features": ["Privacidad de datos", "Autenticación de usuarios", "APIs seguras", "Cumplimiento normativo"]
+        },
+        {
+          "title": "Soporte Multilingüe",
+          "short": "Rompe barreras con traducción y localización inteligente",
+          "description": "Rompe barreras de idioma con traducción y localización inteligente",
+          "features": ["Más de 50 idiomas", "Traducción en tiempo real", "Contexto cultural", "Síntesis de voz"]
+        },
+        {
+          "title": "Analíticas Avanzadas",
+          "short": "Perspectivas sobre sentimientos, uso y comportamiento",
+          "description": "Información profunda sobre conversaciones, sentimientos y comportamiento del usuario",
+          "features": ["Análisis de sentimientos", "Reconocimiento de intención", "Análisis de uso", "Métricas de rendimiento"]
+        },
+        {
+          "title": "Gestión de Usuarios",
+          "short": "Gestión de grupos y roles para el acceso de usuarios",
+          "description": "Gestión completa de usuarios y grupos con acceso basado en roles",
+          "features": ["Gestión de roles", "Controles de grupo", "Acceso de invitados", "Panel de administración"]
+        }
+      ]
+    },
+    "PUSTAK": {
+      "name": "PUSTAK",
+      "cards": [
+        {
+          "title": "Agentes Conversacionales de IA",
+          "short": "Chatbots y asistentes de voz similares a humanos para empresas",
+          "description": "Estos son agentes de IA avanzados, como chatbots y asistentes de voz, diseñados para imitar la conversación humana. Permiten interacciones intuitivas en entornos empresariales, automatizando soporte, ventas y recuperación de información para mejorar la experiencia del cliente y del empleado.",
+          "features": []
+        },
+        {
+          "title": "Soluciones ERP / Gestión de Datos",
+          "short": "CRM, RRHH, inventario, tareas, visitas y análisis de datos",
+          "description": "Sistemas integrales para gestionar datos empresariales clave en diferentes departamentos: CRM para clientes, RRHH para personal, seguimiento de inventarios, gestión de proyectos y programación de visitas. Centraliza el ingreso de datos y proporciona análisis útiles.",
+          "features": []
+        },
+        {
+          "title": "Aplicaciones Web y Móviles",
+          "short": "Aplicaciones para ingreso de datos, almacenamiento y flujo de trabajo en todos los dispositivos",
+          "description": "Software personalizado para plataformas diversas, con soluciones para ingreso de datos, almacenamiento seguro y gestión de flujo de trabajo. Asegura accesibilidad en computadoras, tabletas y móviles, mejorando la eficiencia operativa.",
+          "features": []
+        },
+        {
+          "title": "Sistemas de Comunicación",
+          "short": "Chat multilingüe, llamadas de voz/video con traducción",
+          "description": "Plataformas avanzadas que permiten comunicación en tiempo real a través de diferentes medios. Incluyen chat multilingüe, mensajes de voz y videollamadas de alta calidad con traducción integrada para fomentar la colaboración global.",
+          "features": []
+        },
+        {
+          "title": "Integración de Sistemas de Software",
+          "short": "Conexión de herramientas, plataformas y bases de datos en un ecosistema inteligente",
+          "description": "Proceso de conectar aplicaciones, herramientas, plataformas y bases de datos para formar un ecosistema unificado, mejorando el flujo de datos, eficiencia operativa y toma de decisiones mediante automatización.",
+          "features": []
+        },
+        {
+          "title": "Análisis de Datos",
+          "short": "Visualización de datos con dashboards y herramientas de IA",
+          "description": "Examen de datos en bruto para extraer conocimientos útiles mediante dashboards interactivos y análisis impulsados por IA, identificando patrones y apoyando decisiones estratégicas.",
+          "features": []
+        }
+      ]
+    }
   }
+
 }

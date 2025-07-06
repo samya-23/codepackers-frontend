@@ -173,7 +173,7 @@ const ContactSection = () => {
     >
       {/* Background */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400 opacity-20 rounded-full blur-2xl animate-pulse" />
+    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
       <svg className="absolute inset-0 w-full h-full pointer-events-none">
         <defs>
           <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">

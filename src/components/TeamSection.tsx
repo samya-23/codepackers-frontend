@@ -59,8 +59,8 @@ const TeamSection = () => {
   return (
     <section id="team" className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden">
       {/* Floating Blobs */}
-      <div className="absolute -top-10 -left-10 w-96 h-96 bg-purple-300 opacity-30 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-300 opacity-30 rounded-full blur-2xl animate-pulse" />
+      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
 
       {/* Dotted Grid Pattern */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
@@ -154,133 +154,7 @@ const TeamSection = () => {
           </div>
         </motion.div>
 
-        {/* Team Composition */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUp}
-          className="bg-white/40 backdrop-blur-xl rounded-3xl p-10 border border-white/20 shadow-2xl"
-        >
-          <h3 className="text-3xl font-bold text-center mb-10 text-gray-900">
-            Expert{" "}
-            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-              Team Composition
-            </span>
-          </h3>
-
-          <div className="hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {teamRoles.map(({ label, icon: Icon }, index) => (
-              <motion.div
-                key={index}
-                variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.5, ease: "easeOut" },
-                  },
-                }}
-                whileHover={{ scale: 1.05, rotate: 0.5 }}
-                className="flex flex-col items-center gap-3 p-6 rounded-xl bg-white/40 border border-white/30 shadow-md backdrop-blur-xl hover:shadow-2xl transition-all duration-300 hover:bg-white/60"
-              >
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-xl flex items-center justify-center shadow-md">
-                  <Icon className="w-5 h-5" />
-                </div>
-                <span className="text-sm md:text-base font-medium text-gray-800 text-center leading-snug">
-                  {label}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Swiper for mobile view */}
-          <div className="md:hidden mt-6">
-            <Swiper
-              spaceBetween={16}
-              slidesPerView={1.2}
-              pagination={{ clickable: true }}
-              modules={[Pagination]}
-            >
-              {teamRoles.map(({ label, icon: Icon }, index) => (
-                <SwiperSlide key={index}>
-                  <motion.div
-                    variants={fadeUp}
-                    custom={index}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="bg-white/80 rounded-xl p-6 text-center border border-white/40 hover:bg-white shadow-md transition-all"
-                  >
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center mx-auto mb-3">
-                      <Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <span className="text-sm font-medium text-gray-700">{label}</span>
-                  </motion.div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </motion.div>
-
-{/* Our Technical Skills Section */}
-<motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  variants={fadeUp}
-  className="mt-20 bg-white/40 backdrop-blur-xl rounded-3xl p-10 border border-white/20 shadow-2xl overflow-hidden"
->
-  <h3 className="text-3xl font-bold text-center mb-8 text-gray-900">
-    Our <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Technical Skills</span>
-  </h3>
-
-  <div className="relative w-full overflow-hidden">
-    <div className="flex w-max animate-slide space-x-10">
-      {[
-        { name: "MySQL", iconSrc: "/icons/mysql.svg" },
-        { name: "PostgreSQL", iconSrc: "/icons/postgresql.svg" },
-        { name: "MongoDB", iconSrc: "/icons/mongodb.svg" },
-        { name: "Node.js", iconSrc: "/icons/nodejs.svg" },
-        { name: "Express", iconSrc: "/icons/express.svg" },
-        { name: "Django", iconSrc: "/icons/django.svg" },
-        { name: "Flask", iconSrc: "/icons/flask.svg" },
-        { name: "Laravel", iconSrc: "/icons/laravel.svg" },
-        { name: "React", iconSrc: "/icons/react.svg" },
-        { name: "Vue.js", iconSrc: "/icons/vue.svg" },
-        { name: "Flutter", iconSrc: "/icons/flutter.svg" },
-        { name: "HTML5", iconSrc: "/icons/html5.svg" },
-        { name: "CSS3", iconSrc: "/icons/css3.svg" },
-        { name: "React Native", iconSrc: "/icons/react-native.svg" },
-        { name: "Swift", iconSrc: "/icons/swift.svg" },
-        { name: "Kotlin", iconSrc: "/icons/kotlin.svg" },
-      ]
-        .concat([
-          { name: "MySQL", iconSrc: "/icons/mysql.svg" },
-          { name: "PostgreSQL", iconSrc: "/icons/postgresql.svg" },
-          { name: "MongoDB", iconSrc: "/icons/mongodb.svg" },
-        ])
-        .map(({ name, iconSrc }, idx) => (
-          <motion.div
-            key={idx}
-            className="flex flex-col items-center gap-2 w-24 p-4 bg-white/70 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
-            animate={{
-              y: [0, -5, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: idx * 0.1,
-            }}
-          >
-            <img src={iconSrc} alt={name} className="w-12 h-12 object-contain" />
-            <span className="text-xs font-medium text-gray-800 text-center">{name}</span>
-          </motion.div>
-        ))}
-    </div>
-  </div>
-</motion.div>
+        
 
 
       </div>
