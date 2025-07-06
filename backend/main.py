@@ -13,7 +13,7 @@ load_dotenv()
 
 app = FastAPI()
 
-frontend_dist_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "dist"))
+frontend_dist_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "dist"))
 
 # Mount static files at root
 app.mount("/", StaticFiles(directory=frontend_dist_path, html=True), name="frontend")
@@ -149,3 +149,4 @@ def get_dashboard():
 @app.get("/")
 def root():
     return {"message": "API is live. Use /submit-form and /dashboard."}
+
