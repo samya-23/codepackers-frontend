@@ -6,11 +6,17 @@ from datetime import datetime
 import json, os, hashlib, uuid, smtplib
 from dotenv import load_dotenv
 from email.message import EmailMessage
-
+from fastapi.staticfiles import StaticFiles
+import os
 # Load environment variables from .env
 load_dotenv()
 
 app = FastAPI()
+
+frontend_dist_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "dist"))
+
+# Mount static files at root
+app.mount("/", StaticFiles(directory=frontend_dist_path, html=True), name="frontend")
 
 # File to store visitor data
 DATA_FILE = "submissions.json"
