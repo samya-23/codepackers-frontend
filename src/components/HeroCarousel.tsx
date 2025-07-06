@@ -59,17 +59,20 @@ const HeroCarousel = () => {
   [<SatelliteDish size={32} stroke="url(#icon-gradient)" />, "Enterprise communications"],
 ];
 const pustakFeatures = [
-  [<GraduationCap size={32} stroke="url(#icon-gradient)" />, "Schools and Colleges"],
   [<UserRound size={32} stroke="url(#icon-gradient)" />, "Human Resources"],
   [<Boxes size={32} stroke="url(#icon-gradient)" />, "Inventory"],
-  [<Truck size={32} stroke="url(#icon-gradient)" />, "Supply Chain"],
-  [<Users size={32} stroke="url(#icon-gradient)" />, "Employee Mgmt"],
-  [<FileText size={32} stroke="url(#icon-gradient)" />, "Project Mgmt"],
-  [<ActivitySquare size={32} stroke="url(#icon-gradient)" />, "Leads & CRM"],
+  [<Truck size={32} stroke="url(#icon-gradient)" />, "Supply Chain Management"],
+  [<Users size={32} stroke="url(#icon-gradient)" />, "Employee Management"],
+  [<FileText size={32} stroke="url(#icon-gradient)" />, "Project & Tasks Management"],
+  [<ActivitySquare size={32} stroke="url(#icon-gradient)" />, "Leads, Prospects, CRM"],
   [<Hammer size={32} stroke="url(#icon-gradient)" />, "Trouble Tickets"],
   [<Hospital size={32} stroke="url(#icon-gradient)" />, "Health Management"],
-  [<BusFront size={32} stroke="url(#icon-gradient)" />, "Transport System"],
+  [<GraduationCap size={32} stroke="url(#icon-gradient)" />, "Schools and Colleges"],
+  [<FileText size={32} stroke="url(#icon-gradient)" />, "Visitor Entry"],
+  [<Briefcase size={32} stroke="url(#icon-gradient)" />, "Estate and Facilities"],
+  [<BusFront size={32} stroke="url(#icon-gradient)" />, "Transportation System"],
 ];
+
 
 
   return (
@@ -297,7 +300,7 @@ const pustakFeatures = [
       </span>
     </h2>
     <p className="max-w-3xl text-base md:text-lg mb-10">
-      The Pustak platform caters to data systems for:
+      The Pustak platform caters to the requirements of data management systems for:
     </p>
 
     <motion.div
@@ -311,7 +314,8 @@ const pustakFeatures = [
           },
         },
       }}
-      className="grid grid-cols-2 md:grid-cols-5 gap-6 w-full max-w-6xl"
+      className="grid grid-cols-2 md:grid-cols-6 gap-6 w-full max-w-6xl"
+
     >
       {pustakFeatures.map(([icon, label], i) => (
 
