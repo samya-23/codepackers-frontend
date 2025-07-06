@@ -15,7 +15,18 @@ import {
   Mic,
   FlaskConical,
   SatelliteDish,
+  UserRound,
+  Boxes,
+  Truck,
+  Users,
+  FileText,
+  ActivitySquare,
+  Hammer,
+  Hospital,
+  BusFront,
 } from "lucide-react";
+
+
 import AIChatCarousel from "./AIChatCarousel/AIChatCarousel";
 
 // Swiper styles
@@ -47,6 +58,19 @@ const HeroCarousel = () => {
   [<FlaskConical size={32} stroke="url(#icon-gradient)" />, "Online tests & evaluations"],
   [<SatelliteDish size={32} stroke="url(#icon-gradient)" />, "Enterprise communications"],
 ];
+const pustakFeatures = [
+  [<GraduationCap size={32} stroke="url(#icon-gradient)" />, "Schools and Colleges"],
+  [<UserRound size={32} stroke="url(#icon-gradient)" />, "Human Resources"],
+  [<Boxes size={32} stroke="url(#icon-gradient)" />, "Inventory"],
+  [<Truck size={32} stroke="url(#icon-gradient)" />, "Supply Chain"],
+  [<Users size={32} stroke="url(#icon-gradient)" />, "Employee Mgmt"],
+  [<FileText size={32} stroke="url(#icon-gradient)" />, "Project Mgmt"],
+  [<ActivitySquare size={32} stroke="url(#icon-gradient)" />, "Leads & CRM"],
+  [<Hammer size={32} stroke="url(#icon-gradient)" />, "Trouble Tickets"],
+  [<Hospital size={32} stroke="url(#icon-gradient)" />, "Health Management"],
+  [<BusFront size={32} stroke="url(#icon-gradient)" />, "Transport System"],
+];
+
 
   return (
   <div className="relative w-full h-screen overflow-hidden">
@@ -264,32 +288,55 @@ const HeroCarousel = () => {
   </div>
 </SwiperSlide>
 {/* Slide 5 – Pustak Platform Domains */}
-  <SwiperSlide>
-    <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white">
-      <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">
-        <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
-          Pustak Platform
-        </span>
-      </h2>
-      <p className="max-w-3xl text-base md:text-lg mb-6">
-        The Pustak platform caters to data systems for:
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl text-sm md:text-base font-medium">
-        <span>👨‍💼 Human Resources</span>
-        <span>📦 Inventory</span>
-        <span>🚚 Supply Chain Management</span>
-        <span>👥 Employee Management</span>
-        <span>📁 Project & Tasks Management</span>
-        <span>📊 Leads, Prospects, Customer Management</span>
-        <span>🛠️ Trouble Tickets</span>
-        <span>🏥 Health Management</span>
-        <span>🏫 Schools and Colleges</span>
-        <span>🧾 Visitor Entry</span>
-        <span>🏢 Estate and Facilities</span>
-        <span>🚌 Transportation System Management</span>
-      </div>
-    </div>
-  </SwiperSlide>
+  {/* Slide 5 – Pustak Platform Domains */}
+<SwiperSlide>
+  <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white">
+    <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">
+      <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
+        Pustak Platform
+      </span>
+    </h2>
+    <p className="max-w-3xl text-base md:text-lg mb-10">
+      The Pustak platform caters to data systems for:
+    </p>
+
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={{
+        visible: {
+          transition: {
+            staggerChildren: 0.1,
+          },
+        },
+      }}
+      className="grid grid-cols-2 md:grid-cols-5 gap-6 w-full max-w-6xl"
+    >
+      {pustakFeatures.map(([icon, label], i) => (
+
+        <motion.div
+          key={i}
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.5, ease: "easeOut" },
+            },
+          }}
+          className="flex flex-col items-center justify-center p-5 rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/10 shadow-md hover:shadow-xl backdrop-blur-md hover:scale-105 text-center"
+        >
+          <div className="mb-3">{icon}</div>
+          <p className="text-sm md:text-base text-white leading-snug text-center">
+            {label}
+          </p>
+        </motion.div>
+      ))}
+    </motion.div>
+  </div>
+</SwiperSlide>
+
 
         </Swiper>
 
