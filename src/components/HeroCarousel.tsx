@@ -1,9 +1,21 @@
 import React, { useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, EffectFade } from "swiper/modules";
 import SwiperCore from "swiper";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-
+import {
+  Bot,
+  Headset,
+  Briefcase,
+  PhoneCall,
+  CalendarDays,
+  GraduationCap,
+  Tv,
+  Mic,
+  FlaskConical,
+  SatelliteDish,
+} from "lucide-react";
 import AIChatCarousel from "./AIChatCarousel/AIChatCarousel";
 
 // Swiper styles
@@ -23,19 +35,42 @@ const HeroCarousel = () => {
       setChatLoopKey((prev) => prev + 1);
     }
   };
+  const alaapFeatures = [
+  [<Bot size={32} stroke="url(#icon-gradient)" />, "Website chatbots & voicebots"],
+  [<Headset size={32} stroke="url(#icon-gradient)" />, "Customer Helpdesks"],
+  [<Briefcase size={32} stroke="url(#icon-gradient)" />, "Virtual Sales agents"],
+  [<PhoneCall size={32} stroke="url(#icon-gradient)" />, "Call centers"],
+  [<CalendarDays size={32} stroke="url(#icon-gradient)" />, "Online Bookings"],
+  [<GraduationCap size={32} stroke="url(#icon-gradient)" />, "Educational purposes"],
+  [<Tv size={32} stroke="url(#icon-gradient)" />, "Infotainment"],
+  [<Mic size={32} stroke="url(#icon-gradient)" />, "Capacity building & Trainings"],
+  [<FlaskConical size={32} stroke="url(#icon-gradient)" />, "Online tests & evaluations"],
+  [<SatelliteDish size={32} stroke="url(#icon-gradient)" />, "Enterprise communications"],
+];
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-      <video
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/background.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+  <div className="relative w-full h-screen overflow-hidden">
+    {/* Gradient for Lucide icons */}
+    <svg className="absolute w-0 h-0">
+      <defs>
+        <linearGradient id="icon-gradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#3B82F6" />
+          <stop offset="100%" stopColor="#8B5CF6" />
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <video
+      className="absolute top-0 left-0 w-full h-full object-cover z-0"
+      autoPlay
+      loop
+      muted
+      playsInline
+    >
+      <source src="/background.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
 
       <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
 
@@ -139,19 +174,52 @@ const HeroCarousel = () => {
           </SwiperSlide>
 
           {/* Slide 3 */}
+          
           <SwiperSlide>
-            <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">
-                More Coming Soon
-              </h2>
-              <p className="max-w-2xl text-base md:text-lg">
-                We are constantly evolving. Stay tuned for updates on our client
-                success stories, innovation labs, and partner ecosystem.
-              </p>
-            </div>
-          </SwiperSlide>
+  <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white">
+    <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">
+      <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
+        Alaap Platform
+      </span>
+    </h2>
+    <p className="max-w-3xl text-base md:text-lg mb-10">
+      The Alaap platform can create AI agents for:
+    </p>
 
-          {/* Slide 4 - Pustak Framework */}
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={{
+        visible: {
+          transition: {
+            staggerChildren: 0.1,
+          },
+        },
+      }}
+      className="grid grid-cols-2 md:grid-cols-5 gap-6 w-full max-w-6xl"
+    >
+      {alaapFeatures.map(([icon, label], i) => (
+        <motion.div
+          key={i}
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.5, ease: "easeOut" },
+            },
+          }}
+          className="flex flex-col items-center justify-center p-5 rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/10 shadow-md hover:shadow-xl backdrop-blur-md hover:scale-105 text-center"
+        >
+          <div className="mb-3">{icon}</div>
+          <p className="text-sm md:text-base text-white leading-snug">{label}</p>
+        </motion.div>
+      ))}
+    </motion.div>
+  </div>
+</SwiperSlide>
+
           {/* Slide 4 - Pustak Framework */}
 <SwiperSlide>
   <div className="flex justify-center items-center h-full text-white px-4 md:px-8">
@@ -195,6 +263,33 @@ const HeroCarousel = () => {
     </div>
   </div>
 </SwiperSlide>
+{/* Slide 5 – Pustak Platform Domains */}
+  <SwiperSlide>
+    <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white">
+      <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">
+        <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
+          Pustak Platform
+        </span>
+      </h2>
+      <p className="max-w-3xl text-base md:text-lg mb-6">
+        The Pustak platform caters to data systems for:
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl text-sm md:text-base font-medium">
+        <span>👨‍💼 Human Resources</span>
+        <span>📦 Inventory</span>
+        <span>🚚 Supply Chain Management</span>
+        <span>👥 Employee Management</span>
+        <span>📁 Project & Tasks Management</span>
+        <span>📊 Leads, Prospects, Customer Management</span>
+        <span>🛠️ Trouble Tickets</span>
+        <span>🏥 Health Management</span>
+        <span>🏫 Schools and Colleges</span>
+        <span>🧾 Visitor Entry</span>
+        <span>🏢 Estate and Facilities</span>
+        <span>🚌 Transportation System Management</span>
+      </div>
+    </div>
+  </SwiperSlide>
 
         </Swiper>
 
