@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { MessageCircle } from "lucide-react"
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
@@ -199,59 +200,95 @@ const ContactSection = () => {
           </p>
         </motion.div>
 
-        {/* Benefits + Info */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Benefits */}
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <motion.div whileHover={{ scale: 1.02 }}>
-              <Card className="bg-white/30 backdrop-blur-2xl border border-white/20 shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-xl font-semibold text-gray-900">
-                    Why Choose Codepackers?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-500" />
-                      <span className="text-gray-700">{benefit}</span>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-            </motion.div>
-          </motion.div>
+        {/* Combined Benefits + Industries + Form Side by Side */}
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+  {/* Left Side: Merged Card */}
+  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+    <motion.div whileHover={{ scale: 1.02 }}>
+      <Card className="h-full bg-white/30 backdrop-blur-2xl border border-white/20 shadow-xl flex flex-col justify-between">
+        <CardHeader>
+          <CardTitle className="text-xl font-semibold text-gray-900">
+            Why Choose Codepackers?
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {benefits.map((benefit, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-green-500" />
+              <span className="text-gray-700">{benefit}</span>
+            </div>
+          ))}
+          <div className="mt-6">
+            <h4 className="font-semibold text-gray-900 mb-2">Serving Industries:</h4>
+            <div className="flex flex-wrap gap-2">
+              {industries.map((industry, index) => (
+                <Badge
+                  key={index}
+                  variant="secondary"
+                  className="bg-blue-50 text-blue-700"
+                >
+                  {industry}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  </motion.div>
 
-          {/* Info */}
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <motion.div whileHover={{ scale: 1.02 }}>
-              <Card className="bg-white/30 backdrop-blur-2xl border border-white/20 shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-xl font-semibold text-gray-900">
-                    Contact Information
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <MapPin className="w-4 h-4 text-blue-600" /> India
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-700">
-                    <img src="/icons/email-icon.svg" className="w-4 h-4" alt="email" />
-                    suja.sharma@codepackers.com
-                  </div>
-                  <h4 className="font-semibold text-gray-900 mt-4">Serving Industries:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {industries.map((industry, index) => (
-                      <Badge key={index} variant="secondary" className="bg-blue-50 text-blue-700">
-                        {industry}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </motion.div>
-        </div>
+  {/* Right Side: Form Card (unchanged) */}
+  <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+    <Card className="h-full bg-white/30 backdrop-blur-2xl border border-white/20 shadow-2xl">
+      <CardHeader>
+        <CardTitle className="text-xl font-semibold text-gray-900">
+          Drop Your Details
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={submitted ? handleReset : handleSubmit} className="space-y-6">
+          <div>
+            <Label htmlFor="name">Name</Label>
+            <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" />
+          </div>
+          <div>
+            <Label htmlFor="phone">Phone Number</Label>
+            <Input name="phone" value={formData.phone} onChange={handleChange} placeholder="Your Number" />
+          </div>
+          <div>
+            <Label htmlFor="email">Email</Label>
+            <Input name="email" value={formData.email} onChange={handleChange} placeholder="Your Email" />
+          </div>
+
+          <div className="flex flex-wrap gap-4 pt-2">
+            <Button type="submit" className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+              {submitted ? "Submit Another Response" : "Submit"}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setOpenModal("email")}
+              disabled={!submitted || querySent}
+            >
+              <img src="/icons/email-icon.svg" className="w-4 h-4 mr-2" alt="email" />
+              Send via Email
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setOpenModal("whatsapp")}
+              disabled={!submitted || querySent}
+            >
+              <img src="/icons/whatsapp-icon.svg" className="w-4 h-4 mr-2" alt="whatsapp" />
+              Send via WhatsApp
+            </Button>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
+  </motion.div>
+</div>
+
 
         {/* Form */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
@@ -310,30 +347,58 @@ const ContactSection = () => {
         if (!open && !querySent) setOpenModal(null);
       }}>
         <DialogContent className="sm:max-w-md bg-white rounded-2xl shadow-2xl border border-gray-200">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-gray-800 mb-2">
-              {openModal === "email" ? "Send via Email" : "Send via WhatsApp"}
-            </DialogTitle>
-            <p className="text-gray-500 text-sm">Please enter your query message below</p>
-          </DialogHeader>
-          <textarea
-            className="w-full mt-4 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-            rows={4}
-            placeholder="Write your message..."
-            value={modalMessage}
-            onChange={(e) => setModalMessage(e.target.value)}
-          />
-          <DialogFooter className="mt-4">
-            <Button
-              type="button"
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-              onClick={() => {
-  const platform = openModal!;
-  const trimmedMessage = modalMessage.trim();
-  if (!trimmedMessage || !formData.name || !formData.email || !formData.phone || !visitorId) return;
+  <DialogHeader>
+    <DialogTitle className="text-2xl font-bold text-gray-800 mb-2">
+      {openModal === "email" ? "Send via Email" : "Send via WhatsApp"}
+    </DialogTitle>
+    <p className="text-gray-500 text-sm">Please enter your query message below</p>
+  </DialogHeader>
 
-  if (platform === "whatsapp") {
-    const fullMessage = `
+  {/* Fancy Default Message Card with Animation */}
+  <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, ease: "easeOut" }}
+  whileHover={{
+    scale: 1.03,
+    boxShadow: "0px 8px 20px rgba(128, 90, 213, 0.2)",
+  }}
+  onClick={() =>
+    setModalMessage(
+      "I am interested to understand more about your solutions and services."
+    )
+  }
+  className="cursor-pointer mb-2 p-4 rounded-xl border border-gray-200 bg-slate-50 hover:bg-purple-50 transition-all duration-200"
+>
+  <div className="flex items-start gap-3">
+    <MessageCircle className="w-5 h-5 text-purple-600 mt-1" />
+    <p className="text-sm text-gray-800 leading-snug">
+      <span className="font-semibold">Default message:</span>{" "}
+      “I am interested to understand more about your solutions and services.”
+    </p>
+  </div>
+</motion.div>
+
+
+  <textarea
+    className="w-full mt-2 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+    rows={4}
+    placeholder="Write your message..."
+    value={modalMessage}
+    onChange={(e) => setModalMessage(e.target.value)}
+  />
+
+  <DialogFooter className="mt-4">
+    <Button
+      type="button"
+      className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+      onClick={() => {
+        const platform = openModal!;
+        const trimmedMessage = modalMessage.trim();
+        if (!trimmedMessage || !formData.name || !formData.email || !formData.phone || !visitorId) return;
+
+        if (platform === "whatsapp") {
+          const fullMessage = `
 Hello Team,
 
 Visitor Details:
@@ -345,22 +410,21 @@ Query ID: ${visitorId}
 Message:
 ${trimmedMessage}
 `;
+          const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(fullMessage)}`;
+          window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+          handleFinalSend(platform);
+          return;
+        }
 
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(fullMessage)}`; // ✅ UPDATED
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-    handleFinalSend(platform);
-    return;
-  }
+        handleFinalSend(platform);
+      }}
+      disabled={!modalMessage.trim()}
+    >
+      Send Now
+    </Button>
+  </DialogFooter>
+</DialogContent>
 
-  handleFinalSend(platform);
-}}
-
-              disabled={!modalMessage.trim()}
-            >
-              Send Now
-            </Button>
-          </DialogFooter>
-        </DialogContent>
       </Dialog>
     </section>
   );
