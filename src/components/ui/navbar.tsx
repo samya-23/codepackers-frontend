@@ -8,10 +8,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
+
   const [language, setLanguage] = useState(() => {
   const stored = localStorage.getItem("language");
-  return stored === "Spanish" ? "Spanish" : "English"; // fallback: English
+  return stored === "es" ? "Spanish" : "English"; // fallback: English
 });
+
 
 
   const [langDropdown, setLangDropdown] = useState(false);
@@ -42,12 +44,9 @@ const Navbar = () => {
   
   useEffect(() => {
   const storedLang = localStorage.getItem("language");
-  if (storedLang === "Spanish") {
-    i18n.changeLanguage("es");
-  } else {
-    i18n.changeLanguage("en");
-  }
+  i18n.changeLanguage(storedLang === "es" ? "es" : "en");
 }, []);
+
 
 
   const handleLogoPressStart = () => {
@@ -61,11 +60,13 @@ const Navbar = () => {
   };
 
   const handleLanguageChange = (lang: string) => {
-    setLanguage(lang);
-    i18n.changeLanguage(lang === "English" ? "en" : "es");
-    localStorage.setItem("language", lang);
-    setLangDropdown(false);
-  };
+  const langCode = lang === "English" ? "en" : "es";
+  setLanguage(lang);
+  i18n.changeLanguage(langCode);
+  localStorage.setItem("language", langCode);
+  setLangDropdown(false);
+};
+
 
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
