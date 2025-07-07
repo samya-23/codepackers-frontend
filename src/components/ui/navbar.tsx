@@ -47,6 +47,26 @@ const Navbar = () => {
   i18n.changeLanguage(storedLang === "es" ? "es" : "en");
 }, []);
 
+useEffect(() => {
+  const handleClickOutside = (event: MouseEvent) => {
+    const dropdown = document.getElementById("lang-dropdown");
+    if (dropdown && !dropdown.contains(event.target as Node)) {
+      setLangDropdown(false);
+    }
+  };
+
+  const handleOutsideScroll = () => {
+    setLangDropdown(false);
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+  window.addEventListener("scroll", handleOutsideScroll);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+    window.removeEventListener("scroll", handleOutsideScroll);
+  };
+}, []);
 
 
   const handleLogoPressStart = () => {
@@ -128,7 +148,7 @@ const Navbar = () => {
                 <ChevronDown size={16} />
               </button>
               {langDropdown && (
-                <div className={`absolute right-0 mt-2 w-32 rounded-md shadow-lg z-50 border ${
+                <div id="lang-dropdown" className={`absolute right-0 mt-2 w-32 rounded-md shadow-lg z-50 border ${
   isScrolled ? "bg-white text-black border-black/20" : "bg-white/10 backdrop-blur-md text-white border-white/30"
 }`}>
 
@@ -204,54 +224,63 @@ const Navbar = () => {
             ))}
 
             {/* Language Dropdown Mobile */}
-            <div className="relative">
-              <button
-                onClick={toggleLang}
-                className="flex items-center gap-1 text-white px-3 py-1 text-sm rounded-md hover:bg-white/10 transition"
-              >
-                <img
-                  src={
-                    language === "English"
-                      ? "/assets/flags/english.png"
-                      : "/assets/flags/spanish.png"
-                  }
-                  alt={`${language} flag`}
-                  className="w-5 h-4 rounded-sm object-cover"
-                />
-                <span>{language}</span>
-                <ChevronDown size={16} />
-              </button>
-              {langDropdown && (
-                <div className={`absolute left-0 mt-2 w-32 rounded-md shadow-lg z-50 border ${
-  isScrolled ? "bg-white text-black border-black/20" : "bg-white/10 backdrop-blur-md text-white border-white/30"
-}`}>
+            {/* Language Dropdown Mobile */}
+<div className="relative z-50 mb-2">
+  <button
+    onClick={toggleLang}
+    className="flex items-center gap-1 text-white px-3 py-1 text-sm rounded-md hover:bg-white/10 transition"
+  >
+    <img
+      src={
+        language === "English"
+          ? "/assets/flags/english.png"
+          : "/assets/flags/spanish.png"
+      }
+      alt={`${language} flag`}
+      className="w-5 h-4 rounded-sm object-cover"
+    />
+    <span>{language}</span>
+    <ChevronDown size={16} />
+  </button>
 
-                  {["English", "Spanish"].map((lang) => (
-                    <button
-                      key={lang}
-                      onClick={() => handleLanguageChange(lang)}
-                      className={`w-full px-4 py-2 text-left text-sm ${
-  isScrolled ? "text-black hover:bg-gray-100" : "text-white hover:bg-white/20"
-} transition ${language === lang ? "font-semibold text-blue-500" : ""}`}
-
-                    >
-                      <div className="flex items-center gap-2">
-                        <img
-                          src={
-                            lang === "English"
-                              ? "/assets/flags/english.png"
-                              : "/assets/flags/spanish.png"
-                          }
-                          alt={lang}
-                          className="w-5 h-4 rounded-sm object-cover"
-                        />
-                        {lang}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
+  {langDropdown && (
+    <div id="lang-dropdown"
+      className={`absolute left-0 mt-2 w-40 rounded-md shadow-lg z-50 border backdrop-blur-md overflow-hidden ${
+        isScrolled
+          ? "bg-white text-black border-black/20"
+          : "bg-black/80 text-white border-white/20"
+      }`}
+    >
+      <div className="max-h-40 overflow-auto">
+        {["English", "Spanish"].map((lang) => (
+          <button
+            key={lang}
+            onClick={() => handleLanguageChange(lang)}
+            className={`w-full px-4 py-2 text-left text-sm ${
+              isScrolled
+                ? "text-black hover:bg-gray-100"
+                : "text-white hover:bg-white/20"
+            } transition ${language === lang ? "font-semibold text-blue-500" : ""}`}
+          >
+            <div className="flex items-center gap-2">
+              <img
+                src={
+                  lang === "English"
+                    ? "/assets/flags/english.png"
+                    : "/assets/flags/spanish.png"
+                }
+                alt={lang}
+                className="w-5 h-4 rounded-sm object-cover"
+              />
+              {lang}
             </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  )}
+</div>
+
 
             {/* Admin Button Mobile */}
             {showAdmin && (
