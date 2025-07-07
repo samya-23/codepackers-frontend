@@ -10,7 +10,20 @@ import {
 } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 
-const frameworks = {
+interface Capability {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  short: string;
+  description: string;
+  features: string[];
+}
+
+interface Frameworks {
+  ALAAP: Capability[];
+  PUSTAK: Capability[];
+}
+
+const frameworks: Frameworks = {
   ALAAP: [
     {
       icon: MessageCircle,
@@ -133,11 +146,11 @@ const frameworks = {
 
 const PlatformCapabilities = () => {
   const { t } = useTranslation();
-  const [selectedFramework, setSelectedFramework] = useState<keyof typeof frameworks>("ALAAP");
+  const [selectedFramework, setSelectedFramework] = useState<keyof Frameworks>("ALAAP");
   const [modalOpen, setModalOpen] = useState(false);
   const [modalIndex, setModalIndex] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
-  const [modalCards, setModalCards] = useState<typeof frameworks.ALAAP>([]);
+  const [modalCards, setModalCards] = useState<Capability[]>([]);
   const swiperRef = useRef<any>(null);
   const mainSwiperRef = useRef<any>(null);
   const currentCards = modalOpen ? modalCards : frameworks[selectedFramework];
@@ -195,7 +208,7 @@ const PlatformCapabilities = () => {
             modules={[Navigation, Autoplay]}
             className="relative"
           >
-            {(Object.entries(frameworks) as [keyof typeof frameworks, typeof frameworks.ALAAP][]).map(
+            {(Object.entries(frameworks) as [keyof Frameworks, Capability[]][]).map(
               ([label, cards], slideIndex) => (
                 <SwiperSlide key={label}>
                   <div className="flex flex-col items-center">
@@ -237,10 +250,10 @@ const PlatformCapabilities = () => {
           </Swiper>
           <div className="mt-8 flex justify-center gap-4">
             <button className="custom-prev w-10 h-10 rounded-full bg-white shadow-md border hover:bg-gray-100 flex items-center justify-center text-blue-500 hover:text-purple-500 transition">
-              ◀
+              &lt;
             </button>
             <button className="custom-next w-10 h-10 rounded-full bg-white shadow-md border hover:bg-gray-100 flex items-center justify-center text-blue-500 hover:text-purple-500 transition">
-              ▶
+              &gt;
             </button>
           </div>
         </div>
@@ -305,7 +318,7 @@ const PlatformCapabilities = () => {
                   onClick={() => swiperRef.current?.slideNext()}
                   className="text-sm px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow"
                 >
-                  {t('capabilities.next')} →
+                  {t('capabilities.next')} &gt;
                 </button>
               </div>
             </motion.div>
