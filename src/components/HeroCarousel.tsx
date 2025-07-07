@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, EffectFade } from "swiper/modules";
 import SwiperCore from "swiper";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next"; // ✅ ADD this
 import {
   Bot,
   Headset,
@@ -38,6 +39,7 @@ import "swiper/css/effect-fade";
 import "@/index.css";
 
 const HeroCarousel = () => {
+  const { t } = useTranslation(); // ✅ ADD this
   const swiperRef = useRef<SwiperCore | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [chatLoopKey, setChatLoopKey] = useState(0);
@@ -65,30 +67,30 @@ useEffect(() => {
 };
 
   const alaapFeatures = [
-  [<Bot size={32} stroke="url(#icon-gradient)" />, "Website chatbots & voicebots"],
-  [<Headset size={32} stroke="url(#icon-gradient)" />, "Customer Helpdesks"],
-  [<Briefcase size={32} stroke="url(#icon-gradient)" />, "Virtual Sales agents"],
-  [<PhoneCall size={32} stroke="url(#icon-gradient)" />, "Call centers"],
-  [<CalendarDays size={32} stroke="url(#icon-gradient)" />, "Online Bookings"],
-  [<GraduationCap size={32} stroke="url(#icon-gradient)" />, "Educational purposes"],
-  [<Tv size={32} stroke="url(#icon-gradient)" />, "Infotainment"],
-  [<Mic size={32} stroke="url(#icon-gradient)" />, "Capacity building & Trainings"],
-  [<FlaskConical size={32} stroke="url(#icon-gradient)" />, "Online tests & evaluations"],
-  [<SatelliteDish size={32} stroke="url(#icon-gradient)" />, "Enterprise communications"],
+  [<Bot size={32} stroke="url(#icon-gradient)" />, t("alaap.features.0")],
+  [<Headset size={32} stroke="url(#icon-gradient)" />, t("alaap.features.1")],
+  [<Briefcase size={32} stroke="url(#icon-gradient)" />, t("alaap.features.2")],
+  [<PhoneCall size={32} stroke="url(#icon-gradient)" />, t("alaap.features.3")],
+  [<CalendarDays size={32} stroke="url(#icon-gradient)" />, t("alaap.features.4")],
+  [<GraduationCap size={32} stroke="url(#icon-gradient)" />, t("alaap.features.5")],
+  [<Tv size={32} stroke="url(#icon-gradient)" />, t("alaap.features.6")],
+  [<Mic size={32} stroke="url(#icon-gradient)" />, t("alaap.features.7")],
+  [<FlaskConical size={32} stroke="url(#icon-gradient)" />, t("alaap.features.8")],
+  [<SatelliteDish size={32} stroke="url(#icon-gradient)" />, t("alaap.features.9")],
 ];
 const pustakFeatures = [
-  [<UserRound size={32} stroke="url(#icon-gradient)" />, "Human Resources"],
-  [<Boxes size={32} stroke="url(#icon-gradient)" />, "Inventory"],
-  [<Truck size={32} stroke="url(#icon-gradient)" />, "Supply Chain Management"],
-  [<Users size={32} stroke="url(#icon-gradient)" />, "Employee Management"],
-  [<FileText size={32} stroke="url(#icon-gradient)" />, "Project & Tasks Management"],
-  [<ActivitySquare size={32} stroke="url(#icon-gradient)" />, "Leads, Prospects, CRM"],
-  [<Hammer size={32} stroke="url(#icon-gradient)" />, "Trouble Tickets"],
-  [<Hospital size={32} stroke="url(#icon-gradient)" />, "Health Management"],
-  [<GraduationCap size={32} stroke="url(#icon-gradient)" />, "Schools and Colleges"],
-  [<FileText size={32} stroke="url(#icon-gradient)" />, "Visitor Entry"],
-  [<Briefcase size={32} stroke="url(#icon-gradient)" />, "Estate and Facilities"],
-  [<BusFront size={32} stroke="url(#icon-gradient)" />, "Transportation System"],
+  [<UserRound size={32} stroke="url(#icon-gradient)" />, t("pustak.features.0")],
+  [<Boxes size={32} stroke="url(#icon-gradient)" />, t("pustak.features.1")],
+  [<Truck size={32} stroke="url(#icon-gradient)" />, t("pustak.features.2")],
+  [<Users size={32} stroke="url(#icon-gradient)" />, t("pustak.features.3")],
+  [<FileText size={32} stroke="url(#icon-gradient)" />, t("pustak.features.4")],
+  [<ActivitySquare size={32} stroke="url(#icon-gradient)" />, t("pustak.features.5")],
+  [<Hammer size={32} stroke="url(#icon-gradient)" />, t("pustak.features.6")],
+  [<Hospital size={32} stroke="url(#icon-gradient)" />, t("pustak.features.7")],
+  [<GraduationCap size={32} stroke="url(#icon-gradient)" />, t("pustak.features.8")],
+  [<FileText size={32} stroke="url(#icon-gradient)" />, t("pustak.features.9")],
+  [<Briefcase size={32} stroke="url(#icon-gradient)" />, t("pustak.features.10")],
+  [<BusFront size={32} stroke="url(#icon-gradient)" />, t("pustak.features.11")],
 ];
 
 
@@ -138,36 +140,41 @@ const pustakFeatures = [
           loop
           className="h-full"
         >
-          {/* Slide 1 */}
           <SwiperSlide>
-            <div className="flex flex-col justify-center items-center text-center h-full px-4 md:px-6 text-white relative">
-              <div className="pt-28 md:pt-0">
-                <h1 className="text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg leading-snug md:leading-tight">
-                  Codepackers Software Solutions
-                </h1>
-                <p className="max-w-3xl text-base md:text-xl mx-auto drop-shadow-md">
-                  Codepackers is a software design and development company.
-                </p>
-                <p className="max-w-3xl text-base md:text-xl mx-auto drop-shadow-md mt-4">
-                  Our team combines years of expertise with modern AI-driven
-                  practices to deliver scalable, future-ready solutions.
-                </p>
-              </div>
+  <div className="flex flex-col justify-center items-center text-center h-full px-4 md:px-6 text-white relative">
+    <div className="pt-28 md:pt-0">
+      <h1 className="text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg leading-snug md:leading-tight">
+        Codepackers Software Solutions
+      </h1>
+      <p className="max-w-3xl text-base md:text-xl mx-auto drop-shadow-md">
+        {t("hero.intro1")}
+      </p>
+      <p className="max-w-3xl text-base md:text-xl mx-auto drop-shadow-md mt-4">
+        {t("hero.intro2")}
+      </p>
+    </div>
 
-              <div className="absolute bottom-12 md:bottom-16 px-4 w-full flex flex-wrap justify-center gap-3 md:gap-4">
-                {["Capabilities", "Expertise", "Team", "Contact"].map((label) => (
-                  <a
-                    key={label}
-                    href={`#${label.toLowerCase()}`}
-                    className="group flex items-center justify-between gap-2 min-w-[160px] md:min-w-[190px] px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
-                  >
-                    <span>{label}</span>
-                    <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform duration-200" />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </SwiperSlide>
+    {/* CTA Buttons */}
+    <div className="absolute bottom-12 md:bottom-16 px-4 w-full flex flex-wrap justify-center gap-3 md:gap-4">
+      <button
+        onClick={() => swiperRef.current?.slideTo(1)}
+        className="group flex items-center justify-between gap-2 min-w-[220px] px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
+      >
+        <span>{t("hero.cta.alaap")}</span>
+        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform duration-200" />
+      </button>
+
+      <button
+        onClick={() => swiperRef.current?.slideTo(3)}
+        className="group flex items-center justify-between gap-2 min-w-[220px] px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
+      >
+        <span>{t("hero.cta.pustak")}</span>
+        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform duration-200" />
+      </button>
+    </div>
+  </div>
+</SwiperSlide>
+
 
           {/* Slide 2 - AI Chat Preview */}
           <SwiperSlide>
@@ -178,31 +185,28 @@ const pustakFeatures = [
                   
                   <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">
   <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
-    Alaap Framework
+    {t("alaap.title")}
   </span>
   <br />
   <span className="text-white">
-    Enterprise AI Agents
+    {t("alaap.subtitle")}
   </span>
 </h2>
 
 
                   <p className="text-base md:text-lg mb-6 max-w-xl mx-auto md:mx-0">
-                    Empower your organization with personified AI agents that
-                    understand your business, speak your language, and protect
-                    your data. From chat to voice, we make AI accessible to
-                    everyone.
+                    {t("alaap.description")}
                   </p>
 
                   <div className="flex flex-col sm:flex-row sm:flex-wrap items-center md:items-start gap-3 md:gap-4 mb-6 text-sm font-medium justify-center md:justify-start">
                     <span className="flex items-center gap-2">
-                      <span>💬</span> Chat with your private data
+                      <span>💬</span> {t("alaap.points.0")}
                     </span>
                     <span className="flex items-center gap-2">
-                      <span>🎤</span> Voice Enabled
+                      <span>🎤</span> {t("alaap.points.1")}
                     </span>
                     <span className="flex items-center gap-2">
-                      <span>🌐</span> Multi-language
+                      <span>🌐</span> {t("alaap.points.2")}
                     </span>
                   </div>
 
@@ -212,7 +216,7 @@ const pustakFeatures = [
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg"
                   >
-                    Try Our Agent <ArrowRight className="w-5 h-5" />
+                    {t("alaap.tryAgent")}<ArrowRight className="w-5 h-5" />
                   </a>
                 </div>
 
@@ -229,11 +233,11 @@ const pustakFeatures = [
   <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white">
     <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">
       <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
-        Alaap Platform
+        {t("alaap.platformTitle")}
       </span>
     </h2>
     <p className="max-w-3xl text-base md:text-lg mb-10">
-      The Alaap platform can create AI agents for:
+      {t("alaap.platformDesc")}
     </p>
 
     <motion.div
@@ -279,21 +283,19 @@ const pustakFeatures = [
       <div className="text-center md:text-left px-2 md:px-8">
         <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">
   <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
-    Pustak Framework
+    {t("pustak.title")}
   </span>
   <br />
-  <span className="whitespace-nowrap">Streamlined ERP & Workflows</span>
+  <span className="whitespace-nowrap">{t("pustak.subtitle")}</span>
 </h2>
         <p className="text-base md:text-lg mb-6 max-w-xl mx-auto md:mx-0">
-          A powerful, modular framework built for enterprise operations like CRM,
-          HRMS, Projects, SCM & more. Includes user control, dashboards, audit logs,
-          notifications & role-based access.
+          {t("pustak.description")}
         </p>
 
         <div className="flex flex-wrap gap-x-4 gap-y-2 mb-6 text-sm font-medium justify-center md:justify-start whitespace-nowrap">
-  <span className="flex items-center gap-1">🔐 Role-Based Access</span>
-  <span className="flex items-center gap-1">📊 Reports & Dashboards</span>
-  <span className="flex items-center gap-1">🧩 Modular Architecture</span>
+  <span className="flex items-center gap-1">🔐 {t("pustak.tags.0")}</span>
+  <span className="flex items-center gap-1">📊 {t("pustak.tags.1")}</span>
+  <span className="flex items-center gap-1">🧩 {t("pustak.tags.2")}</span>
 </div>
 
 
@@ -302,7 +304,7 @@ const pustakFeatures = [
           href="#contact"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg"
         >
-          Contact Us <ArrowRight className="w-5 h-5" />
+          {t("pustak.contact")} <ArrowRight className="w-5 h-5" />
         </a>
       </div>
 
@@ -335,11 +337,11 @@ const pustakFeatures = [
   <div className="flex flex-col justify-center items-center text-center h-full px-6 text-white">
     <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">
       <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
-        Pustak Platform
+        {t("pustak.platformTitle")}
       </span>
     </h2>
     <p className="max-w-3xl text-base md:text-lg mb-10">
-      The Pustak platform caters to the requirements of data management systems for:
+      {t("pustak.platformDesc")}
     </p>
 
     <motion.div

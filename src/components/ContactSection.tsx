@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,7 +26,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { MapPin, Mail } from "lucide-react";
-
+import { useTranslation } from 'react-i18next';
 
 const industryIcons: Record<string, JSX.Element> = {
   Education: <GraduationCap className="w-4 h-4 text-blue-500" />,
@@ -36,7 +37,6 @@ const industryIcons: Record<string, JSX.Element> = {
   Telecom: <Phone className="w-4 h-4 text-purple-500" />,
   "Homeland Security": <ShieldCheck className="w-4 h-4 text-red-500" />,
 };
-
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -52,10 +52,11 @@ const fadeUp = {
 };
 
 const ContactSection = () => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const backendUrl =
     import.meta.env.VITE_REACT_APP_BACKEND_URL || "http://localhost:8000";
-  const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER ;//FALLBACK NOT ADDED
+  const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -70,23 +71,23 @@ const ContactSection = () => {
   const [visitorId, setVisitorId] = useState<string | null>(null);
 
   const benefits = [
-    "AI agent Framework",
-    "ERP system Framework",
-    "Enterprise-grade security",
-    "Multilingual capabilities",
-    "Rapid deployment",
-    "Scalable solutions",
+    t('contact.benefits.0'),
+    t('contact.benefits.1'),
+    t('contact.benefits.2'),
+    t('contact.benefits.3'),
+    t('contact.benefits.4'),
+    t('contact.benefits.5'),
   ];
 
   const industries = [
-    "Education",
-    "Healthcare",
-    "E-commerce",
-    "E-governance",
-    "Manufacturing",
-    "Telecom",
-    "Homeland Security",
-  ];
+  { key: "education", name: "Education" },
+  { key: "healthcare", name: "Healthcare" },
+  { key: "ecommerce", name: "E-commerce" },
+  { key: "egovernance", name: "E-governance" },
+  { key: "manufacturing", name: "Manufacturing" },
+  { key: "telecom", name: "Telecom" },
+  { key: "homelandSecurity", name: "Homeland Security" }
+];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -97,11 +98,11 @@ const ContactSection = () => {
     const { name, email, phone } = formData;
 
     if (!name.trim()) {
-      toast({ title: "Please enter your name.", variant: "destructive" });
+      toast({ title: t('contact.toasts.nameRequired'), variant: "destructive" });
       return;
     }
     if (!email.trim()) {
-      toast({ title: "Please enter your email.", variant: "destructive" });
+      toast({ title: t('contact.toasts.emailRequired'), variant: "destructive" });
       return;
     }
 
@@ -125,13 +126,13 @@ const ContactSection = () => {
       setQuerySent(false);
 
       toast({
-        title: "Details Saved!",
-        description: "Now you can send your query via Email or WhatsApp.",
+        title: t('contact.toasts.detailsSavedTitle'),
+        description: t('contact.toasts.detailsSavedDescription'),
       });
     } catch (error) {
       toast({
-        title: "Submission Failed",
-        description: "Could not save details. Try again.",
+        title: t('contact.toasts.submissionFailedTitle'),
+        description: t('contact.toasts.submissionFailedDescription'),
         variant: "destructive",
       });
     }
@@ -158,8 +159,8 @@ const ContactSection = () => {
 
       if (platform === "email") {
         toast({
-          title: "Email Sent",
-          description: "Your message has been recorded. We'll get back soon.",
+          title: t('contact.toasts.emailSentTitle'),
+          description: t('contact.toasts.emailSentDescription'),
         });
       }
 
@@ -169,8 +170,8 @@ const ContactSection = () => {
     } catch (error) {
       console.error("Send Error", error);
       toast({
-        title: "Send Failed",
-        description: "Could not send message. Try again.",
+        title: t('contact.toasts.sendFailedTitle'),
+        description: t('contact.toasts.sendFailedDescription'),
         variant: "destructive",
       });
     }
@@ -215,192 +216,193 @@ const ContactSection = () => {
           className="text-center"
         >
           <h2 className="text-5xl font-extrabold text-gray-900 font-[Inter_Tight]">
-            Get{" "}
+            {t('contact.title')}{" "}
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-              Started
+              {t('contact.subtitle')}
             </span>
           </h2>
           <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto font-light">
-            Ready to transform your enterprise communication with AI? Let's
-            discuss how our platform can meet your specific needs.
+            {t('contact.description')}
           </p>
         </motion.div>
 
         {/* Cards - Left and Right side by side */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-  {/* Left Card */}
-  <motion.div
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    variants={fadeUp}
-    className="flex flex-col h-full"
-  >
-    <Card className="h-full flex flex-col justify-between rounded-3xl border border-gray-200 shadow-md bg-white/30 backdrop-blur-xl">
-      <CardHeader className="p-6 pb-0">
-        <CardTitle className="text-2xl font-bold text-gray-800">
-          Why Choose Codepackers?
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6 pt-4 text-sm text-gray-700 flex flex-col gap-8 font-inter">
-  {/* Benefits Grid */}
-  <div>
-    <h4 className="text-base font-semibold text-gray-800 mb-4">Core Benefits</h4>
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
-      {benefits.map((benefit, index) => (
-        <div key={index} className="flex items-start gap-3">
-          <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
-          <span className="text-gray-800 text-[0.95rem] font-medium leading-snug">
-            {benefit}
-          </span>
-        </div>
-      ))}
-    </div>
-  </div>
-
-  {/* Horizontal Divider */}
-  <div className="border-t border-gray-300" />
-
-  {/* Industries + Contact Grid */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-    {/* Industries */}
-    <div>
-      <h4 className="text-xs font-semibold text-gray-500 uppercase mb-2 tracking-wide">
-        Industries We Serve
-      </h4>
-      <div className="flex flex-col gap-2">
-        {industries.map((industry, index) => (
-          <div key={index} className="flex items-center gap-2 text-sm text-gray-800">
-            {industryIcons[industry] ?? (
-              <ShieldCheck className="w-4 h-4 text-gray-400" />
-            )}
-            <span>{industry}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Contact Info */}
-    {/* Contact Info */}
-<div>
-  <h4 className="text-xs font-semibold text-gray-500 uppercase mb-2 tracking-wide">
-    Contact Us
-  </h4>
-  <div className="space-y-2 text-sm text-gray-700">
-    {/* Location */}
-    <div className="flex items-center gap-3 text-gray-800 font-semibold">
-      <div className="bg-red-100 rounded-full p-1">
-        <MapPin className="w-4 h-4 text-red-500" />
-      </div>
-      <span>India</span>
-    </div>
-
-    {/* Email 1 */}
-    <div className="flex items-center gap-3">
-      <div className="bg-blue-100 rounded-full p-1">
-        <Mail className="w-4 h-4 text-blue-600" />
-      </div>
-      <span className="text-gray-800">suja.sharma@codepackers.com</span>
-    </div>
-
-    {/* Email 2 */}
-    <div className="flex items-center gap-3">
-      <div className="bg-blue-100 rounded-full p-1">
-        <Mail className="w-4 h-4 text-blue-600" />
-      </div>
-      <span className="text-gray-800">vikas.tyagi@codepackers.com</span>
-    </div>
-  </div>
-</div>
-
-  </div>
-</CardContent>
-
-
-
-
-    </Card>
-  </motion.div>
-
-  {/* Right Card */}
-  <motion.div
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    variants={fadeUp}
-    className="flex flex-col h-full"
-  >
-    <Card className="h-full flex flex-col justify-between rounded-3xl border border-gray-200 shadow-md bg-white/30 backdrop-blur-xl px-6 py-8">
-      <div className="space-y-4 text-center">
-        <h3 className="text-2xl font-bold text-gray-800">Drop us a line!</h3>
-        <p className="text-sm text-gray-500">
-          Want to explore our AI solutions or schedule a live demo? Send us a WhatsApp or fill the form below. We're eager to assist!
-        </p>
-      </div>
-
-      <div className="flex flex-col gap-4 mt-6">
-        <Button
-          onClick={() =>
-            window.open(`https://wa.me/${whatsappNumber}`, "_blank", "noopener,noreferrer")
-          }
-          className="bg-[#25D366] hover:bg-[#1DA851] text-white w-full text-sm font-semibold"
-        >
-          <img src="/icons/whatsapp-icon.svg" className="w-4 h-4 mr-2" alt="whatsapp" />
-          Message us on WhatsApp
-        </Button>
-
-        <div className="text-center text-gray-400 text-xs">— or fill the form —</div>
-
-        <form onSubmit={handleSubmit} className="space-y-4 text-left">
-          <div>
-            <Label htmlFor="name">Name <span className="text-red-500">*</span></Label>
-            <Input
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              className="text-sm"
-            />
-          </div>
-          <div>
-            <Label htmlFor="email">Email <span className="text-red-500">*</span></Label>
-            <Input
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="your@email.com"
-              className="text-sm"
-            />
-          </div>
-          <div>
-            <Label htmlFor="phone">
-              Phone <span className="text-gray-400 text-sm">(optional)</span>
-            </Label>
-            <Input
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="10-digit mobile"
-              className="text-sm"
-            />
-          </div>
-          <Button
-            type="submit"
-            className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white mt-2 font-semibold"
-            disabled={
-              !/^[A-Za-z\s]+$/.test(formData.name.trim()) ||
-              !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())
-            }
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+          {/* Left Card */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="flex flex-col h-full"
           >
-            Submit
-          </Button>
-        </form>
-      </div>
-    </Card>
-  </motion.div>
-</div>
+            <Card className="h-full flex flex-col justify-between rounded-3xl border border-gray-200 shadow-md bg-white/30 backdrop-blur-xl">
+              <CardHeader className="p-6 pb-0">
+                <CardTitle className="text-2xl font-bold text-gray-800">
+                  {t('contact.leftCard.title')}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 pt-4 text-sm text-gray-700 flex flex-col gap-8 font-inter">
+                {/* Benefits Grid */}
+                <div>
+                  <h4 className="text-base font-semibold text-gray-800 mb-4">
+                    {t('contact.leftCard.benefitsTitle')}
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                    {benefits.map((benefit, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                        <span className="text-gray-800 text-[0.95rem] font-medium leading-snug">
+                          {benefit}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
+                {/* Horizontal Divider */}
+                <div className="border-t border-gray-300" />
 
+                {/* Industries + Contact Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  {/* Industries */}
+                  <div>
+                    <h4 className="text-xs font-semibold text-gray-500 uppercase mb-2 tracking-wide">
+                      {t('contact.leftCard.industriesTitle')}
+                    </h4>
+                    <div className="flex flex-col gap-2">
+                      {industries.map((industry, index) => (
+  <div key={index} className="flex items-center gap-2 text-sm text-gray-800">
+    {industryIcons[industry.name] ?? (
+      <ShieldCheck className="w-4 h-4 text-gray-400" />
+    )}
+    <span>{t(`contact.industries.${industry.key}`)}</span>
+  </div>
+))}
+                    </div>
+                  </div>
+
+                  {/* Contact Info */}
+                  <div>
+                    <h4 className="text-xs font-semibold text-gray-500 uppercase mb-2 tracking-wide">
+                      {t('contact.leftCard.contactTitle')}
+                    </h4>
+                    <div className="space-y-2 text-sm text-gray-700">
+                      {/* Location */}
+                      <div className="flex items-center gap-3 text-gray-800 font-semibold">
+                        <div className="bg-red-100 rounded-full p-1">
+                          <MapPin className="w-4 h-4 text-red-500" />
+                        </div>
+                        <span>India</span>
+                      </div>
+
+                      {/* Email 1 */}
+                      <div className="flex items-center gap-3">
+                        <div className="bg-blue-100 rounded-full p-1">
+                          <Mail className="w-4 h-4 text-blue-600" />
+                        </div>
+                        <span className="text-gray-800">suja.sharma@codepackers.com</span>
+                      </div>
+
+                      {/* Email 2 */}
+                      <div className="flex items-center gap-3">
+                        <div className="bg-blue-100 rounded-full p-1">
+                          <Mail className="w-4 h-4 text-blue-600" />
+                        </div>
+                        <span className="text-gray-800">vikas.tyagi@codepackers.com</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Right Card */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="flex flex-col h-full"
+          >
+            <Card className="h-full flex flex-col justify-between rounded-3xl border border-gray-200 shadow-md bg-white/30 backdrop-blur-xl px-6 py-8">
+              <div className="space-y-4 text-center">
+                <h3 className="text-2xl font-bold text-gray-800">
+                  {t('contact.rightCard.title')}
+                </h3>
+                <p className="text-sm text-gray-500">
+                  {t('contact.rightCard.description')}
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-4 mt-6">
+                <Button
+                  onClick={() =>
+                    window.open(`https://wa.me/${whatsappNumber}`, "_blank", "noopener,noreferrer")
+                  }
+                  className="bg-[#25D366] hover:bg-[#1DA851] text-white w-full text-sm font-semibold"
+                >
+                  <img src="/icons/whatsapp-icon.svg" className="w-4 h-4 mr-2" alt="whatsapp" />
+                  {t('contact.rightCard.whatsappButton')}
+                </Button>
+
+                <div className="text-center text-gray-400 text-xs">
+                  {t('contact.rightCard.orDivider')}
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-4 text-left">
+                  <div>
+                    <Label htmlFor="name">
+                      {t('contact.form.nameLabel')} <span className="text-red-500">*</span>
+                    </Label>
+                    <Input
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder={t('contact.form.namePlaceholder')}
+                      className="text-sm"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="email">
+                      {t('contact.form.emailLabel')} <span className="text-red-500">*</span>
+                    </Label>
+                    <Input
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder={t('contact.form.emailPlaceholder')}
+                      className="text-sm"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="phone">
+                      {t('contact.form.phoneLabel')} <span className="text-gray-400 text-sm">({t('contact.form.phoneOptional')})</span>
+                    </Label>
+                    <Input
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder={t('contact.form.phonePlaceholder')}
+                      className="text-sm"
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white mt-2 font-semibold"
+                    disabled={
+                      !/^[A-Za-z\s]+$/.test(formData.name.trim()) ||
+                      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())
+                    }
+                  >
+                    {t('contact.form.submitButton')}
+                  </Button>
+                </form>
+              </div>
+            </Card>
+          </motion.div>
+        </div>
       </div>
 
       {/* Modal */}
@@ -413,10 +415,10 @@ const ContactSection = () => {
         <DialogContent className="sm:max-w-md bg-white rounded-2xl shadow-2xl border border-gray-200">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-gray-800 mb-2">
-              {openModal === "email" ? "Send via Email" : "Send via WhatsApp"}
+              {openModal === "email" ? t('contact.modal.emailTitle') : t('contact.modal.whatsappTitle')}
             </DialogTitle>
             <p className="text-gray-500 text-sm">
-              Please enter your query message below
+              {t('contact.modal.description')}
             </p>
           </DialogHeader>
 
@@ -429,18 +431,14 @@ const ContactSection = () => {
               boxShadow: "0px 8px 20px rgba(128, 90, 213, 0.2)",
             }}
             onClick={() =>
-              setModalMessage(
-                "I am interested to understand more about your solutions and services."
-              )
+              setModalMessage(t('contact.modal.defaultMessage'))
             }
             className="cursor-pointer mb-2 p-4 rounded-xl border border-gray-200 bg-slate-50 hover:bg-purple-50 transition-all duration-200"
           >
             <div className="flex items-start gap-3">
               <MessageCircle className="w-5 h-5 text-purple-600 mt-1" />
               <p className="text-sm text-gray-800 leading-snug">
-                <span className="font-semibold">Default message:</span> “I am
-                interested to understand more about your solutions and
-                services.”
+                <span className="font-semibold">{t('contact.modal.defaultMessageLabel')}:</span> {t('contact.modal.defaultMessage')}
               </p>
             </div>
           </motion.div>
@@ -448,7 +446,7 @@ const ContactSection = () => {
           <textarea
             className="w-full mt-2 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             rows={4}
-            placeholder="Write your message..."
+            placeholder={t('contact.modal.textareaPlaceholder')}
             value={modalMessage}
             onChange={(e) => setModalMessage(e.target.value)}
           />
@@ -468,8 +466,8 @@ const ContactSection = () => {
                   !visitorId
                 ) {
                   toast({
-                    title: "Message Required",
-                    description: "Please type your message before sending.",
+                    title: t('contact.toasts.messageRequiredTitle'),
+                    description: t('contact.toasts.messageRequiredDescription'),
                     variant: "destructive",
                   });
                   return;
@@ -482,7 +480,7 @@ Hello Team,
 Visitor Details:
 Name: ${formData.name}
 Email: ${formData.email}
-Phone: ${formData.phone || "Not provided"}
+Phone: ${formData.phone || t('contact.form.phoneNotProvided')}
 Query ID: ${visitorId}
 
 Message:
@@ -500,7 +498,7 @@ ${trimmedMessage}
               }}
               disabled={!modalMessage.trim()}
             >
-              Send Now
+              {t('contact.modal.sendButton')}
             </Button>
           </DialogFooter>
         </DialogContent>

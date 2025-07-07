@@ -12,6 +12,7 @@ import {
   BarChart3,
   MapPin,
 } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const BackgroundBlob = () => (
   <>
@@ -32,16 +33,16 @@ const PatternOverlay = () => (
 );
 
 const bsisprSolutions = [
-  { icon: Stethoscope, label: "Telemedicine Systems" },
-  { icon: Radiation, label: "Disaster Management Solutions" },
-  { icon: Settings, label: "Customized Workflow Management" },
-  { icon: Brain, label: "ML/AI Prediction & Analysis" },
-  { icon: Cpu, label: "IoT & Embedded Systems" },
-  { icon: Mic, label: "Voice-Based User Interfaces" },
-  { icon: MessageCircleCode, label: "Chat & Voice Messaging with Translation" },
-  { icon: Video, label: "Video Communications" },
-  { icon: BarChart3, label: "Data Analytics & Visualization" },
-  { icon: MapPin, label: "Google Maps Integrations" },
+  { icon: Stethoscope, label: "solutions.items.0" },
+  { icon: Radiation, label: "solutions.items.1" },
+  { icon: Settings, label: "solutions.items.2" },
+  { icon: Brain, label: "solutions.items.3" },
+  { icon: Cpu, label: "solutions.items.4" },
+  { icon: Mic, label: "solutions.items.5" },
+  { icon: MessageCircleCode, label: "solutions.items.6" },
+  { icon: Video, label: "solutions.items.7" },
+  { icon: BarChart3, label: "solutions.items.8" },
+  { icon: MapPin, label: "solutions.items.9" },
 ];
 
 const fadeUp = {
@@ -58,6 +59,7 @@ const fadeUp = {
 };
 
 const DigitalSolutions = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
@@ -79,13 +81,13 @@ const DigitalSolutions = () => {
           className="text-center"
         >
           <h2 className="text-5xl font-extrabold text-gray-900 text-center">
-            Specialized{' '}
+            {t('solutions.title')}{' '}
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-              Digital Solutions
+              {t('solutions.subtitle')}
             </span>
           </h2>
           <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto text-center">
-            We have also designed and developed intelligent systems for healthcare, disaster management, education, automation, and communication—leveraging AI, IoT, and modern web technologies.
+            {t('solutions.description')}
           </p>
         </motion.div>
 
@@ -118,14 +120,11 @@ const DigitalSolutions = () => {
                 <Icon className="w-6 h-6" />
               </div>
               <h4 className="text-sm md:text-base font-medium text-gray-800 text-center leading-snug">
-                {label}
+                {t(label)}
               </h4>
             </motion.div>
           ))}
         </motion.div>
-
-        
-
       </div>
     </section>
   );

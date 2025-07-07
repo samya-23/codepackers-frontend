@@ -2,6 +2,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import type { Variants } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
@@ -43,6 +44,7 @@ const BackgroundBlob = () => (
 );
 
 const TechnicalSkills2 = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
@@ -62,13 +64,13 @@ const TechnicalSkills2 = () => {
           className="text-center"
         >
           <h2 className="text-5xl font-extrabold text-gray-900 text-center">
-            Our{" "}
+            {t('technicalSkills.title')}{" "}
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-              Technical Skills
+              {t('technicalSkills.subtitle')}
             </span>
           </h2>
           <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto text-center">
-            We build secure, scalable, and modern solutions using cutting-edge tools and frameworks.
+            {t('technicalSkills.description')}
           </p>
         </motion.div>
 

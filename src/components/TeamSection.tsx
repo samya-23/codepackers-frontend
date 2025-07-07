@@ -1,32 +1,52 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Phone, Briefcase, Code, Palette, ShieldCheck, BarChart, Cpu, UserCheck, Headphones, FlaskConical, Mic } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  Briefcase,
+  Code,
+  Palette,
+  ShieldCheck,
+  BarChart,
+  Cpu,
+  UserCheck,
+  Headphones,
+  FlaskConical,
+  Mic,
+} from "lucide-react";
 import Tilt from "react-parallax-tilt";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i = 0) => ({
-    opacity: 1,
+import { Variants } from 'framer-motion';
+
+const fadeUp: Variants = {
+  hidden: { 
+    opacity: 0, 
+    y: 40 
+  },
+  visible: { 
+    opacity: 1, 
     y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  }),
+    transition: { 
+      duration: 0.6, 
+      ease: "easeOut" 
+    } 
+  },
 };
 
 const TeamSection = () => {
+  const { t } = useTranslation();
+  
   const leadership = [
     {
       name: "Vikas Tyagi",
-      role: "Chief Business Officer",
-      description: "Customer Relations, Business Development, Commercials",
+      role: t('team.leadership.0.role'),
+      description: t('team.leadership.0.description'),
       email: "vikas.tyagi@codepackers.com",
       phone: "9873919260",
       link: "https://www.linkedin.com/in/vikastyagi1974/",
@@ -34,8 +54,8 @@ const TeamSection = () => {
     },
     {
       name: "Sujagya Das Sharma",
-      role: "Chief Innovation Officer",
-      description: "Overall technology vision, driving innovation in AI and enterprise solutions",
+      role: t('team.leadership.1.role'),
+      description: t('team.leadership.1.description'),
       email: "suja.sharma@codepackers.com",
       phone: "9873573707",
       link: "https://www.linkedin.com/in/sujagya/",
@@ -44,28 +64,39 @@ const TeamSection = () => {
   ];
 
   const teamRoles = [
-    { label: "Product Specialists", icon: Briefcase },
-    { label: "Software Architects", icon: Cpu },
-    { label: "Software Developers", icon: Code },
-    { label: "UI/UX Designers", icon: Palette },
-    { label: "Software Testers", icon: ShieldCheck },
-    { label: "Business Analysts", icon: BarChart },
-    { label: "DevOps Engineers", icon: Mic },
-    { label: "Customer Relationship Team", icon: UserCheck },
-    { label: "Support Team", icon: Headphones },
-    { label: "Research & Development", icon: FlaskConical },
+    { label: t('team.roles.0'), icon: Briefcase },
+    { label: t('team.roles.1'), icon: Cpu },
+    { label: t('team.roles.2'), icon: Code },
+    { label: t('team.roles.3'), icon: Palette },
+    { label: t('team.roles.4'), icon: ShieldCheck },
+    { label: t('team.roles.5'), icon: BarChart },
+    { label: t('team.roles.6'), icon: Mic },
+    { label: t('team.roles.7'), icon: UserCheck },
+    { label: t('team.roles.8'), icon: Headphones },
+    { label: t('team.roles.9'), icon: FlaskConical },
   ];
 
   return (
-    <section id="team" className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden">
+    <section
+      id="team"
+      className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
+    >
       {/* Floating Blobs */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
-    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
 
       {/* Dotted Grid Pattern */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      >
         <defs>
-          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <pattern
+            id="grid"
+            width="40"
+            height="40"
+            patternUnits="userSpaceOnUse"
+          >
             <circle cx="1" cy="1" r="1" fill="#e2e8f0" />
           </pattern>
         </defs>
@@ -82,25 +113,21 @@ const TeamSection = () => {
           variants={fadeUp}
         >
           <h2 className="text-5xl font-extrabold text-gray-900">
-            Our{" "}
+            {t('team.title')}{" "}
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent animate-text-glow">
-              Team
+              {t('team.subtitle')}
             </span>
           </h2>
           <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-            The team is led by experienced professionals and powered by a diverse team of specialists. We deliver excellence across all aspects of software development and operations.
+            {t('team.description')}
           </p>
         </motion.div>
 
         {/* Leadership Section */}
-        <motion.div
-          className="mb-20"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUp}
-        >
-          <h3 className="text-3xl font-bold text-center mb-10 text-gray-900">Leadership Team</h3>
+        <div className="mb-20">
+          <h3 className="text-3xl font-bold text-center mb-10 text-gray-900">
+            {t('team.leadershipTitle')}
+          </h3>
           <div className="flex flex-col md:flex-row md:justify-center md:gap-12 gap-8">
             {leadership.map((leader, index) => (
               <Tilt
@@ -113,7 +140,6 @@ const TeamSection = () => {
               >
                 <motion.div
                   variants={fadeUp}
-                  custom={index}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -133,18 +159,30 @@ const TeamSection = () => {
                         rel="noopener noreferrer"
                         className="absolute top-4 right-4 p-1.5 rounded-full bg-white/80 backdrop-blur hover:bg-blue-100 shadow-lg transition-all hover:scale-110"
                       >
-                        <img src="/linkedin-icon.svg" alt="LinkedIn" className="w-5 h-5" />
+                        <img
+                          src="/linkedin-icon.svg"
+                          alt="LinkedIn"
+                          className="w-5 h-5"
+                        />
                       </a>
                       <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-1">
                         {leader.name}
                       </CardTitle>
-                      <p className="text-sm text-gray-700 font-medium mb-2 italic">{leader.role}</p>
+                      <p className="text-sm text-gray-700 font-medium mb-2 italic">
+                        {leader.role}
+                      </p>
                     </CardHeader>
                     <CardContent className="text-center px-6 pb-6">
-                      <p className="text-gray-700 mb-4 text-sm italic">{leader.description}</p>
+                      <p className="text-gray-700 mb-4 text-sm italic">
+                        {leader.description}
+                      </p>
                       <div className="text-sm text-gray-600 space-y-2">
-                        <div className="flex items-center justify-center gap-2"><Mail className="w-4 h-4" /> {leader.email}</div>
-                        <div className="flex items-center justify-center gap-2"><Phone className="w-4 h-4" /> {leader.phone}</div>
+                        <div className="flex items-center justify-center gap-2">
+                          <Mail className="w-4 h-4" /> {leader.email}
+                        </div>
+                        <div className="flex items-center justify-center gap-2">
+                          <Phone className="w-4 h-4" /> {leader.phone}
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -152,11 +190,7 @@ const TeamSection = () => {
               </Tilt>
             ))}
           </div>
-        </motion.div>
-
-        
-
-
+        </div>
       </div>
     </section>
   );

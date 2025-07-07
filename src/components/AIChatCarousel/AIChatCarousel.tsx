@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import "./AIChatCarousel.css";
 
 interface Message {
@@ -17,23 +18,24 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
   loopKey,
   run,
 }) => {
+  const { t } = useTranslation();
+
   const messages: Message[] = useMemo(
     () => [
       {
         sender: "user",
-        text: "Show me the Q3 sales report for the Delhi region",
+        text: t("chat.messages.0"),
       },
       {
         sender: "ai",
-        text:
-          "I've found the Q3 sales report for Delhi. The region showed 23% growth with ₹2.4 crores in revenue.",
+        text: t("chat.messages.1"),
       },
       {
         sender: "user",
-        text: "Please, provide me a breakdown of top three product categories",
+        text: t("chat.messages.2"),
       },
     ],
-    []
+    [t]
   );
 
   const FAST_AI_TYPING_SPEED = 0.6;
@@ -124,7 +126,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
     return () => {
       isCancelled = true;
     };
-  }, [loopKey, run]);
+  }, [loopKey, run, messages]);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -148,10 +150,10 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
         </div>
         <div>
           <div className="chat-title font-semibold text-base">
-            Paul - My Enterprise AI Agent
+            {t("chat.header.title")}
           </div>
           <div className="chat-subtitle text-sm text-gray-500">
-            Multilingual • Secure • Scalable
+            {t("chat.header.subtitle")}
           </div>
         </div>
       </div>
@@ -171,7 +173,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
         {botTyping && (
           <div
             className="chat-bubble ai typing-indicator"
-            aria-label="AI is typing"
+            aria-label={t("chat.typing")}
           >
             <span className="dot" />
             <span className="dot" />
@@ -198,7 +200,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
             <>
               <span className="cursor" />
               <span className="placeholder-text text-gray-400">
-                Ask me anything...
+                {t("chat.placeholder")}
               </span>
             </>
           )}
@@ -207,7 +209,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
         <button
           className={`send-btn ${sendClicked ? "clicked" : ""} ml-2 text-lg`}
           disabled
-          aria-label="Send button"
+          aria-label={t("chat.send")}
         >
           ➤
         </button>
@@ -215,7 +217,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
 
       {/* Footer */}
       <div className="chat-footer text-xs text-gray-400 text-right">
-        Powered by Alaap platform
+        {t("chat.footer")}
       </div>
     </div>
   );

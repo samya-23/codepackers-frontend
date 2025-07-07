@@ -5,5 +5,346 @@
     "team": "Equipo",
     "contact": "Contacto",
     "adminPanel": "Panel de Administración"
+  },
+  "hero": {
+    "intro1": "Codepackers es una empresa de diseño y desarrollo de software.",
+    "intro2": "Nuestro equipo combina años de experiencia con prácticas modernas impulsadas por IA para ofrecer soluciones escalables y preparadas para el futuro.",
+    "cta": {
+      "alaap": "Conozca más sobre Alaap",
+      "pustak": "Conozca más sobre Pustak"
+    }
+  },
+  "alaap": {
+    "title": "Marco Alaap",
+    "subtitle": "Agentes de IA Empresariales",
+    "description": "Empodere a su organización con agentes de IA personificados que entienden su negocio, hablan su idioma y protegen sus datos.",
+    "points": [
+      "Chatea con tus datos privados",
+      "Habilitado por voz",
+      "Multilenguaje"
+    ],
+    "tryAgent": "Probar nuestro agente",
+    "platformTitle": "Plataforma Alaap",
+    "platformDesc": "La plataforma Alaap puede crear agentes de IA para:",
+    "features": [
+      "Chatbots y voicebots para sitios web",
+      "Centros de ayuda al cliente",
+      "Agentes de ventas virtuales",
+      "Centros de llamadas",
+      "Reservas en línea",
+      "Fines educativos",
+      "Infotainment",
+      "Capacitación y formación",
+      "Pruebas y evaluaciones en línea",
+      "Comunicaciones empresariales"
+    ]
+  },
+  "pustak": {
+    "title": "Marco Pustak",
+    "subtitle": "ERP y Flujos de Trabajo Eficientes",
+    "description": "Un marco potente y modular creado para operaciones empresariales como CRM, RRHH, proyectos, cadena de suministro y más. Incluye control de usuarios, paneles, registros de auditoría, notificaciones y acceso basado en roles.",
+    "tags": [
+      "Acceso basado en roles",
+      "Informes y paneles",
+      "Arquitectura modular"
+    ],
+    "contact": "Contáctenos",
+    "platformTitle": "Plataforma Pustak",
+    "platformDesc": "La plataforma Pustak atiende los requisitos de los sistemas de gestión de datos para:",
+    "features": [
+      "Recursos Humanos",
+      "Inventario",
+      "Gestión de la Cadena de Suministro",
+      "Gestión de Empleados",
+      "Gestión de Proyectos y Tareas",
+      "Clientes potenciales, prospectos y CRM",
+      "Tickets de problemas",
+      "Gestión de Salud",
+      "Escuelas y Colegios",
+      "Registro de Visitantes",
+      "Bienes e instalaciones",
+      "Sistema de Transporte"
+    ]
+  },
+  "chat": {
+    "header": {
+      "title": "Paul - Mi Agente de IA Empresarial",
+      "subtitle": "Multilingüe • Seguro • Escalable"
+    },
+    "messages": [
+      "Muéstrame el informe de ventas del tercer trimestre para la región de Delhi",
+      "He encontrado el informe de ventas del tercer trimestre para Delhi. La región mostró un crecimiento del 23% con ₹2.4 crores en ingresos.",
+      "Por favor, proporcióname un desglose de las tres principales categorías de productos"
+    ],
+    "placeholder": "Pregúntame lo que sea...",
+    "send": "Enviar",
+    "footer": "Desarrollado por la plataforma Alaap",
+    "typing": "La IA está escribiendo"
+  },
+  "capabilities": {
+    "title": "Plataforma",
+    "platform": "Capacidades",
+    "subtitle": "Características diseñadas específicamente para IA conversacional y sistemas empresariales",
+    "clickPrompt": "Haz clic en cualquier tarjeta para saber más",
+    "back": "← Atrás",
+    "next": "Siguiente",
+    "capability": "Capacidad",
+    "of": "de",
+    "alaap": {
+      "label": "ALAAP",
+      "communication": {
+        "title": "Comunicación Multicanal",
+        "short": "Chat, mensajes de voz, llamadas por internet e integración telefónica",
+        "description": "Chat, mensajes de voz, llamadas por internet e integración telefónica",
+        "features": [
+          "Integración con WhatsApp",
+          "Llamadas de voz",
+          "Chat web",
+          "Aplicaciones móviles"
+        ]
+      },
+      "voice": {
+        "title": "Inteligencia de Voz",
+        "short": "Reconocimiento de voz en tiempo real y voces personalizables",
+        "description": "Reconocimiento y síntesis de voz en tiempo real con voces personalizables",
+        "features": [
+          "Voces masculinas/femeninas",
+          "Control de acento",
+          "Transcripción en vivo",
+          "Comandos de voz"
+        ]
+      },
+      "security": {
+        "title": "Seguridad Empresarial",
+        "short": "Conocimiento privado con seguridad de grado empresarial",
+        "description": "Repositorios de conocimiento privado con seguridad de grado empresarial",
+        "features": [
+          "Privacidad de datos",
+          "Autenticación de usuarios",
+          "APIs seguras",
+          "Listo para cumplimiento"
+        ]
+      },
+      "multilingual": {
+        "title": "Soporte Multilingüe",
+        "short": "Rompe barreras con traducción inteligente y localización",
+        "description": "Rompe las barreras del idioma con traducción inteligente y localización",
+        "features": [
+          "Más de 50 idiomas",
+          "Traducción en tiempo real",
+          "Contexto cultural",
+          "Síntesis de voz"
+        ]
+      },
+      "analytics": {
+        "title": "Análisis Avanzados",
+        "short": "Información sobre sentimientos, uso y comportamiento",
+        "description": "Profundiza en las conversaciones, sentimientos y comportamiento de los usuarios",
+        "features": [
+          "Análisis de sentimientos",
+          "Reconocimiento de intenciones",
+          "Análisis de uso",
+          "Métricas de rendimiento"
+        ]
+      },
+      "management": {
+        "title": "Gestión de Usuarios",
+        "short": "Gestión de grupos y roles para acceso de usuarios",
+        "description": "Gestión integral de usuarios y grupos con acceso basado en roles",
+        "features": [
+          "Gestión de roles",
+          "Controles de grupo",
+          "Acceso de invitados",
+          "Panel de administración"
+        ]
+      }
+    },
+    "pustak": {
+      "label": "PUSTAK",
+      "agents": {
+        "title": "Agentes Conversacionales de IA",
+        "short": "Chatbots y asistentes de voz con IA similares a humanos para empresas",
+        "description": "Estos son agentes de IA avanzados, como chatbots y asistentes de voz, diseñados para imitar la conversación humana. Permiten interacciones fluidas e intuitivas para los usuarios en entornos empresariales, automatizando soporte, ventas y recuperación de información para mejorar las experiencias de clientes y empleados."
+      },
+      "erp": {
+        "title": "Soluciones ERP / Gestión de Datos",
+        "short": "Entrada de datos y análisis de CRM, RRHH, Inventario, Tareas y Visitantes",
+        "description": "Sistemas integrales para gestionar datos comerciales cruciales en todos los departamentos. Esto incluye CRM para interacciones con clientes, RRHH para personal, seguimiento de inventario, gestión de proyectos y programación de reuniones y visitantes. Centraliza la entrada de datos, garantiza una gestión eficiente y proporciona análisis perspicaces."
+      },
+      "apps": {
+        "title": "Aplicaciones Web y Móviles",
+        "short": "Aplicaciones de entrada de datos, almacenamiento y flujo de trabajo para todos los dispositivos",
+        "description": "Software personalizado diseñado para diversas plataformas, que ofrece soluciones a medida para la entrada de datos, almacenamiento seguro y gestión optimizada del flujo de trabajo. Estas aplicaciones garantizan accesibilidad y funcionalidad en todo tipo de dispositivos, incluyendo computadoras de escritorio, tabletas y smartphones, mejorando la eficiencia operativa."
+      },
+      "communication": {
+        "title": "Sistemas de Comunicación",
+        "short": "Chat multilingüe, llamadas de voz/vídeo con traducción",
+        "description": "Plataformas sofisticadas que facilitan la comunicación en tiempo real a través de varios medios. Las características incluyen chat multilingüe, mensajes de voz y llamadas de voz y vídeo de alta calidad, a menudo con traducción en línea integrada para interacciones globales, fomentando una colaboración fluida y efectiva."
+      },
+      "integration": {
+        "title": "Integración de Sistemas de Software",
+        "short": "Conectando herramientas, plataformas y bases de datos en un ecosistema inteligente",
+        "description": "El proceso de conectar aplicaciones de software, herramientas, plataformas y bases de datos dispares. Esto crea un ecosistema unificado e inteligente, permitiendo un flujo de datos sin problemas, mejorando la eficiencia operativa y mejorando la toma de decisiones al eliminar silos y automatizar flujos de trabajo."
+      },
+      "analytics": {
+        "title": "Análisis de Datos",
+        "short": "Visualización de información mediante paneles y herramientas impulsadas por IA",
+        "description": "El proceso de examinar datos sin procesar para extraer información significativa. Esto implica visualizar datos a través de paneles interactivos y emplear análisis impulsados por IA y algoritmos de predicción para identificar tendencias, patrones e información valiosa, apoyando la toma de decisiones informadas y la planificación estratégica."
+      }
+    }
+  },
+  "solutions": {
+    "title": "Especializadas",
+    "subtitle": "Soluciones Digitales",
+    "description": "También hemos diseñado y desarrollado sistemas inteligentes para atención médica, gestión de desastres, educación, automatización y comunicación, aprovechando IA, IoT y tecnologías web modernas.",
+    "items": [
+      "Sistemas de Telemedicina",
+      "Soluciones de Gestión de Desastres",
+      "Gestión de Flujo de Trabajo Personalizado",
+      "Predicción y Análisis de ML/IA",
+      "Sistemas IoT e Integrados",
+      "Interfaces de Usuario Basadas en Voz",
+      "Chat y Mensajería de Voz con Traducción",
+      "Comunicaciones por Video",
+      "Análisis y Visualización de Datos",
+      "Integraciones con Google Maps"
+    ]
+  },
+  "team": {
+    "title": "Nuestro",
+    "subtitle": "Equipo",
+    "description": "El equipo está dirigido por profesionales experimentados y respaldado por un equipo diverso de especialistas. Ofrecemos excelencia en todos los aspectos del desarrollo de software y operaciones.",
+    "leadershipTitle": "Equipo de Liderazgo",
+    "leadership": [
+      {
+        "role": "Director Comercial",
+        "description": "Relaciones con clientes, desarrollo de negocios, aspectos comerciales"
+      },
+      {
+        "role": "Director de Innovación",
+        "description": "Visión tecnológica general, impulsando la innovación en IA y soluciones empresariales"
+      }
+    ],
+    "roles": [
+      "Especialistas en Productos",
+      "Arquitectos de Software",
+      "Desarrolladores de Software",
+      "Diseñadores UI/UX",
+      "Probadores de Software",
+      "Analistas de Negocios",
+      "Ingenieros DevOps",
+      "Equipo de Relación con Clientes",
+      "Equipo de Soporte",
+      "Investigación y Desarrollo"
+    ]
+  },
+  "teamComposition": {
+    "title": "Experto",
+    "subtitle": "Composición del Equipo",
+    "description": "Conoce las mentes detrás de nuestra innovación: especialistas de diferentes dominios colaborando para ofrecer soluciones impactantes.",
+    "roles": [
+      "Especialistas en Productos",
+      "Arquitectos de Software",
+      "Desarrolladores de Software",
+      "Diseñadores UI/UX",
+      "Probadores de Software",
+      "Analistas de Negocios",
+      "Ingenieros DevOps",
+      "Equipo de Relación con Clientes",
+      "Equipo de Soporte",
+      "Investigación y Desarrollo"
+    ]
+  },
+  "technicalSkills": {
+    "title": "Nuestras",
+    "subtitle": "Habilidades Técnicas",
+    "description": "Construimos soluciones seguras, escalables y modernas utilizando herramientas y frameworks de vanguardia."
+  },
+  "contact": {
+    "title": "Comienza",
+    "subtitle": "Ahora",
+    "description": "¿Listo para transformar la comunicación de tu empresa con IA? Hablemos sobre cómo nuestra plataforma puede satisfacer tus necesidades específicas.",
+    "leftCard": {
+      "title": "¿Por qué elegir Codepackers?",
+      "benefitsTitle": "Beneficios principales",
+      "industriesTitle": "Industrias que atendemos",
+      "contactTitle": "Contáctenos"
+    },
+    "rightCard": {
+      "title": "¡Escríbenos!",
+      "description": "¿Quieres explorar nuestras soluciones de IA o programar una demostración en vivo? Envíanos un WhatsApp o completa el formulario. ¡Estamos ansiosos por ayudarte!",
+      "whatsappButton": "Envíanos un WhatsApp",
+      "orDivider": "— o completa el formulario —"
+    },
+    "form": {
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Tu nombre",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@email.com",
+      "phoneLabel": "Teléfono",
+      "phoneOptional": "opcional",
+      "phonePlaceholder": "Móvil de 10 dígitos",
+      "phoneNotProvided": "No proporcionado",
+      "submitButton": "Enviar"
+    },
+    "modal": {
+      "emailTitle": "Enviar por correo electrónico",
+      "whatsappTitle": "Enviar por WhatsApp",
+      "description": "Por favor ingresa tu mensaje de consulta a continuación",
+      "defaultMessageLabel": "Mensaje predeterminado",
+      "defaultMessage": "Estoy interesado en conocer más sobre sus soluciones y servicios.",
+      "textareaPlaceholder": "Escribe tu mensaje...",
+      "sendButton": "Enviar ahora"
+    },
+    "toasts": {
+      "nameRequired": "Por favor ingresa tu nombre.",
+      "emailRequired": "Por favor ingresa tu correo electrónico.",
+      "detailsSavedTitle": "¡Detalles guardados!",
+      "detailsSavedDescription": "Ahora puedes enviar tu consulta por correo electrónico o WhatsApp.",
+      "submissionFailedTitle": "Envío fallido",
+      "submissionFailedDescription": "No se pudieron guardar los detalles. Inténtalo de nuevo.",
+      "emailSentTitle": "Correo electrónico enviado",
+      "emailSentDescription": "Tu mensaje ha sido registrado. Nos pondremos en contacto pronto.",
+      "sendFailedTitle": "Envío fallido",
+      "sendFailedDescription": "No se pudo enviar el mensaje. Inténtalo de nuevo.",
+      "messageRequiredTitle": "Mensaje requerido",
+      "messageRequiredDescription": "Por favor escribe tu mensaje antes de enviar."
+    },
+    "benefits": [
+      "Marco de trabajo de agente de IA",
+      "Marco de trabajo de sistema ERP",
+      "Seguridad de nivel empresarial",
+      "Capacidades multilingües",
+      "Implementación rápida",
+      "Soluciones escalables"
+    ],
+    "industries": {
+      "education": "Educación",
+      "healthcare": "Cuidado de la salud",
+      "ecommerce": "Comercio electrónico",
+      "egovernance": "Gobierno electrónico",
+      "manufacturing": "Manufactura",
+      "telecom": "Telecomunicaciones",
+      "homelandSecurity": "Seguridad nacional"
+    }
+  },
+  "footer": {
+    "about": "Plataforma líder de agentes conversacionales de IA para empresas en India.",
+    "platformTitle": "Plataforma",
+    "platformLinks": [
+      "Agentes de IA",
+      "Interfaz de voz",
+      "Soporte multilingüe",
+      "Integración empresarial"
+    ],
+    "servicesTitle": "Servicios",
+    "servicesLinks": [
+      "Desarrollo personalizado",
+      "Soluciones de IA",
+      "Sistemas ERP",
+      "Análisis de datos"
+    ],
+    "contactTitle": "Contacto",
+    "rights": "Todos los derechos reservados."
   }
 }

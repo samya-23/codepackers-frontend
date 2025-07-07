@@ -12,6 +12,7 @@ import {
   Headphones,
   FlaskConical,
 } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const BackgroundBlob = () => (
   <>
@@ -31,22 +32,23 @@ const PatternOverlay = () => (
   </svg>
 );
 
-const teamRoles = [
-  { label: "Product Specialists", icon: Briefcase },
-  { label: "Software Architects", icon: Cpu },
-  { label: "Software Developers", icon: Code },
-  { label: "UI/UX Designers", icon: Palette },
-  { label: "Software Testers", icon: ShieldCheck },
-  { label: "Business Analysts", icon: BarChart },
-  { label: "DevOps Engineers", icon: Mic },
-  { label: "Customer Relationship Team", icon: UserCheck },
-  { label: "Support Team", icon: Headphones },
-  { label: "Research & Development", icon: FlaskConical },
-];
-
 const TeamComposition = () => {
+  const { t } = useTranslation();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  const teamRoles = [
+    { label: t('teamComposition.roles.0'), icon: Briefcase },
+    { label: t('teamComposition.roles.1'), icon: Cpu },
+    { label: t('teamComposition.roles.2'), icon: Code },
+    { label: t('teamComposition.roles.3'), icon: Palette },
+    { label: t('teamComposition.roles.4'), icon: ShieldCheck },
+    { label: t('teamComposition.roles.5'), icon: BarChart },
+    { label: t('teamComposition.roles.6'), icon: Mic },
+    { label: t('teamComposition.roles.7'), icon: UserCheck },
+    { label: t('teamComposition.roles.8'), icon: Headphones },
+    { label: t('teamComposition.roles.9'), icon: FlaskConical },
+  ];
 
   return (
     <section
@@ -66,13 +68,13 @@ const TeamComposition = () => {
           className="text-center"
         >
           <h2 className="text-5xl font-extrabold text-gray-900 text-center">
-            Expert{' '}
+            {t('teamComposition.title')}{' '}
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-              Team Composition
+              {t('teamComposition.subtitle')}
             </span>
           </h2>
           <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto text-center">
-            Meet the minds behind our innovation—specialists across domains collaborating to deliver impactful solutions.
+            {t('teamComposition.description')}
           </p>
         </motion.div>
 

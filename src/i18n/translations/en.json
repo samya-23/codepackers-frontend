@@ -5,5 +5,346 @@
     "team": "Team",
     "contact": "Contact",
     "adminPanel": "Admin Panel"
+  },
+  "hero": {
+    "intro1": "Codepackers is a software design and development company.",
+    "intro2": "Our team combines years of expertise with modern AI-driven practices to deliver scalable, future-ready solutions.",
+    "cta": {
+      "alaap": "Know more about Alaap",
+      "pustak": "Know more about Pustak"
+    }
+  },
+  "alaap": {
+    "title": "Alaap Framework",
+    "subtitle": "Enterprise AI Agents",
+    "description": "Empower your organization with personified AI agents that understand your business, speak your language, and protect your data.",
+    "points": [
+      "Chat with your private data",
+      "Voice Enabled",
+      "Multi-language"
+    ],
+    "tryAgent": "Try Our Agent",
+    "platformTitle": "Alaap Platform",
+    "platformDesc": "The Alaap platform can create AI agents for:",
+    "features": [
+      "Website chatbots & voicebots",
+      "Customer Helpdesks",
+      "Virtual Sales agents",
+      "Call centers",
+      "Online Bookings",
+      "Educational purposes",
+      "Infotainment",
+      "Capacity building & Trainings",
+      "Online tests & evaluations",
+      "Enterprise communications"
+    ]
+  },
+  "pustak": {
+    "title": "Pustak Framework",
+    "subtitle": "Streamlined ERP & Workflows",
+    "description": "A powerful, modular framework built for enterprise operations like CRM, HRMS, Projects, SCM & more. Includes user control, dashboards, audit logs, notifications & role-based access.",
+    "tags": [
+      "Role-Based Access",
+      "Reports & Dashboards",
+      "Modular Architecture"
+    ],
+    "contact": "Contact Us",
+    "platformTitle": "Pustak Platform",
+    "platformDesc": "The Pustak platform caters to the requirements of data management systems for:",
+    "features": [
+      "Human Resources",
+      "Inventory",
+      "Supply Chain Management",
+      "Employee Management",
+      "Project & Tasks Management",
+      "Leads, Prospects, CRM",
+      "Trouble Tickets",
+      "Health Management",
+      "Schools and Colleges",
+      "Visitor Entry",
+      "Estate and Facilities",
+      "Transportation System"
+    ]
+  },
+  "chat": {
+    "header": {
+      "title": "Paul - My Enterprise AI Agent",
+      "subtitle": "Multilingual • Secure • Scalable"
+    },
+    "messages": [
+      "Show me the Q3 sales report for the Delhi region",
+      "I've found the Q3 sales report for Delhi. The region showed 23% growth with ₹2.4 crores in revenue.",
+      "Please, provide me a breakdown of top three product categories"
+    ],
+    "placeholder": "Ask me anything...",
+    "send": "Send",
+    "footer": "Powered by Alaap platform",
+    "typing": "AI is typing"
+  },
+  "capabilities": {
+    "title": "Platform",
+    "platform": "Capabilities",
+    "subtitle": "Purpose-built features for conversational AI and enterprise systems",
+    "clickPrompt": "Click on any card to know more",
+    "back": "← Back",
+    "next": "Next",
+    "capability": "Capability",
+    "of": "of",
+    "alaap": {
+      "label": "ALAAP",
+      "communication": {
+        "title": "Multi-Channel Communication",
+        "short": "Chat, voice messages, internet calls, and telephone integration",
+        "description": "Chat, voice messages, internet calls, and telephone integration",
+        "features": [
+          "WhatsApp Integration",
+          "Voice Calls",
+          "Web Chat",
+          "Mobile Apps"
+        ]
+      },
+      "voice": {
+        "title": "Voice Intelligence",
+        "short": "Real-time speech recognition and customizable voices",
+        "description": "Real-time speech recognition and synthesis with customizable voices",
+        "features": [
+          "Male/Female Voices",
+          "Accent Control",
+          "Live Transcription",
+          "Voice Commands"
+        ]
+      },
+      "security": {
+        "title": "Enterprise Security",
+        "short": "Private knowledge with enterprise-grade security",
+        "description": "Private knowledge repositories with enterprise-grade security",
+        "features": [
+          "Data Privacy",
+          "User Authentication",
+          "Secure APIs",
+          "Compliance Ready"
+        ]
+      },
+      "multilingual": {
+        "title": "Multilingual Support",
+        "short": "Break barriers with smart translation & localization",
+        "description": "Break language barriers with intelligent translation and localization",
+        "features": [
+          "50+ Languages",
+          "Real-time Translation",
+          "Cultural Context",
+          "Voice Synthesis"
+        ]
+      },
+      "analytics": {
+        "title": "Advanced Analytics",
+        "short": "Insights into sentiment, usage & behavior",
+        "description": "Deep insights into conversations, sentiment, and user behavior",
+        "features": [
+          "Sentiment Analysis",
+          "Intent Recognition",
+          "Usage Analytics",
+          "Performance Metrics"
+        ]
+      },
+      "management": {
+        "title": "User Management",
+        "short": "Group & role management for user access",
+        "description": "Comprehensive user and group management with role-based access",
+        "features": [
+          "Role Management",
+          "Group Controls",
+          "Guest Access",
+          "Admin Dashboard"
+        ]
+      }
+    },
+    "pustak": {
+      "label": "PUSTAK",
+      "agents": {
+        "title": "AI Conversational Agents",
+        "short": "Human-like AI chatbots and voice assistants for enterprises",
+        "description": "These are advanced AI agents, like chatbots and voice assistants, designed to mimic human conversation. They enable seamless, intuitive interactions for users within enterprise environments, automating support, sales, and information retrieval to enhance customer and employee experiences."
+      },
+      "erp": {
+        "title": "ERP Solutions / Data Management",
+        "short": "CRM, HR, Inventory, Tasks, Visitors data entry and analytics",
+        "description": "Comprehensive systems for managing crucial business data across departments. This includes CRM for customer interactions, HR for personnel, inventory tracking, project management, and scheduling for meetings and visitors. It centralizes data entry, ensures efficient management, and provides insightful analytics."
+      },
+      "apps": {
+        "title": "Web and Mobile Applications",
+        "short": "Data entry, storage & workflow apps for all devices",
+        "description": "Tailored software designed for diverse platforms, offering customized solutions for data entry, secure storage, and streamlined workflow management. These applications ensure accessibility and functionality across all types of devices, including desktops, tablets, and smartphones, enhancing operational efficiency."
+      },
+      "communication": {
+        "title": "Communication Systems",
+        "short": "Multilingual Chat, Voice/Video Calls with Translation",
+        "description": "Sophisticated platforms facilitating real-time communication across various mediums. Features include multilingual chat, voice messaging, and high-quality voice and video calls, often with integrated online translation for global interactions, fostering seamless and effective collaboration."
+      },
+      "integration": {
+        "title": "Software Systems Integration",
+        "short": "Connecting tools, platforms & databases into smart ecosystem",
+        "description": "The process of connecting disparate software applications, tools, platforms, and databases. This creates a unified and intelligent ecosystem, enabling seamless data flow, improved operational efficiency, and enhanced decision-making by eliminating silos and automating workflows."
+      },
+      "analytics": {
+        "title": "Data Analytics",
+        "short": "Visualizing insights using dashboards and AI-driven tools",
+        "description": "The process of examining raw data to extract meaningful insights. This involves visualizing data through interactive dashboards and employing AI-driven analysis, and prediction algorithms to identify trends, patterns, and valuable information, supporting informed decision-making and strategic planning."
+      }
+    }
+  },
+  "solutions": {
+    "title": "Specialized",
+    "subtitle": "Digital Solutions",
+    "description": "We have also designed and developed intelligent systems for healthcare, disaster management, education, automation, and communication—leveraging AI, IoT, and modern web technologies.",
+    "items": [
+      "Telemedicine Systems",
+      "Disaster Management Solutions",
+      "Customized Workflow Management",
+      "ML/AI Prediction & Analysis",
+      "IoT & Embedded Systems",
+      "Voice-Based User Interfaces",
+      "Chat & Voice Messaging with Translation",
+      "Video Communications",
+      "Data Analytics & Visualization",
+      "Google Maps Integrations"
+    ]
+  },
+  "team": {
+    "title": "Our",
+    "subtitle": "Team",
+    "description": "The team is led by experienced professionals and powered by a diverse team of specialists. We deliver excellence across all aspects of software development and operations.",
+    "leadershipTitle": "Leadership Team",
+    "leadership": [
+      {
+        "role": "Chief Business Officer",
+        "description": "Customer Relations, Business Development, Commercials"
+      },
+      {
+        "role": "Chief Innovation Officer",
+        "description": "Overall technology vision, driving innovation in AI and enterprise solutions"
+      }
+    ],
+    "roles": [
+      "Product Specialists",
+      "Software Architects",
+      "Software Developers",
+      "UI/UX Designers",
+      "Software Testers",
+      "Business Analysts",
+      "DevOps Engineers",
+      "Customer Relationship Team",
+      "Support Team",
+      "Research & Development"
+    ]
+  },
+  "teamComposition": {
+    "title": "Expert",
+    "subtitle": "Team Composition",
+    "description": "Meet the minds behind our innovation—specialists across domains collaborating to deliver impactful solutions.",
+    "roles": [
+      "Product Specialists",
+      "Software Architects",
+      "Software Developers",
+      "UI/UX Designers",
+      "Software Testers",
+      "Business Analysts",
+      "DevOps Engineers",
+      "Customer Relationship Team",
+      "Support Team",
+      "Research & Development"
+    ]
+  },
+  "technicalSkills": {
+    "title": "Our",
+    "subtitle": "Technical Skills",
+    "description": "We build secure, scalable, and modern solutions using cutting-edge tools and frameworks."
+  },
+  "contact": {
+  "title": "Get",
+  "subtitle": "Started",
+  "description": "Ready to transform your enterprise communication with AI? Let's discuss how our platform can meet your specific needs.",
+  "leftCard": {
+    "title": "Why Choose Codepackers?",
+    "benefitsTitle": "Core Benefits",
+    "industriesTitle": "Industries We Serve",
+    "contactTitle": "Contact Us"
+  },
+  "rightCard": {
+    "title": "Drop us a line!",
+    "description": "Want to explore our AI solutions or schedule a live demo? Send us a WhatsApp or fill the form below. We're eager to assist!",
+    "whatsappButton": "Message us on WhatsApp",
+    "orDivider": "— or fill the form —"
+  },
+  "form": {
+    "nameLabel": "Name",
+    "namePlaceholder": "Your Name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "phoneLabel": "Phone",
+    "phoneOptional": "optional",
+    "phonePlaceholder": "10-digit mobile",
+    "phoneNotProvided": "Not provided",
+    "submitButton": "Submit"
+  },
+  "modal": {
+    "emailTitle": "Send via Email",
+    "whatsappTitle": "Send via WhatsApp",
+    "description": "Please enter your query message below",
+    "defaultMessageLabel": "Default message",
+    "defaultMessage": "I am interested to understand more about your solutions and services.",
+    "textareaPlaceholder": "Write your message...",
+    "sendButton": "Send Now"
+  },
+  "toasts": {
+    "nameRequired": "Please enter your name.",
+    "emailRequired": "Please enter your email.",
+    "detailsSavedTitle": "Details Saved!",
+    "detailsSavedDescription": "Now you can send your query via Email or WhatsApp.",
+    "submissionFailedTitle": "Submission Failed",
+    "submissionFailedDescription": "Could not save details. Try again.",
+    "emailSentTitle": "Email Sent",
+    "emailSentDescription": "Your message has been recorded. We'll get back soon.",
+    "sendFailedTitle": "Send Failed",
+    "sendFailedDescription": "Could not send message. Try again.",
+    "messageRequiredTitle": "Message Required",
+    "messageRequiredDescription": "Please type your message before sending."
+  },
+  "benefits": [
+    "AI agent Framework",
+    "ERP system Framework",
+    "Enterprise-grade security",
+    "Multilingual capabilities",
+    "Rapid deployment",
+    "Scalable solutions"
+  ],
+  "industries": {
+    "education": "Education",
+    "healthcare": "Healthcare",
+    "ecommerce": "E-commerce",
+    "egovernance": "E-governance",
+    "manufacturing": "Manufacturing",
+    "telecom": "Telecom",
+    "homelandSecurity": "Homeland Security"
+  }
+}, 
+  "footer": {
+    "about": "Leading AI conversational agent platform for enterprises in India.",
+    "platformTitle": "Platform",
+    "platformLinks": [
+      "AI Agents",
+      "Voice Interface",
+      "Multi-language Support",
+      "Enterprise Integration"
+    ],
+    "servicesTitle": "Services",
+    "servicesLinks": [
+      "Custom Development",
+      "AI Solutions",
+      "ERP Systems",
+      "Data Analytics"
+    ],
+    "contactTitle": "Contact",
+    "rights": "All rights reserved."
   }
 }

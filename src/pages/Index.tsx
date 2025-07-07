@@ -8,8 +8,11 @@ import TeamComposition from "@/components/TeamComposition";
 import TechnicalSkills from "@/components/TechnicalSkills";
 import ContactSection from "@/components/ContactSection";
 import TechnicalSkills2 from "@/components/TechnicalSkills2";
+import { useTranslation } from 'react-i18next';
 
 const Index = () => {
+  const { t } = useTranslation();
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
       {/* ✅ Navigation Bar */}
@@ -41,35 +44,35 @@ const Index = () => {
               <span className="text-xl font-bold">Codepackers</span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Leading AI conversational agent platform for enterprises in India.
+              {t('footer.about')}
             </p>
           </div>
 
           {/* Platform Links */}
           <div>
-            <h3 className="text-base font-semibold mb-4 text-white">Platform</h3>
+            <h3 className="text-base font-semibold mb-4 text-white">{t('footer.platformTitle')}</h3>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li>AI Agents</li>
-              <li>Voice Interface</li>
-              <li>Multi-language Support</li>
-              <li>Enterprise Integration</li>
+              <li>{t('footer.platformLinks.0')}</li>
+              <li>{t('footer.platformLinks.1')}</li>
+              <li>{t('footer.platformLinks.2')}</li>
+              <li>{t('footer.platformLinks.3')}</li>
             </ul>
           </div>
 
           {/* Services Links */}
           <div>
-            <h3 className="text-base font-semibold mb-4 text-white">Services</h3>
+            <h3 className="text-base font-semibold mb-4 text-white">{t('footer.servicesTitle')}</h3>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li>Custom Development</li>
-              <li>AI Solutions</li>
-              <li>ERP Systems</li>
-              <li>Data Analytics</li>
+              <li>{t('footer.servicesLinks.0')}</li>
+              <li>{t('footer.servicesLinks.1')}</li>
+              <li>{t('footer.servicesLinks.2')}</li>
+              <li>{t('footer.servicesLinks.3')}</li>
             </ul>
           </div>
 
           {/* Contact Info + Social Icons */}
           <div>
-            <h3 className="text-base font-semibold mb-4 text-white">Contact</h3>
+            <h3 className="text-base font-semibold mb-4 text-white">{t('footer.contactTitle')}</h3>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>India</li>
               <li>suja.sharma@codepackers.com</li>
@@ -91,7 +94,7 @@ const Index = () => {
 
         {/* Footer Bottom */}
         <div className="border-t border-white/10 mt-12 pt-6 text-center text-sm text-gray-500">
-          &copy; 2025 Codepackers Software Solutions Pvt Ltd. All rights reserved.
+          &copy; 2025 Codepackers Software Solutions Pvt Ltd. {t('footer.rights')}
         </div>
       </footer>
     </div>
