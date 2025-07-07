@@ -57,7 +57,7 @@ const fadeUp = {
   }),
 };
 
-const TechnologyExpertise = () => {
+const DigitalSolutions = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
@@ -131,4 +131,4 @@ const TechnologyExpertise = () => {
   );
 };
 
-export default TechnologyExpertise;
+export default DigitalSolutions;

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Menu, X, Lock, ChevronDown, Globe } from "lucide-react";
+import { Menu, X, Lock, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./button";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [language, setLanguage] = useState("English");
   const [langDropdown, setLangDropdown] = useState(false);
@@ -16,16 +18,19 @@ const Navbar = () => {
   const toggleLang = () => setLangDropdown(!langDropdown);
 
   const navItems = [
-    { name: "Capabilities", href: "#platform" },
-    { name: "Expertise", href: "#expertise" },
-    { name: "Team", href: "#team" },
-    { name: "Contact", href: "#contact" },
+    { name: t("nav.capabilities"), id: "capabilities" },
+    { name: t("nav.solutions"), id: "expertise" },
+    { name: t("nav.team"), id: "team" },
+    { name: t("nav.contact"), id: "contact" },
   ];
 
   const goToAdmin = () => navigate("/admin/login");
 
+  const handleScroll = () => {
+    setIsScrolled(window.scrollY > 100);
+  };
+
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 100);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -33,26 +38,39 @@ const Navbar = () => {
   const handleLogoPressStart = () => {
     logoPressTimeout.current = setTimeout(() => {
       setShowAdmin(true);
-    }, 3000); // 3 seconds hold
+    }, 3000);
   };
 
   const handleLogoPressEnd = () => {
-    if (logoPressTimeout.current) {
-      clearTimeout(logoPressTimeout.current);
+    if (logoPressTimeout.current) clearTimeout(logoPressTimeout.current);
+  };
+
+  const handleLanguageChange = (lang: string) => {
+    setLanguage(lang);
+    i18n.changeLanguage(lang === "English" ? "en" : "es");
+    localStorage.setItem("language", lang);
+    setLangDropdown(false);
+  };
+
+  const scrollToSection = (id: string) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+    setMobileOpen(false); // auto-close on mobile
   };
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-sm transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          {/* Logo with long-press */}
+          {/* Logo */}
           <div
             onMouseDown={handleLogoPressStart}
             onMouseUp={handleLogoPressEnd}
             onTouchStart={handleLogoPressStart}
             onTouchEnd={handleLogoPressEnd}
-            className={`text-xl md:text-2xl font-extrabold tracking-tight drop-shadow-md cursor-pointer ${
+            className={`text-xl md:text-2xl font-extrabold tracking-tight drop-shadow-md cursor-text ${
               isScrolled ? "text-black" : "text-white"
             }`}
           >
@@ -62,15 +80,15 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
-              <a
+              <button
                 key={item.name}
-                href={item.href}
+                onClick={() => scrollToSection(item.id)}
                 className={`text-sm font-medium hover:text-blue-500 px-3 py-2 transition rounded-md ${
                   isScrolled ? "text-black" : "text-white"
                 }`}
               >
                 {item.name}
-              </a>
+              </button>
             ))}
 
             {/* Language Dropdown */}
@@ -81,30 +99,51 @@ const Navbar = () => {
                   isScrolled ? "text-black" : "text-white"
                 }`}
               >
-                <Globe size={16} />
-                {language} <ChevronDown size={16} />
+                <img
+                  src={
+                    language === "English"
+                      ? "/assets/flags/english.png"
+                      : "/assets/flags/spanish.png"
+                  }
+                  alt={`${language} flag`}
+                  className="w-5 h-4 rounded-sm object-cover"
+                />
+                <span>{language}</span>
+                <ChevronDown size={16} />
               </button>
               {langDropdown && (
-                <div className="absolute right-0 mt-2 w-32 bg-white/10 backdrop-blur-md border border-white/30 rounded-md shadow-lg z-50">
+                <div className={`absolute right-0 mt-2 w-32 rounded-md shadow-lg z-50 border ${
+  isScrolled ? "bg-white text-black border-black/20" : "bg-white/10 backdrop-blur-md text-white border-white/30"
+}`}>
+
                   {["English", "Spanish"].map((lang) => (
                     <button
                       key={lang}
-                      onClick={() => {
-                        setLanguage(lang);
-                        setLangDropdown(false);
-                      }}
-                      className={`w-full px-4 py-2 text-left text-sm text-white hover:bg-white/20 transition ${
-                        language === lang ? "font-semibold text-blue-300" : ""
-                      }`}
+                      onClick={() => handleLanguageChange(lang)}
+                      className={`w-full px-4 py-2 text-left text-sm ${
+  isScrolled ? "text-black hover:bg-gray-100" : "text-white hover:bg-white/20"
+} transition ${language === lang ? "font-semibold text-blue-500" : ""}`}
+
                     >
-                      {lang}
+                      <div className="flex items-center gap-2">
+                        <img
+                          src={
+                            lang === "English"
+                              ? "/assets/flags/english.png"
+                              : "/assets/flags/spanish.png"
+                          }
+                          alt={lang}
+                          className="w-5 h-4 rounded-sm object-cover"
+                        />
+                        {lang}
+                      </div>
                     </button>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* Admin Panel Button (Desktop) */}
+            {/* Admin Button */}
             {showAdmin && (
               <Button
                 variant="ghost"
@@ -116,7 +155,7 @@ const Navbar = () => {
                 }`}
               >
                 <Lock size={16} className="mb-[1px]" />
-                Admin Panel
+                {t("nav.adminPanel")}
               </Button>
             )}
           </div>
@@ -125,7 +164,9 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className={`hover:text-blue-300 ${isScrolled ? "text-black" : "text-white"}`}
+              className={`hover:text-blue-300 ${
+                isScrolled ? "text-black" : "text-white"
+              }`}
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
               <span className="sr-only">Open menu</span>
@@ -137,45 +178,66 @@ const Navbar = () => {
         {mobileOpen && (
           <div className="md:hidden pb-4 space-y-2 text-white">
             {navItems.map((item) => (
-              <a
+              <button
                 key={item.name}
-                href={item.href}
+                onClick={() => scrollToSection(item.id)}
                 className="block text-sm font-medium px-2 py-2 hover:text-blue-300"
               >
                 {item.name}
-              </a>
+              </button>
             ))}
 
-            {/* Language Dropdown */}
+            {/* Language Dropdown Mobile */}
             <div className="relative">
               <button
                 onClick={toggleLang}
                 className="flex items-center gap-1 text-white px-3 py-1 text-sm rounded-md hover:bg-white/10 transition"
               >
-                <Globe size={16} />
-                {language} <ChevronDown size={16} />
+                <img
+                  src={
+                    language === "English"
+                      ? "/assets/flags/english.png"
+                      : "/assets/flags/spanish.png"
+                  }
+                  alt={`${language} flag`}
+                  className="w-5 h-4 rounded-sm object-cover"
+                />
+                <span>{language}</span>
+                <ChevronDown size={16} />
               </button>
               {langDropdown && (
-                <div className="absolute left-0 mt-2 w-32 bg-white/10 backdrop-blur-md border border-white/30 rounded-md shadow-lg z-50">
+                <div className={`absolute left-0 mt-2 w-32 rounded-md shadow-lg z-50 border ${
+  isScrolled ? "bg-white text-black border-black/20" : "bg-white/10 backdrop-blur-md text-white border-white/30"
+}`}>
+
                   {["English", "Spanish"].map((lang) => (
                     <button
                       key={lang}
-                      onClick={() => {
-                        setLanguage(lang);
-                        setLangDropdown(false);
-                      }}
-                      className={`w-full px-4 py-2 text-left text-sm text-white hover:bg-white/20 transition ${
-                        language === lang ? "font-semibold text-blue-300" : ""
-                      }`}
+                      onClick={() => handleLanguageChange(lang)}
+                      className={`w-full px-4 py-2 text-left text-sm ${
+  isScrolled ? "text-black hover:bg-gray-100" : "text-white hover:bg-white/20"
+} transition ${language === lang ? "font-semibold text-blue-500" : ""}`}
+
                     >
-                      {lang}
+                      <div className="flex items-center gap-2">
+                        <img
+                          src={
+                            lang === "English"
+                              ? "/assets/flags/english.png"
+                              : "/assets/flags/spanish.png"
+                          }
+                          alt={lang}
+                          className="w-5 h-4 rounded-sm object-cover"
+                        />
+                        {lang}
+                      </div>
                     </button>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* Admin Panel (Mobile) */}
+            {/* Admin Button Mobile */}
             {showAdmin && (
               <Button
                 variant="outline"
@@ -183,7 +245,7 @@ const Navbar = () => {
                 className="w-full text-sm flex items-center justify-center gap-1 mt-2 text-white border-white/50 hover:border-blue-400 hover:text-blue-400"
               >
                 <Lock size={16} />
-                Admin Panel
+                {t("nav.adminPanel")}
               </Button>
             )}
           </div>

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,6 +10,7 @@ import {
   MessageCircle, Mic, Shield, Globe, Users, BarChart3,
   Bot, Database, MonitorSmartphone, PhoneCall, Link2, LineChart
 } from "lucide-react";
+const [modalCards, setModalCards] = useState<typeof frameworks.ALAAP>([]);
 
 const frameworks = {
   ALAAP: [
@@ -112,8 +114,21 @@ const PlatformCapabilities = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalIndex, setModalIndex] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [modalCards, setModalCards] = useState([]);
   const swiperRef = useRef(null);
-  const currentCards = frameworks[selectedFramework];
+  const mainSwiperRef = useRef(null);
+  const currentCards = modalOpen ? modalCards : frameworks[selectedFramework];
+  
+  useEffect(() => {
+  if (mainSwiperRef.current) {
+    if (modalOpen) {
+      mainSwiperRef.current.autoplay.stop();
+    } else {
+      mainSwiperRef.current.autoplay.start();
+    }
+  }
+}, [modalOpen]);
+
 
   return (
     <section id="capabilities" className="relative overflow-hidden py-24 px-6 lg:px-20 bg-gradient-to-br from-white via-slate-50 to-slate-100">
@@ -146,6 +161,7 @@ const PlatformCapabilities = () => {
         {/* Capability Cards Carousel - Final Updated Design */}
 <div className="mt-12">
   <Swiper
+  onSwiper={(swiper) => (mainSwiperRef.current = swiper)} // ⬅ capture instance
   spaceBetween={30}
   slidesPerView={1}
   loop={true}
@@ -160,8 +176,9 @@ const PlatformCapabilities = () => {
 >
 
 
-    {[["ALAAP", frameworks.ALAAP], ["PUSTAK", frameworks.PUSTAK]].map(
-      ([label, cards], slideIndex) => (
+    (Object.entries(frameworks) as [string, typeof frameworks.ALAAP][]).map(
+  ([label, cards], slideIndex) => (
+
         <SwiperSlide key={label}>
           <div className="flex flex-col items-center">
             <h2
@@ -182,11 +199,13 @@ const PlatformCapabilities = () => {
                     whileHover={{ scale: 1.05, y: -4 }}
                     transition={{ duration: 0.3 }}
                     onClick={() => {
-                      setModalIndex(globalIndex);
-                      setActiveSlide(globalIndex);
-                      setSelectedFramework(label);
-                      setModalOpen(true);
-                    }}
+  setModalCards(cards); // cards = ALAAP or PUSTAK set
+  setModalIndex(i);     // index within selected framework
+  setActiveSlide(i);
+  setSelectedFramework(label); // optional if used elsewhere
+  setModalOpen(true);
+}}
+
                     className="cursor-pointer bg-white/30 backdrop-blur-2xl rounded-3xl p-6 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300"
                   >
                     <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-white mb-4">
@@ -239,11 +258,13 @@ const PlatformCapabilities = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <Swiper
-                onSwiper={(swiper) => (swiperRef.current = swiper)}
-                onSlideChange={(s) => setActiveSlide(s.activeIndex)}
-                initialSlide={modalIndex}
-                modules={[Pagination]}
-              >
+  onSwiper={(swiper) => (swiperRef.current = swiper)}
+  onSlideChange={(s) => setActiveSlide(s.realIndex)}
+  initialSlide={modalIndex}
+  loop={true}
+  modules={[Pagination]}
+>
+
                 {currentCards.map((cap, i) => (
                   <SwiperSlide key={i}>
                     <div>
@@ -266,24 +287,23 @@ const PlatformCapabilities = () => {
                 ))}
               </Swiper>
               <div className="mt-6 flex items-center justify-between">
-                <button
-                  onClick={() => swiperRef.current?.slidePrev()}
-                  disabled={activeSlide === 0}
-                  className="text-sm px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow disabled:opacity-40"
-                >
-                  ← Back
-                </button>
-                <span className="text-xs text-gray-500">
-                  Capability {activeSlide + 1} of {currentCards.length}
-                </span>
-                <button
-                  onClick={() => swiperRef.current?.slideNext()}
-                  disabled={activeSlide === currentCards.length - 1}
-                  className="text-sm px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow disabled:opacity-40"
-                >
-                  Next →
-                </button>
-              </div>
+  <button
+    onClick={() => swiperRef.current?.slidePrev()}
+    className="text-sm px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow"
+  >
+    ← Back
+  </button>
+  <span className="text-xs text-gray-500">
+    Capability {activeSlide + 1} of {currentCards.length}
+  </span>
+  <button
+    onClick={() => swiperRef.current?.slideNext()}
+    className="text-sm px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow"
+  >
+    Next →
+  </button>
+</div>
+
             </motion.div>
           </motion.div>
         )}

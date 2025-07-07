@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, EffectFade } from "swiper/modules";
@@ -26,7 +26,8 @@ import {
   BusFront,
 } from "lucide-react";
 import Lottie from "lottie-react";
-const pustakLottie = "/assets/pustak-lottie.json";
+const pustakLottiePath = "/assets/pustak-lottie.json";
+
 
 import AIChatCarousel from "./AIChatCarousel/AIChatCarousel";
 
@@ -41,6 +42,15 @@ const HeroCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [chatLoopKey, setChatLoopKey] = useState(0);
 const [pustakLoopKey, setPustakLoopKey] = useState(0); // 👉 Add this
+const [pustakLottieData, setPustakLottieData] = useState(null);
+
+useEffect(() => {
+  fetch(pustakLottiePath)
+    .then((res) => res.json())
+    .then((data) => setPustakLottieData(data))
+    .catch((err) => console.error("Error loading Pustak Lottie:", err));
+}, []);
+
   const handleSlideChange = (swiper: SwiperCore) => {
   const index = swiper.realIndex;
   setActiveIndex(index);
@@ -165,13 +175,18 @@ const pustakFeatures = [
               <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center min-h-full px-0 md:px-10 py-8">
                 {/* Text */}
                 <div className="text-center md:text-left px-2 md:px-8">
+                  
                   <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">
-                    <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
-                      AI Conversational
-                    </span>
-                    <br />
-                    Agents for Enterprise
-                  </h2>
+  <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
+    Alaap Framework
+  </span>
+  <br />
+  <span className="text-white">
+    Enterprise AI Agents
+  </span>
+</h2>
+
+
                   <p className="text-base md:text-lg mb-6 max-w-xl mx-auto md:mx-0">
                     Empower your organization with personified AI agents that
                     understand your business, speak your language, and protect
@@ -267,7 +282,7 @@ const pustakFeatures = [
     Pustak Framework
   </span>
   <br />
-  <span className="whitespace-nowrap">ERP + Workflow Simplified</span>
+  <span className="whitespace-nowrap">Streamlined ERP & Workflows</span>
 </h2>
         <p className="text-base md:text-lg mb-6 max-w-xl mx-auto md:mx-0">
           A powerful, modular framework built for enterprise operations like CRM,
@@ -298,13 +313,16 @@ const pustakFeatures = [
   transition={{ duration: 1 }}
   className="w-full md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto px-4 md:px-0 flex justify-center items-center"
 >
+  {pustakLottieData && (
   <Lottie
-  key={pustakLoopKey} // 👉 animation will restart only when slide becomes active
-  path={pustakLottie}
-  loop={false}
-  autoplay={true}
-  className="w-full h-auto"
-/>
+    key={pustakLoopKey}
+    animationData={pustakLottieData}
+    loop={false}
+    autoplay={true}
+    className="w-full h-auto"
+  />
+)}
+
 
 </motion.div>
 

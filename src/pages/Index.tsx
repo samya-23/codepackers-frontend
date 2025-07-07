@@ -2,11 +2,12 @@ import React from "react";
 import Navbar from "@/components/ui/navbar";
 import HeroCarousel from "@/components/HeroCarousel";
 import PlatformCapabilities from "@/components/PlatformCapabilities";
-import TechnologyExpertise from "@/components/TechnologyExpertise";
+import DigitalSolutions from "@/components/DigitalSolutions";
 import TeamSection from "@/components/TeamSection";
-import TeamExpertiseSection from "@/components/TeamExpertiseSection"; // NEW
-import DevelopmentApproach from "@/components/DevelopmentApproach"; // 🆕 Newly added section
+import TeamComposition from "@/components/TeamComposition";
+import TechnicalSkills from "@/components/TechnicalSkills";
 import ContactSection from "@/components/ContactSection";
+import TechnicalSkills2 from "@/components/TechnicalSkills2";
 
 const Index = () => {
   return (
@@ -19,11 +20,12 @@ const Index = () => {
 
       {/* ✅ Main Sections */}
       <PlatformCapabilities />
-      <TechnologyExpertise />
+      <DigitalSolutions/>
       <TeamSection />
-      <TeamExpertiseSection /> {/* Now shows right after Our Team */}
-      <DevelopmentApproach /> {/* 🆕 Our Development Approach section */}
+      <TeamComposition />
+      <TechnicalSkills />
       <ContactSection />
+      <TechnicalSkills2 />
 
       {/* ✅ Footer */}
       <footer className="bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 text-white pt-16 pb-10 mt-20 border-t border-white/10">
@@ -71,6 +73,7 @@ const Index = () => {
             <ul className="space-y-2 text-sm text-gray-400">
               <li>India</li>
               <li>suja.sharma@codepackers.com</li>
+              <li>vikas.tyagi@codepackers.com</li>
             </ul>
             <div className="flex space-x-4 mt-4">
               <a href="#" className="text-gray-400 hover:text-white transition">
