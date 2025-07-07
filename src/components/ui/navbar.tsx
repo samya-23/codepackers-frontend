@@ -8,7 +8,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [language, setLanguage] = useState("English");
+  const [language, setLanguage] = useState(() => {
+  const stored = localStorage.getItem("language");
+  return stored === "Spanish" ? "Spanish" : "English"; // fallback: English
+});
+
+
   const [langDropdown, setLangDropdown] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
@@ -34,6 +39,16 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  
+  useEffect(() => {
+  const storedLang = localStorage.getItem("language");
+  if (storedLang === "Spanish") {
+    i18n.changeLanguage("es");
+  } else {
+    i18n.changeLanguage("en");
+  }
+}, []);
+
 
   const handleLogoPressStart = () => {
     logoPressTimeout.current = setTimeout(() => {

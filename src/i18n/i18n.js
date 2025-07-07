@@ -1,4 +1,3 @@
-// src/i18n/i18n.js
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -14,14 +13,17 @@ i18n
       en: { translation: en },
       es: { translation: es },
     },
-    fallbackLng: 'en',
+    fallbackLng: 'en', // Default language if none found
     detection: {
+      // Detect language in this order:
       order: ['localStorage', 'navigator'],
+      // Use this localStorage key to lookup/set
       lookupLocalStorage: 'language',
+      // Cache the user's language in localStorage
       caches: ['localStorage'],
     },
     interpolation: {
-      escapeValue: false
+      escapeValue: false, // React already escapes
     }
   });
 
