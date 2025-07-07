@@ -9,6 +9,7 @@ import {
   Bot, Database, MonitorSmartphone, PhoneCall, Link2, LineChart
 } from "lucide-react";
 import { useTranslation } from 'react-i18next';
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface Capability {
   icon: React.ComponentType<{ className?: string }>;
@@ -164,6 +165,14 @@ const PlatformCapabilities = () => {
       }
     }
   }, [modalOpen]);
+useEffect(() => {
+  if (mainSwiperRef.current?.navigation) {
+    setTimeout(() => {
+      mainSwiperRef.current.navigation.init();
+      mainSwiperRef.current.navigation.update();
+    }, 0);
+  }
+}, []);
 
   return (
     <section id="capabilities" className="relative overflow-hidden py-24 px-6 lg:px-20 bg-gradient-to-br from-white via-slate-50 to-slate-100">
@@ -248,14 +257,22 @@ const PlatformCapabilities = () => {
               )
             )}
           </Swiper>
-          <div className="mt-8 flex justify-center gap-4">
-            <button className="custom-prev w-10 h-10 rounded-full bg-white shadow-md border hover:bg-gray-100 flex items-center justify-center text-blue-500 hover:text-purple-500 transition">
-              &lt;
-            </button>
-            <button className="custom-next w-10 h-10 rounded-full bg-white shadow-md border hover:bg-gray-100 flex items-center justify-center text-blue-500 hover:text-purple-500 transition">
-              &gt;
-            </button>
-          </div>
+          <div className="mt-10 flex justify-center gap-6">
+  <button
+    className="custom-prev group relative w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out flex items-center justify-center"
+    aria-label="Previous"
+  >
+    <ArrowLeft className="w-5 h-5 text-white group-hover:scale-110 transition-transform duration-200" />
+  </button>
+
+  <button
+    className="custom-next group relative w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out flex items-center justify-center"
+    aria-label="Next"
+  >
+    <ArrowRight className="w-5 h-5 text-white group-hover:scale-110 transition-transform duration-200" />
+  </button>
+</div>
+
         </div>
       </div>
 
@@ -318,7 +335,8 @@ const PlatformCapabilities = () => {
                   onClick={() => swiperRef.current?.slideNext()}
                   className="text-sm px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow"
                 >
-                  {t('capabilities.next')} &gt;
+                  {t('capabilities.next')} →
+
                 </button>
               </div>
             </motion.div>
