@@ -10,16 +10,15 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const [language, setLanguage] = useState(() => {
-  const stored = localStorage.getItem("language");
-  return stored === "es" ? "Spanish" : "English"; // fallback: English
-});
-
-
+    const stored = localStorage.getItem("language");
+    return stored === "es" ? "Spanish" : "English"; // fallback: English
+  });
 
   const [langDropdown, setLangDropdown] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const logoPressTimeout = useRef<NodeJS.Timeout | null>(null);
+  const langDropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => setMobileOpen(!mobileOpen);
   const toggleLang = () => setLangDropdown(!langDropdown);
@@ -43,31 +42,31 @@ const Navbar = () => {
   }, []);
   
   useEffect(() => {
-  const storedLang = localStorage.getItem("language");
-  i18n.changeLanguage(storedLang === "es" ? "es" : "en");
-}, []);
+    const storedLang = localStorage.getItem("language");
+    i18n.changeLanguage(storedLang === "es" ? "es" : "en");
+  }, []);
 
-useEffect(() => {
-  const handleClickOutside = (event: MouseEvent) => {
-    const dropdown = document.getElementById("lang-dropdown");
-    if (dropdown && !dropdown.contains(event.target as Node)) {
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target as Node)) {
+        setLangDropdown(false);
+      }
+    };
+
+    const handleOutsideScroll = () => {
       setLangDropdown(false);
+    };
+
+    if (langDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+      window.addEventListener("scroll", handleOutsideScroll);
     }
-  };
 
-  const handleOutsideScroll = () => {
-    setLangDropdown(false);
-  };
-
-  document.addEventListener("mousedown", handleClickOutside);
-  window.addEventListener("scroll", handleOutsideScroll);
-
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-    window.removeEventListener("scroll", handleOutsideScroll);
-  };
-}, []);
-
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleOutsideScroll);
+    };
+  }, [langDropdown]);
 
   const handleLogoPressStart = () => {
     logoPressTimeout.current = setTimeout(() => {
@@ -80,13 +79,12 @@ useEffect(() => {
   };
 
   const handleLanguageChange = (lang: string) => {
-  const langCode = lang === "English" ? "en" : "es";
-  setLanguage(lang);
-  i18n.changeLanguage(langCode);
-  localStorage.setItem("language", langCode);
-  setLangDropdown(false);
-};
-
+    const langCode = lang === "English" ? "en" : "es";
+    setLanguage(lang);
+    i18n.changeLanguage(langCode);
+    localStorage.setItem("language", langCode);
+    setLangDropdown(false);
+  };
 
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
@@ -128,7 +126,7 @@ useEffect(() => {
             ))}
 
             {/* Language Dropdown */}
-            <div className="relative">
+            <div className="relative" ref={langDropdownRef}>
               <button
                 onClick={toggleLang}
                 className={`flex items-center gap-1 px-3 py-1 text-sm rounded-md hover:bg-white/10 transition ${
@@ -147,19 +145,27 @@ useEffect(() => {
                 <span>{language}</span>
                 <ChevronDown size={16} />
               </button>
-              {langDropdown && (
-                <div id="lang-dropdown" className={`absolute right-0 mt-2 w-32 rounded-md shadow-lg z-50 border ${
-  isScrolled ? "bg-white text-black border-black/20" : "bg-white/10 backdrop-blur-md text-white border-white/30"
-}`}>
 
+              {langDropdown && (
+                <div
+                  id="lang-dropdown-desktop"
+                  className={`absolute right-0 mt-2 w-32 rounded-md shadow-lg z-50 border ${
+                    isScrolled
+                      ? "bg-white text-black border-black/20"
+                      : "bg-white/10 backdrop-blur-md text-white border-white/30"
+                  }`}
+                >
                   {["English", "Spanish"].map((lang) => (
                     <button
                       key={lang}
                       onClick={() => handleLanguageChange(lang)}
                       className={`w-full px-4 py-2 text-left text-sm ${
-  isScrolled ? "text-black hover:bg-gray-100" : "text-white hover:bg-white/20"
-} transition ${language === lang ? "font-semibold text-blue-500" : ""}`}
-
+                        isScrolled
+                          ? "text-black hover:bg-gray-100"
+                          : "text-white hover:bg-white/20"
+                      } transition ${
+                        language === lang ? "font-semibold text-blue-500" : ""
+                      }`}
                     >
                       <div className="flex items-center gap-2">
                         <img
@@ -224,63 +230,64 @@ useEffect(() => {
             ))}
 
             {/* Language Dropdown Mobile */}
-            {/* Language Dropdown Mobile */}
-<div className="relative z-50 mb-2">
-  <button
-    onClick={toggleLang}
-    className="flex items-center gap-1 text-white px-3 py-1 text-sm rounded-md hover:bg-white/10 transition"
-  >
-    <img
-      src={
-        language === "English"
-          ? "/assets/flags/english.png"
-          : "/assets/flags/spanish.png"
-      }
-      alt={`${language} flag`}
-      className="w-5 h-4 rounded-sm object-cover"
-    />
-    <span>{language}</span>
-    <ChevronDown size={16} />
-  </button>
+            <div className="relative z-50 mb-2" ref={langDropdownRef}>
+              <button
+                onClick={toggleLang}
+                className="flex items-center gap-1 text-white px-3 py-1 text-sm rounded-md hover:bg-white/10 transition"
+              >
+                <img
+                  src={
+                    language === "English"
+                      ? "/assets/flags/english.png"
+                      : "/assets/flags/spanish.png"
+                  }
+                  alt={`${language} flag`}
+                  className="w-5 h-4 rounded-sm object-cover"
+                />
+                <span>{language}</span>
+                <ChevronDown size={16} />
+              </button>
 
-  {langDropdown && (
-    <div id="lang-dropdown"
-      className={`absolute left-0 mt-2 w-40 rounded-md shadow-lg z-50 border backdrop-blur-md overflow-hidden ${
-        isScrolled
-          ? "bg-white text-black border-black/20"
-          : "bg-black/80 text-white border-white/20"
-      }`}
-    >
-      <div className="max-h-40 overflow-auto">
-        {["English", "Spanish"].map((lang) => (
-          <button
-            key={lang}
-            onClick={() => handleLanguageChange(lang)}
-            className={`w-full px-4 py-2 text-left text-sm ${
-              isScrolled
-                ? "text-black hover:bg-gray-100"
-                : "text-white hover:bg-white/20"
-            } transition ${language === lang ? "font-semibold text-blue-500" : ""}`}
-          >
-            <div className="flex items-center gap-2">
-              <img
-                src={
-                  lang === "English"
-                    ? "/assets/flags/english.png"
-                    : "/assets/flags/spanish.png"
-                }
-                alt={lang}
-                className="w-5 h-4 rounded-sm object-cover"
-              />
-              {lang}
+              {langDropdown && (
+                <div
+                  id="lang-dropdown-mobile"
+                  className={`absolute left-0 mt-2 w-40 rounded-md shadow-lg z-50 border backdrop-blur-md overflow-hidden ${
+                    isScrolled
+                      ? "bg-white text-black border-black/20"
+                      : "bg-black/80 text-white border-white/20"
+                  }`}
+                >
+                  <div className="max-h-40 overflow-auto">
+                    {["English", "Spanish"].map((lang) => (
+                      <button
+                        key={lang}
+                        onClick={() => handleLanguageChange(lang)}
+                        className={`w-full px-4 py-2 text-left text-sm ${
+                          isScrolled
+                            ? "text-black hover:bg-gray-100"
+                            : "text-white hover:bg-white/20"
+                        } transition ${
+                          language === lang ? "font-semibold text-blue-500" : ""
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <img
+                            src={
+                              lang === "English"
+                                ? "/assets/flags/english.png"
+                                : "/assets/flags/spanish.png"
+                            }
+                            alt={lang}
+                            className="w-5 h-4 rounded-sm object-cover"
+                          />
+                          {lang}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          </button>
-        ))}
-      </div>
-    </div>
-  )}
-</div>
-
 
             {/* Admin Button Mobile */}
             {showAdmin && (
