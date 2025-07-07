@@ -67,26 +67,26 @@ const DigitalSolutions = () => {
     <section
       id="expertise"
       ref={sectionRef}
-      className="relative py-24 px-6 lg:px-24 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
+      className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-24 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
     >
       <BackgroundBlob />
       <PatternOverlay />
 
-      <div className="relative z-10 max-w-7xl mx-auto space-y-16">
+      <div className="relative z-10 max-w-7xl mx-auto space-y-12 sm:space-y-16">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center"
+          className="text-center px-2"
         >
-          <h2 className="text-5xl font-extrabold text-gray-900 text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 text-center">
             {t('solutions.title')}{' '}
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
               {t('solutions.subtitle')}
             </span>
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto text-center">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-gray-600 max-w-3xl mx-auto text-center">
             {t('solutions.description')}
           </p>
         </motion.div>
@@ -100,7 +100,7 @@ const DigitalSolutions = () => {
             hidden: {},
             visible: { transition: { staggerChildren: 0.12 } },
           }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-0"
         >
           {bsisprSolutions.map(({ icon: Icon, label }, i) => (
             <motion.div
@@ -114,12 +114,12 @@ const DigitalSolutions = () => {
                 },
               }}
               whileHover={{ scale: 1.05, rotate: 0.5 }}
-              className="flex flex-col items-center gap-4 p-6 rounded-xl bg-white/40 border border-white/30 shadow-md backdrop-blur-xl hover:shadow-2xl transition-all duration-300 hover:bg-white/60"
+              className="flex flex-col items-center gap-2 sm:gap-4 p-3 sm:p-4 md:p-6 rounded-lg md:rounded-xl bg-white/40 border border-white/30 shadow-sm sm:shadow-md backdrop-blur-xl hover:shadow-lg sm:hover:shadow-2xl transition-all duration-300 hover:bg-white/60"
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-xl flex items-center justify-center shadow-md">
-                <Icon className="w-6 h-6" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-lg sm:rounded-xl flex items-center justify-center shadow-sm sm:shadow-md">
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
               </div>
-              <h4 className="text-sm md:text-base font-medium text-gray-800 text-center leading-snug">
+              <h4 className="text-xs sm:text-sm md:text-base font-medium text-gray-800 text-center leading-tight sm:leading-snug">
                 {t(label)}
               </h4>
             </motion.div>
