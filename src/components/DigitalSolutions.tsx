@@ -16,15 +16,13 @@ import { useTranslation } from 'react-i18next';
 
 const BackgroundBlob = () => (
   <>
-    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] 
+    <div className="hidden sm:block absolute -top-32 -left-32 w-[500px] h-[500px] 
       bg-purple-400 rounded-full animate-pulse
-      opacity-[0.01] blur-[1px]
-      sm:opacity-20 sm:blur-3xl" />
+      opacity-20 blur-3xl" />
 
-    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] 
+    <div className="hidden sm:block absolute -bottom-32 -right-32 w-[500px] h-[500px] 
       bg-blue-400 rounded-full animate-pulse
-      opacity-[0.01] blur-[1px]
-      sm:opacity-20 sm:blur-3xl" />
+      opacity-20 blur-3xl" />
   </>
 );
 
