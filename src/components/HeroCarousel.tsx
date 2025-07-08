@@ -139,7 +139,8 @@ const HeroCarousel = () => {
           {/* Slide 1 - Intro - Optimized for mobile */}
           {/* Slide 1 - Intro - Optimized for mobile with reduced vertical spacing */}
 <SwiperSlide>
-  <div className="flex flex-col justify-center items-center text-center h-full px-4 md:px-6 text-white relative">
+  <div className="flex flex-col justify-center items-center text-center min-h-screen px-4 md:px-6 text-white">
+
     
     {/* Reduced spacing for mobile */}
     <div className="pt-4 md:pt-0 px-4">
@@ -155,7 +156,7 @@ const HeroCarousel = () => {
     </div>
 
     {/* CTA Buttons - Adjusted position for mobile */}
-    <div className="absolute bottom-4 md:bottom-16 px-2 w-full flex flex-col sm:flex-row justify-center items-stretch gap-2 md:gap-4">
+    <div className="mt-6 md:mt-12 px-2 w-full flex flex-col sm:flex-row justify-center items-stretch gap-2 md:gap-4">
       <button
         onClick={() => swiperRef.current?.slideTo(1)}
         className="group flex items-center justify-between gap-1 w-full sm:w-auto px-4 py-2 md:px-6 md:py-3 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
