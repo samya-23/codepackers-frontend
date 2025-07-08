@@ -67,8 +67,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
     ) => {
       // Adjust typing speed for mobile
       const isMobile = window.innerWidth <= 600;
-      const adjustedSpeed = isMobile ? typingSpeed * 0.3 : typingSpeed;
-
+      const adjustedSpeed = typingSpeed; // same for all screens
       if (!isAI) {
         setSendClicked(true);
       } else {
@@ -122,9 +121,8 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
   await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
 
   await typeMessage(messages[2], SLOW_USER_TYPING_SPEED, false);
-
-  // Add buffer to ensure mobile finishes render
-  await new Promise((r) => setTimeout(r, 600)); // 600ms buffer
+await new Promise((r) => setTimeout(r, 600)); // buffer
+if (typeof onLoopComplete === "function") onLoopComplete();
 
   onLoopComplete?.(); // Now fire transition
 };

@@ -91,6 +91,11 @@ const HeroCarousel = () => {
     [<Briefcase size={32} stroke="url(#icon-gradient)" />, t("pustak.features.10")],
     [<BusFront size={32} stroke="url(#icon-gradient)" />, t("pustak.features.11")],
   ];
+  useEffect(() => {
+  if (activeIndex === 1) {
+    swiperRef.current?.autoplay?.stop(); // stop autoplay on entering chat slide
+  }
+}, [activeIndex]);
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -119,7 +124,10 @@ const HeroCarousel = () => {
 
       <div className="relative z-20 h-full">
         <Swiper
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSwiper={(swiper) => {
+  swiperRef.current = swiper;
+}}
+
           onSlideChange={handleSlideChange}
           modules={[Autoplay, Navigation, EffectFade]}
           autoplay={{
@@ -222,7 +230,14 @@ const HeroCarousel = () => {
       </div>
 
       <div className="w-full px-4 md:px-0 md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto transition-all duration-500 ease-in-out">
-        <AIChatCarousel loopKey={chatLoopKey} run={activeIndex === 1} />
+        <AIChatCarousel
+  loopKey={chatLoopKey}
+  run={activeIndex === 1}
+  onLoopComplete={() => {
+    swiperRef.current?.autoplay?.start(); // resume after all typing is done
+  }}
+/>
+
       </div>
     </div>
   </div>
