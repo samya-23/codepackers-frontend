@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, ReactElement } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, EffectFade } from "swiper/modules";
@@ -36,19 +36,13 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import "@/index.css";
 
-interface FeatureItem {
-  icon: ReactElement;
-  label: string;
-}
-
 const HeroCarousel = () => {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const { t } = useTranslation();
   const swiperRef = useRef<SwiperCore | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [chatLoopKey, setChatLoopKey] = useState(0);
   const [pustakLoopKey, setPustakLoopKey] = useState(0);
-  const [pustakLottieData, setPustakLottieData] = useState<any>(null);
+  const [pustakLottieData, setPustakLottieData] = useState(null);
 
   useEffect(() => {
     fetch(pustakLottiePath)
@@ -70,32 +64,32 @@ const HeroCarousel = () => {
     }
   };
 
-  const alaapFeatures: FeatureItem[] = [
-    { icon: <Bot key="bot" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.0") },
-    { icon: <Headset key="headset" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.1") },
-    { icon: <Briefcase key="briefcase" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.2") },
-    { icon: <PhoneCall key="phone" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.3") },
-    { icon: <CalendarDays key="calendar" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.4") },
-    { icon: <GraduationCap key="graduation" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.5") },
-    { icon: <Tv key="tv" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.6") },
-    { icon: <Mic key="mic" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.7") },
-    { icon: <FlaskConical key="flask" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.8") },
-    { icon: <SatelliteDish key="satellite" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.9") },
+  const alaapFeatures = [
+    [<Bot size={32} stroke="url(#icon-gradient)" />, t("alaap.features.0")],
+    [<Headset size={32} stroke="url(#icon-gradient)" />, t("alaap.features.1")],
+    [<Briefcase size={32} stroke="url(#icon-gradient)" />, t("alaap.features.2")],
+    [<PhoneCall size={32} stroke="url(#icon-gradient)" />, t("alaap.features.3")],
+    [<CalendarDays size={32} stroke="url(#icon-gradient)" />, t("alaap.features.4")],
+    [<GraduationCap size={32} stroke="url(#icon-gradient)" />, t("alaap.features.5")],
+    [<Tv size={32} stroke="url(#icon-gradient)" />, t("alaap.features.6")],
+    [<Mic size={32} stroke="url(#icon-gradient)" />, t("alaap.features.7")],
+    [<FlaskConical size={32} stroke="url(#icon-gradient)" />, t("alaap.features.8")],
+    [<SatelliteDish size={32} stroke="url(#icon-gradient)" />, t("alaap.features.9")],
   ];
-
-  const pustakFeatures: FeatureItem[] = [
-    { icon: <UserRound key="user" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.0") },
-    { icon: <Boxes key="boxes" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.1") },
-    { icon: <Truck key="truck" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.2") },
-    { icon: <Users key="users" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.3") },
-    { icon: <FileText key="file" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.4") },
-    { icon: <ActivitySquare key="activity" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.5") },
-    { icon: <Hammer key="hammer" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.6") },
-    { icon: <Hospital key="hospital" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.7") },
-    { icon: <GraduationCap key="grad" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.8") },
-    { icon: <FileText key="file2" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.9") },
-    { icon: <Briefcase key="briefcase2" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.10") },
-    { icon: <BusFront key="bus" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.11") },
+  
+  const pustakFeatures = [
+    [<UserRound size={32} stroke="url(#icon-gradient)" />, t("pustak.features.0")],
+    [<Boxes size={32} stroke="url(#icon-gradient)" />, t("pustak.features.1")],
+    [<Truck size={32} stroke="url(#icon-gradient)" />, t("pustak.features.2")],
+    [<Users size={32} stroke="url(#icon-gradient)" />, t("pustak.features.3")],
+    [<FileText size={32} stroke="url(#icon-gradient)" />, t("pustak.features.4")],
+    [<ActivitySquare size={32} stroke="url(#icon-gradient)" />, t("pustak.features.5")],
+    [<Hammer size={32} stroke="url(#icon-gradient)" />, t("pustak.features.6")],
+    [<Hospital size={32} stroke="url(#icon-gradient)" />, t("pustak.features.7")],
+    [<GraduationCap size={32} stroke="url(#icon-gradient)" />, t("pustak.features.8")],
+    [<FileText size={32} stroke="url(#icon-gradient)" />, t("pustak.features.9")],
+    [<Briefcase size={32} stroke="url(#icon-gradient)" />, t("pustak.features.10")],
+    [<BusFront size={32} stroke="url(#icon-gradient)" />, t("pustak.features.11")],
   ];
 
   return (
@@ -110,32 +104,18 @@ const HeroCarousel = () => {
         </defs>
       </svg>
 
-      {/* Fallback image */}
-      <img
-        src="/fallbacks/hero-fallback.jpg"
-        alt="Fallback Background"
-        className={`absolute top-0 left-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
-          isVideoLoaded ? "opacity-0" : "opacity-100"
-        }`}
-      />
-
-      {/* Background video */}
       <video
-        className={`absolute top-0 left-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
-          isVideoLoaded ? "opacity-100" : "opacity-0"
-        }`}
+        className="absolute top-0 left-0 w-full h-full object-cover z-0"
         autoPlay
         loop
         muted
         playsInline
-        preload="auto"
-        onLoadedData={() => setIsVideoLoaded(true)}
       >
         <source src="/background.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <div className="absolute top-0 left-0 w-full h-full bg-black/25 backdrop-brightness-90 z-10" />
+      <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
 
       <div className="relative z-20 h-full">
         <Swiper
@@ -159,34 +139,34 @@ const HeroCarousel = () => {
           {/* Slide 1 - Intro */}
           <SwiperSlide>
             <div className="flex flex-col justify-center items-center text-center h-full px-4 md:px-6 text-white relative">
-              <div className="pt-6 md:pt-0 px-4">
-                <h1 className="text-2xl md:text-6xl font-bold mb-2 md:mb-4 drop-shadow-lg leading-snug md:leading-tight">
+              <div className="pt-20 md:pt-0 px-4">
+                <h1 className="text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg leading-snug md:leading-tight">
                   Codepackers Software Solutions
                 </h1>
-                <p className="max-w-3xl text-xs md:text-xl mx-auto drop-shadow-md">
+                <p className="max-w-3xl text-sm md:text-xl mx-auto drop-shadow-md">
                   {t("hero.intro1")}
                 </p>
-                <p className="max-w-3xl text-xs md:text-xl mx-auto drop-shadow-md mt-1 md:mt-4">
+                <p className="max-w-3xl text-sm md:text-xl mx-auto drop-shadow-md mt-4">
                   {t("hero.intro2")}
                 </p>
               </div>
 
-              {/* CTA Buttons - Mobile adjustments */}
-              <div className="absolute bottom-6 md:bottom-16 px-4 w-full flex flex-col sm:flex-row justify-center items-center gap-2 md:gap-4">
+              {/* CTA Buttons - Adjusted for mobile */}
+              <div className="absolute bottom-8 md:bottom-16 px-4 w-full flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4">
                 <button
                   onClick={() => swiperRef.current?.slideTo(1)}
-                  className="group flex items-center justify-between gap-2 w-full sm:w-auto min-w-[160px] md:min-w-[220px] px-3 py-1.5 md:px-5 md:py-2.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
+                  className="group flex items-center justify-between gap-2 w-full sm:w-auto min-w-[220px] px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
                 >
                   <span>{t("hero.cta.alaap")}</span>
-                  <ArrowRight className="w-3 h-3 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform duration-200" />
+                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform duration-200" />
                 </button>
 
                 <button
                   onClick={() => swiperRef.current?.slideTo(3)}
-                  className="group flex items-center justify-between gap-2 w-full sm:w-auto min-w-[160px] md:min-w-[220px] px-3 py-1.5 md:px-5 md:py-2.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
+                  className="group flex items-center justify-between gap-2 w-full sm:w-auto min-w-[220px] px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
                 >
                   <span>{t("hero.cta.pustak")}</span>
-                  <ArrowRight className="w-3 h-3 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform duration-200" />
+                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform duration-200" />
                 </button>
               </div>
             </div>
@@ -194,11 +174,11 @@ const HeroCarousel = () => {
 
           {/* Slide 2 - AI Chat Preview */}
           <SwiperSlide>
-            <div className="flex justify-center items-center h-full text-white px-2 sm:px-4 md:px-8">
-              <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center min-h-full px-0 md:px-10 py-2 md:py-8">
+            <div className="flex justify-center items-center h-full text-white px-4 md:px-8 py-16 md:py-0">
+              <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center min-h-full px-0 md:px-10 py-4 md:py-8">
                 {/* Text */}
-                <div className="text-center md:text-left px-2 md:px-8 mb-4 md:mb-0 w-full md:w-1/2">
-                  <h2 className="text-xl md:text-5xl font-bold mb-2 md:mb-6 leading-snug md:leading-tight">
+                <div className="text-center md:text-left px-2 md:px-8 mb-8 md:mb-0">
+                  <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 leading-snug md:leading-tight">
                     <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
                       {t("alaap.title")}
                     </span>
@@ -208,11 +188,11 @@ const HeroCarousel = () => {
                     </span>
                   </h2>
 
-                  <p className="text-xs md:text-lg mb-2 md:mb-6 max-w-xl mx-auto md:mx-0">
+                  <p className="text-sm md:text-lg mb-4 md:mb-6 max-w-xl mx-auto md:mx-0">
                     {t("alaap.description")}
                   </p>
 
-                  <div className="flex flex-wrap items-center md:items-start gap-1 md:gap-4 mb-2 md:mb-6 text-xs md:text-sm font-medium justify-center md:justify-start">
+                  <div className="flex flex-col sm:flex-row sm:flex-wrap items-center md:items-start gap-2 md:gap-4 mb-6 text-xs md:text-sm font-medium justify-center md:justify-start">
                     <span className="flex items-center gap-1">
                       <span>💬</span> {t("alaap.points.0")}
                     </span>
@@ -228,13 +208,13 @@ const HeroCarousel = () => {
                     href="https://www.aptilab.in/signin"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-3 py-1.5 md:px-6 md:py-3 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg text-xs md:text-base"
+                    className="inline-flex items-center gap-2 px-5 py-2 md:px-6 md:py-3 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg text-sm md:text-base"
                   >
-                    {t("alaap.tryAgent")}<ArrowRight className="w-3 h-3 md:w-5 md:h-5" />
+                    {t("alaap.tryAgent")}<ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
                   </a>
                 </div>
 
-                <div className="w-full md:w-1/2 px-2 md:px-0 mx-auto transition-all duration-500 ease-in-out scale-75 md:scale-100">
+                <div className="w-full px-0 md:px-0 md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto transition-all duration-500 ease-in-out">
                   <AIChatCarousel loopKey={chatLoopKey} run={activeIndex === 1} />
                 </div>
               </div>
@@ -243,7 +223,7 @@ const HeroCarousel = () => {
 
           {/* Slide 3 - Alaap Features */}
           <SwiperSlide>
-            <div className="flex flex-col justify-center items-center text-center h-full px-4 md:px-6 text-white pt-16 md:pt-0 pb-8 md:pb-0">
+            <div className="flex flex-col justify-center items-center text-center h-full px-4 md:px-6 text-white py-16 md:py-0">
               <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 leading-snug md:leading-tight">
                 <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
                   {t("alaap.platformTitle")}
@@ -266,9 +246,9 @@ const HeroCarousel = () => {
                 }}
                 className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6 w-full max-w-6xl px-4"
               >
-                {alaapFeatures.map(({ icon, label }, i) => (
+                {alaapFeatures.map(([icon, label], i) => (
                   <motion.div
-                    key={`alaap-feature-${i}`}
+                    key={i}
                     variants={{
                       hidden: { opacity: 0, y: 30 },
                       visible: {
@@ -289,8 +269,8 @@ const HeroCarousel = () => {
 
           {/* Slide 4 - Pustak Framework */}
           <SwiperSlide>
-            <div className="flex justify-center items-center h-full text-white px-4 md:px-8">
-              <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center min-h-full px-0 md:px-10 py-8">
+            <div className="flex justify-center items-center h-full text-white px-4 md:px-8 py-16 md:py-0">
+              <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center min-h-full px-0 md:px-10 py-4 md:py-8">
                 {/* Text Section */}
                 <div className="text-center md:text-left px-2 md:px-8 mb-8 md:mb-0">
                   <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 leading-snug md:leading-tight">
@@ -304,7 +284,7 @@ const HeroCarousel = () => {
                     {t("pustak.description")}
                   </p>
 
-                  <div className="flex flex-wrap gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 mb-4 md:mb-6 text-xs md:text-sm font-medium justify-center md:justify-start whitespace-nowrap">
+                  <div className="flex flex-wrap gap-x-2 md:gap-x-4 gap-y-2 mb-6 text-xs md:text-sm font-medium justify-center md:justify-start">
                     <span className="flex items-center gap-1">🔐 {t("pustak.tags.0")}</span>
                     <span className="flex items-center gap-1">📊 {t("pustak.tags.1")}</span>
                     <span className="flex items-center gap-1">🧩 {t("pustak.tags.2")}</span>
@@ -312,9 +292,9 @@ const HeroCarousel = () => {
 
                   <a
                     href="#contact"
-                    className="inline-flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg text-sm md:text-base"
+                    className="inline-flex items-center gap-2 px-5 py-2 md:px-6 md:py-3 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg text-sm md:text-base"
                   >
-                    {t("pustak.contact")} <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
+                    {t("pustak.contact")} <ArrowRight className="w-4 h-4 md:w-5 h-5" />
                   </a>
                 </div>
 
@@ -323,7 +303,7 @@ const HeroCarousel = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1 }}
-                  className="w-full md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto px-4 md:px-0 flex justify-center items-center"
+                  className="w-full md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto px-0 md:px-0 flex justify-center items-center"
                 >
                   {pustakLottieData && (
                     <Lottie
@@ -341,13 +321,13 @@ const HeroCarousel = () => {
 
           {/* Slide 5 - Pustak Platform Domains */}
           <SwiperSlide>
-            <div className="flex flex-col justify-center items-center text-center h-full px-4 md:px-6 text-white pt-8 md:pt-0 pb-8 md:pb-0">
-              <h2 className="text-xl md:text-5xl font-bold mb-2 md:mb-6 leading-snug md:leading-tight">
+            <div className="flex flex-col justify-center items-center text-center h-full px-4 md:px-6 text-white py-16 md:py-0">
+              <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 leading-snug md:leading-tight">
                 <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
                   {t("pustak.platformTitle")}
                 </span>
               </h2>
-              <p className="max-w-3xl text-xs md:text-lg mb-3 md:mb-10 px-4">
+              <p className="max-w-3xl text-sm md:text-lg mb-6 md:mb-10 px-4">
                 {t("pustak.platformDesc")}
               </p>
 
@@ -362,11 +342,11 @@ const HeroCarousel = () => {
                     },
                   },
                 }}
-                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 md:gap-4 lg:gap-6 w-full max-w-6xl px-4 overflow-y-auto max-h-[50vh] md:max-h-none pb-4"
+                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-6 w-full max-w-6xl px-4"
               >
-                {pustakFeatures.map(({ icon, label }, i) => (
+                {pustakFeatures.map(([icon, label], i) => (
                   <motion.div
-                    key={`pustak-feature-${i}`}
+                    key={i}
                     variants={{
                       hidden: { opacity: 0, y: 30 },
                       visible: {
@@ -375,12 +355,10 @@ const HeroCarousel = () => {
                         transition: { duration: 0.5, ease: "easeOut" },
                       },
                     }}
-                    className="flex flex-col items-center justify-center p-2 md:p-4 rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/10 shadow-md hover:shadow-xl backdrop-blur-md hover:scale-105 text-center min-h-[90px] md:min-h-[120px]"
+                    className="flex flex-col items-center justify-center p-3 md:p-5 rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-300 border border-white/10 shadow-md hover:shadow-xl backdrop-blur-md hover:scale-105 text-center"
                   >
-                    <div className="mb-1 md:mb-3 scale-50 md:scale-100">
-                      {React.cloneElement(icon, { size: 20 })}
-                    </div>
-                    <p className="text-[9px] md:text-sm text-white leading-snug text-center">
+                    <div className="mb-2 md:mb-3">{icon}</div>
+                    <p className="text-xs md:text-sm lg:text-base text-white leading-snug text-center">
                       {label}
                     </p>
                   </motion.div>

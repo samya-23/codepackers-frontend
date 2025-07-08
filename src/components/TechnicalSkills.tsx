@@ -35,11 +35,11 @@ const techStack = [
   { name: "Kotlin", iconSrc: "/icons/kotlin.svg" },
 ];
 
-// Background blobs
+// Background blobs with mobile-specific opacity
 const BackgroundBlob = () => (
   <>
-    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
-    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-10 md:opacity-20 rounded-full blur-3xl animate-pulse" />
+    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-10 md:opacity-20 rounded-full blur-3xl animate-pulse" />
   </>
 );
 
@@ -83,11 +83,11 @@ const TechnicalSkills = () => {
             variants={fadeUp}
             className="relative w-full overflow-hidden"
           >
-            <div className="flex w-max animate-slide space-x-6 sm:space-x-8 md:space-x-10 min-w-full px-2 sm:px-4 md:px-0">
+            <div className="flex w-max animate-slide space-x-6 md:space-x-10 min-w-full px-2 sm:px-0">
               {techStack.concat(techStack.slice(0, 5)).map(({ name, iconSrc }, idx) => (
                 <motion.div
                   key={idx}
-                  className="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20 md:w-24 p-2 sm:p-3 bg-white rounded-lg md:rounded-xl shadow-sm hover:shadow-md md:hover:shadow-xl hover:scale-105 transition duration-300 border border-gray-100 backdrop-blur-sm"
+                  className="flex flex-col items-center gap-1 md:gap-2 w-16 md:w-24 p-2 md:p-3 bg-white rounded-lg md:rounded-xl shadow-sm hover:shadow-md md:hover:shadow-xl hover:scale-105 transition duration-300 border border-gray-100 backdrop-blur-sm"
                   animate={{ y: [0, -5, 0] }}
                   transition={{
                     duration: 3,
@@ -99,9 +99,9 @@ const TechnicalSkills = () => {
                   <img 
                     src={iconSrc} 
                     alt={name} 
-                    className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain" 
+                    className="w-8 h-8 md:w-12 md:h-12 object-contain" 
                   />
-                  <span className="text-[10px] sm:text-xs font-medium text-gray-700 text-center">
+                  <span className="text-xs font-medium text-gray-700 text-center leading-tight">
                     {name}
                   </span>
                 </motion.div>

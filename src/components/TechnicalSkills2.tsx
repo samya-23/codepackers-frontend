@@ -35,11 +35,11 @@ const techStack = [
   { name: "Kotlin", iconSrc: "/icons/kotlin_.svg" },
 ];
 
-// Background blobs
+// Background blobs with mobile-specific opacity
 const BackgroundBlob = () => (
   <>
-    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
-    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse md:opacity-20" />
+    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse md:opacity-20" />
   </>
 );
 
@@ -69,13 +69,13 @@ const TechnicalSkills2 = () => {
               {t('technicalSkills.subtitle')}
             </span>
           </h2>
-          <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-gray-600 max-w-3xl mx-auto text-center">
+          <p className="mt-3 md:mt-4 text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto text-center">
             {t('technicalSkills.description')}
           </p>
         </motion.div>
 
         {/* Tech strip */}
-        <div className="overflow-x-auto scrollbar-none mt-10 sm:mt-14">
+        <div className="overflow-x-auto scrollbar-none mt-8 md:mt-14">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -83,7 +83,7 @@ const TechnicalSkills2 = () => {
             variants={fadeUp}
             className="relative w-full overflow-hidden"
           >
-            <div className="flex w-max animate-slide space-x-6 sm:space-x-10 min-w-full px-2 sm:px-4">
+            <div className="flex w-max animate-slide space-x-6 sm:space-x-10 min-w-full px-2 sm:px-4 sm:px-0">
               {techStack.concat(techStack.slice(0, 5)).map(({ name, iconSrc }, idx) => (
                 <motion.div
                   key={idx}
@@ -96,19 +96,8 @@ const TechnicalSkills2 = () => {
                     delay: idx * 0.1,
                   }}
                 >
-                  <img 
-                    src={iconSrc} 
-                    alt={name} 
-                    className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain" 
-                  />
-                  <span className="text-xs font-medium text-gray-700 text-center whitespace-nowrap">
-                    {name.length > 10 ? (
-                      <>
-                        {name.split('.')[0]}
-                        {name.includes('.') && <span className="text-[10px] block">{name.split('.')[1]}</span>}
-                      </>
-                    ) : name}
-                  </span>
+                  <img src={iconSrc} alt={name} className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain" />
+                  <span className="text-xs font-medium text-gray-700 text-center">{name}</span>
                 </motion.div>
               ))}
             </div>
