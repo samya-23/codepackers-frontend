@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, ReactElement } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, EffectFade } from "swiper/modules";
@@ -36,6 +36,11 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import "@/index.css";
 
+interface FeatureItem {
+  icon: ReactElement;
+  label: string;
+}
+
 const HeroCarousel = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const { t } = useTranslation();
@@ -65,34 +70,33 @@ const HeroCarousel = () => {
     }
   };
 
-  const alaapFeatures = [
-    [<Bot key="bot" size={32} stroke="url(#icon-gradient)" />, t("alaap.features.0")],
-    [<Headset key="headset" size={32} stroke="url(#icon-gradient)" />, t("alaap.features.1")],
-    [<Briefcase key="briefcase" size={32} stroke="url(#icon-gradient)" />, t("alaap.features.2")],
-    [<PhoneCall key="phone" size={32} stroke="url(#icon-gradient)" />, t("alaap.features.3")],
-    [<CalendarDays key="calendar" size={32} stroke="url(#icon-gradient)" />, t("alaap.features.4")],
-    [<GraduationCap key="graduation" size={32} stroke="url(#icon-gradient)" />, t("alaap.features.5")],
-    [<Tv key="tv" size={32} stroke="url(#icon-gradient)" />, t("alaap.features.6")],
-    [<Mic key="mic" size={32} stroke="url(#icon-gradient)" />, t("alaap.features.7")],
-    [<FlaskConical key="flask" size={32} stroke="url(#icon-gradient)" />, t("alaap.features.8")],
-    [<SatelliteDish key="satellite" size={32} stroke="url(#icon-gradient)" />, t("alaap.features.9")],
+  const alaapFeatures: FeatureItem[] = [
+    { icon: <Bot key="bot" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.0") },
+    { icon: <Headset key="headset" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.1") },
+    { icon: <Briefcase key="briefcase" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.2") },
+    { icon: <PhoneCall key="phone" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.3") },
+    { icon: <CalendarDays key="calendar" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.4") },
+    { icon: <GraduationCap key="graduation" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.5") },
+    { icon: <Tv key="tv" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.6") },
+    { icon: <Mic key="mic" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.7") },
+    { icon: <FlaskConical key="flask" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.8") },
+    { icon: <SatelliteDish key="satellite" size={32} stroke="url(#icon-gradient)" />, label: t("alaap.features.9") },
   ];
 
-  const pustakFeatures = [
-    [<UserRound key="user" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.0")],
-    [<Boxes key="boxes" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.1")],
-    [<Truck key="truck" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.2")],
-    [<Users key="users" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.3")],
-    [<FileText key="file" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.4")],
-    [<ActivitySquare key="activity" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.5")],
-    [<Hammer key="hammer" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.6")],
-    [<Hospital key="hospital" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.7")],
-    [<GraduationCap key="grad" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.8")],
-    [<FileText key="file2" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.9")],
-    [<Briefcase key="briefcase2" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.10")],
-    [<BusFront key="bus" size={32} stroke="url(#icon-gradient)" />, t("pustak.features.11")],
+  const pustakFeatures: FeatureItem[] = [
+    { icon: <UserRound key="user" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.0") },
+    { icon: <Boxes key="boxes" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.1") },
+    { icon: <Truck key="truck" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.2") },
+    { icon: <Users key="users" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.3") },
+    { icon: <FileText key="file" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.4") },
+    { icon: <ActivitySquare key="activity" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.5") },
+    { icon: <Hammer key="hammer" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.6") },
+    { icon: <Hospital key="hospital" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.7") },
+    { icon: <GraduationCap key="grad" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.8") },
+    { icon: <FileText key="file2" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.9") },
+    { icon: <Briefcase key="briefcase2" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.10") },
+    { icon: <BusFront key="bus" size={32} stroke="url(#icon-gradient)" />, label: t("pustak.features.11") },
   ];
-
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -107,32 +111,31 @@ const HeroCarousel = () => {
       </svg>
 
       {/* Fallback image */}
-<img
-  src="/fallbacks/hero-fallback.jpg"
-  alt="Fallback Background"
-  className={`absolute top-0 left-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
-    isVideoLoaded ? "opacity-0" : "opacity-100"
-  }`}
-/>
+      <img
+        src="/fallbacks/hero-fallback.jpg"
+        alt="Fallback Background"
+        className={`absolute top-0 left-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
+          isVideoLoaded ? "opacity-0" : "opacity-100"
+        }`}
+      />
 
-{/* Background video */}
-<video
-  className={`absolute top-0 left-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
-    isVideoLoaded ? "opacity-100" : "opacity-0"
-  }`}
-  autoPlay
-  loop
-  muted
-  playsInline
-  preload="auto"
-  onLoadedData={() => setIsVideoLoaded(true)}
->
-  <source src="/background.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
+      {/* Background video */}
+      <video
+        className={`absolute top-0 left-0 w-full h-full object-cover z-0 transition-opacity duration-500 ${
+          isVideoLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        onLoadedData={() => setIsVideoLoaded(true)}
+      >
+        <source src="/background.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-
-      <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
+      <div className="absolute top-0 left-0 w-full h-full bg-black/25 backdrop-brightness-90 z-10" />
 
       <div className="relative z-20 h-full">
         <Swiper
@@ -263,7 +266,7 @@ const HeroCarousel = () => {
                 }}
                 className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6 w-full max-w-6xl px-4"
               >
-                {alaapFeatures.map(([icon, label], i) => (
+                {alaapFeatures.map(({ icon, label }, i) => (
                   <motion.div
                     key={`alaap-feature-${i}`}
                     variants={{
@@ -361,7 +364,7 @@ const HeroCarousel = () => {
                 }}
                 className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 md:gap-4 lg:gap-6 w-full max-w-6xl px-4 overflow-y-auto max-h-[50vh] md:max-h-none pb-4"
               >
-                {pustakFeatures.map(([icon, label], i) => (
+                {pustakFeatures.map(({ icon, label }, i) => (
                   <motion.div
                     key={`pustak-feature-${i}`}
                     variants={{
