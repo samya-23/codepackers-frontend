@@ -181,17 +181,16 @@ const HeroCarousel = () => {
 
           {/* Slide 2 - AI Chat Preview - Fixed left side content cut */}
           <SwiperSlide>
-  <div className="flex justify-center items-center h-full text-white px-4 md:px-8 py-12 md:py-0 overflow-x-hidden">
+  <div className="flex justify-center items-center h-full text-white px-4 md:px-8 pt-16 pb-12 md:py-0 overflow-x-hidden">
     <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center min-h-full px-4 md:px-10 py-4 md:py-8">
       
-      {/* Text - Fixed padding and alignment */}
-      <div className="w-full text-center md:text-left px-4 md:px-8 mb-8 md:mb-0">
-        <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 leading-snug md:leading-tight">
-          <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
+      {/* Text - Better spacing and scaling for mobile */}
+      <div className="w-full text-center md:text-left px-2 sm:px-4 md:px-8 mb-8 md:mb-0">
+        <h2 className="text-[1.75rem] sm:text-2xl md:text-5xl font-bold mb-4 md:mb-6 leading-snug sm:leading-snug md:leading-tight">
+          <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text block">
             {t("alaap.title")}
           </span>
-          <br />
-          <span className="text-white">
+          <span className="text-white block">
             {t("alaap.subtitle")}
           </span>
         </h2>
