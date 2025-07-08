@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 const Index = () => {
   const { t } = useTranslation();
-  
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
       {/* ✅ Navigation Bar */}
@@ -23,7 +23,7 @@ const Index = () => {
 
       {/* ✅ Main Sections */}
       <PlatformCapabilities />
-      <DigitalSolutions/>
+      <DigitalSolutions />
       <TeamSection />
       <TeamComposition />
       <TechnicalSkills />
@@ -32,7 +32,7 @@ const Index = () => {
 
       {/* ✅ Footer */}
       <footer className="bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 text-white pt-16 pb-10 mt-20 border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Logo + About */}
           <div>
             <div className="flex items-center space-x-3 mb-4">
@@ -73,19 +73,19 @@ const Index = () => {
           {/* Contact Info + Social Icons */}
           <div>
             <h3 className="text-base font-semibold mb-4 text-white">{t('footer.contactTitle')}</h3>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-gray-400 break-words">
               <li>India</li>
               <li>suja.sharma@codepackers.com</li>
               <li>vikas.tyagi@codepackers.com</li>
             </ul>
             <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-gray-400 hover:text-white transition">
+              <a href="#" className="text-gray-400 hover:text-white transition text-lg">
                 <i className="fab fa-twitter"></i>
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition">
+              <a href="#" className="text-gray-400 hover:text-white transition text-lg">
                 <i className="fab fa-linkedin-in"></i>
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition">
+              <a href="#" className="text-gray-400 hover:text-white transition text-lg">
                 <i className="fab fa-github"></i>
               </a>
             </div>
@@ -93,7 +93,7 @@ const Index = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="border-t border-white/10 mt-12 pt-6 text-center text-sm text-gray-500">
+        <div className="border-t border-white/10 mt-12 pt-6 text-center text-sm text-gray-500 px-4">
           &copy; 2025 Codepackers Software Solutions Pvt Ltd. {t('footer.rights')}
         </div>
       </footer>

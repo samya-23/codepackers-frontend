@@ -15,33 +15,25 @@ import {
   Mic,
 } from "lucide-react";
 import Tilt from "react-parallax-tilt";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
-
 import { Variants } from 'framer-motion';
 
 const fadeUp: Variants = {
-  hidden: { 
-    opacity: 0, 
-    y: 40 
-  },
-  visible: { 
-    opacity: 1, 
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { 
-      duration: 0.6, 
-      ease: "easeOut" 
-    } 
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
   },
 };
 
 const TeamSection = () => {
   const { t } = useTranslation();
-  
+
   const leadership = [
     {
       name: "Vikas Tyagi",
@@ -63,40 +55,19 @@ const TeamSection = () => {
     },
   ];
 
-  const teamRoles = [
-    { label: t('team.roles.0'), icon: Briefcase },
-    { label: t('team.roles.1'), icon: Cpu },
-    { label: t('team.roles.2'), icon: Code },
-    { label: t('team.roles.3'), icon: Palette },
-    { label: t('team.roles.4'), icon: ShieldCheck },
-    { label: t('team.roles.5'), icon: BarChart },
-    { label: t('team.roles.6'), icon: Mic },
-    { label: t('team.roles.7'), icon: UserCheck },
-    { label: t('team.roles.8'), icon: Headphones },
-    { label: t('team.roles.9'), icon: FlaskConical },
-  ];
-
   return (
     <section
       id="team"
-      className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
+      className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
     >
       {/* Floating Blobs */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
 
       {/* Dotted Grid Pattern */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        aria-hidden="true"
-      >
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
         <defs>
-          <pattern
-            id="grid"
-            width="40"
-            height="40"
-            patternUnits="userSpaceOnUse"
-          >
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
             <circle cx="1" cy="1" r="1" fill="#e2e8f0" />
           </pattern>
         </defs>
@@ -106,29 +77,29 @@ const TeamSection = () => {
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Section Heading */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-16"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeUp}
         >
-          <h2 className="text-5xl font-extrabold text-gray-900">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900">
             {t('team.title')}{" "}
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent animate-text-glow">
               {t('team.subtitle')}
             </span>
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="mt-4 text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-2 sm:px-0">
             {t('team.description')}
           </p>
         </motion.div>
 
         {/* Leadership Section */}
-        <div className="mb-20">
-          <h3 className="text-3xl font-bold text-center mb-10 text-gray-900">
+        <div className="mb-10 sm:mb-20 px-2 sm:px-0">
+          <h3 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-gray-900">
             {t('team.leadershipTitle')}
           </h3>
-          <div className="flex flex-col md:flex-row md:justify-center md:gap-12 gap-8">
+          <div className="flex flex-col sm:flex-row sm:justify-center sm:gap-12 gap-6">
             {leadership.map((leader, index) => (
               <Tilt
                 key={index}
@@ -136,7 +107,7 @@ const TeamSection = () => {
                 tiltMaxAngleY={5}
                 glareEnable={true}
                 glareMaxOpacity={0.2}
-                className="w-full md:w-1/2 transition-transform duration-500 hover:-translate-y-1"
+                className="w-full sm:w-1/2 transition-transform duration-500 hover:-translate-y-1"
               >
                 <motion.div
                   variants={fadeUp}
@@ -145,8 +116,8 @@ const TeamSection = () => {
                   viewport={{ once: true }}
                 >
                   <Card className="relative bg-white/40 backdrop-blur-xl border border-transparent hover:border-blue-400/60 shadow-[0_15px_50px_rgba(109,40,217,0.2)] hover:shadow-[0_20px_70px_rgba(59,130,246,0.25)] hover:scale-[1.025] transition-all duration-500 ease-in-out group overflow-hidden">
-                    <CardHeader className="text-center relative">
-                      <div className="w-32 h-32 rounded-full overflow-hidden flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-2xl transition-all duration-500 group-hover:shadow-[0_0_0_6px_rgba(99,102,241,0.3)]">
+                    <CardHeader className="text-center relative px-4 pt-6">
+                      <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-2xl transition-all duration-500 group-hover:shadow-[0_0_0_6px_rgba(99,102,241,0.3)]">
                         <img
                           src={`/assets/${leader.image}.png`}
                           alt={`${leader.name}`}
@@ -165,19 +136,19 @@ const TeamSection = () => {
                           className="w-5 h-5"
                         />
                       </a>
-                      <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-1">
+                      <CardTitle className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-1">
                         {leader.name}
                       </CardTitle>
                       <p className="text-sm text-gray-700 font-medium mb-2 italic">
                         {leader.role}
                       </p>
                     </CardHeader>
-                    <CardContent className="text-center px-6 pb-6">
+                    <CardContent className="text-center px-4 sm:px-6 pb-6">
                       <p className="text-gray-700 mb-4 text-sm italic">
                         {leader.description}
                       </p>
                       <div className="text-sm text-gray-600 space-y-2">
-                        <div className="flex items-center justify-center gap-2">
+                        <div className="flex items-center justify-center gap-2 break-words">
                           <Mail className="w-4 h-4" /> {leader.email}
                         </div>
                         <div className="flex items-center justify-center gap-2">

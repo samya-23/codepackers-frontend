@@ -140,19 +140,19 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
 
   return (
     <div
-      className="chat-carousel-container flex flex-col justify-between px-6 py-6 md:px-8 md:py-8 max-w-md rounded-3xl shadow-xl bg-white space-y-4"
+      className="chat-carousel-container flex flex-col justify-between px-4 py-4 md:px-6 md:py-6 max-w-md rounded-2xl md:rounded-3xl shadow-xl bg-white space-y-3 md:space-y-4 h-[360px] md:h-[420px]"
       key={loopKey}
     >
       {/* Header */}
-      <div className="chat-header flex items-center gap-3">
-        <div className="avatar-icon text-2xl" aria-hidden="true">
+      <div className="chat-header flex items-center gap-2 md:gap-3">
+        <div className="avatar-icon text-xl md:text-2xl" aria-hidden="true">
           💬
         </div>
         <div>
-          <div className="chat-title font-semibold text-base">
+          <div className="chat-title font-semibold text-sm md:text-base">
             {t("chat.header.title")}
           </div>
-          <div className="chat-subtitle text-sm text-gray-500">
+          <div className="chat-subtitle text-xs md:text-sm text-gray-500">
             {t("chat.header.subtitle")}
           </div>
         </div>
@@ -160,7 +160,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
 
       {/* Chat bubbles */}
       <div
-        className="chat-bubble-wrapper flex-1 overflow-y-auto max-h-64 space-y-3 pr-1"
+        className="chat-bubble-wrapper flex-1 overflow-y-auto max-h-[200px] md:max-h-64 space-y-2 md:space-y-3 pr-1"
         role="log"
         aria-live="polite"
         ref={chatBubbleWrapperRef}
@@ -185,7 +185,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
       {/* Input simulation */}
       <div className="chat-input-area">
         <div
-          className="fake-input border rounded-xl px-4 py-2 min-h-[40px] text-sm flex items-center"
+          className="fake-input border rounded-xl px-3 py-1.5 md:px-4 md:py-2 min-h-[36px] md:min-h-[40px] text-xs md:text-sm flex items-center"
           contentEditable={false}
           tabIndex={-1}
           ref={inputRef}
@@ -207,7 +207,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
         </div>
 
         <button
-          className={`send-btn ${sendClicked ? "clicked" : ""} ml-2 text-lg`}
+          className={`send-btn ${sendClicked ? "clicked" : ""} ml-2 text-base md:text-lg`}
           disabled
           aria-label={t("chat.send")}
         >
@@ -216,7 +216,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
       </div>
 
       {/* Footer */}
-      <div className="chat-footer text-xs text-gray-400 text-right">
+      <div className="chat-footer text-[10px] md:text-xs text-gray-400 text-right">
         {t("chat.footer")}
       </div>
     </div>

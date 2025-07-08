@@ -51,7 +51,7 @@ const TechnicalSkills2 = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 px-6 lg:px-24 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
+      className="relative py-16 md:py-24 px-4 sm:px-6 lg:px-24 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
     >
       <BackgroundBlob />
 
@@ -63,19 +63,19 @@ const TechnicalSkills2 = () => {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h2 className="text-5xl font-extrabold text-gray-900 text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 text-center">
             {t('technicalSkills.title')}{" "}
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
               {t('technicalSkills.subtitle')}
             </span>
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto text-center">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-lg text-gray-600 max-w-3xl mx-auto text-center">
             {t('technicalSkills.description')}
           </p>
         </motion.div>
 
         {/* Tech strip */}
-        <div className="overflow-x-auto scrollbar-none mt-14">
+        <div className="overflow-x-auto scrollbar-none mt-10 sm:mt-14">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -83,11 +83,11 @@ const TechnicalSkills2 = () => {
             variants={fadeUp}
             className="relative w-full overflow-hidden"
           >
-            <div className="flex w-max animate-slide space-x-10 min-w-full px-4 sm:px-0">
+            <div className="flex w-max animate-slide space-x-6 sm:space-x-10 min-w-full px-2 sm:px-4">
               {techStack.concat(techStack.slice(0, 5)).map(({ name, iconSrc }, idx) => (
                 <motion.div
                   key={idx}
-                  className="flex flex-col items-center gap-2 w-24 p-3 bg-white rounded-xl shadow hover:shadow-xl hover:scale-105 transition duration-300 border border-gray-100 backdrop-blur-sm"
+                  className="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20 md:w-24 p-2 sm:p-3 bg-white rounded-lg sm:rounded-xl shadow hover:shadow-xl hover:scale-105 transition duration-300 border border-gray-100 backdrop-blur-sm"
                   animate={{ y: [0, -5, 0] }}
                   transition={{
                     duration: 3,
@@ -96,8 +96,19 @@ const TechnicalSkills2 = () => {
                     delay: idx * 0.1,
                   }}
                 >
-                  <img src={iconSrc} alt={name} className="w-12 h-12 object-contain" />
-                  <span className="text-xs font-medium text-gray-700 text-center">{name}</span>
+                  <img 
+                    src={iconSrc} 
+                    alt={name} 
+                    className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain" 
+                  />
+                  <span className="text-xs font-medium text-gray-700 text-center whitespace-nowrap">
+                    {name.length > 10 ? (
+                      <>
+                        {name.split('.')[0]}
+                        {name.includes('.') && <span className="text-[10px] block">{name.split('.')[1]}</span>}
+                      </>
+                    ) : name}
+                  </span>
                 </motion.div>
               ))}
             </div>

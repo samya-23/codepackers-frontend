@@ -203,7 +203,24 @@ const PlatformCapabilities = () => {
           {t('capabilities.subtitle')}
         </p>
 
-        <div className="mt-8 md:mt-12">
+        {/* Navigation Arrows - Fixed at top after subtitle */}
+        <div className="flex justify-center gap-4 md:gap-6">
+          <button
+            className="custom-prev group relative w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out flex items-center justify-center"
+            aria-label="Previous"
+          >
+            <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 text-white group-hover:scale-110 transition-transform duration-200" />
+          </button>
+
+          <button
+            className="custom-next group relative w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out flex items-center justify-center"
+            aria-label="Next"
+          >
+            <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-white group-hover:scale-110 transition-transform duration-200" />
+          </button>
+        </div>
+
+        <div className="mt-4 md:mt-6">
           <Swiper
             onSwiper={(swiper) => (mainSwiperRef.current = swiper)}
             spaceBetween={20}
@@ -258,21 +275,6 @@ const PlatformCapabilities = () => {
               )
             )}
           </Swiper>
-          <div className="mt-6 md:mt-10 flex justify-center gap-4 md:gap-6">
-            <button
-              className="custom-prev group relative w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out flex items-center justify-center"
-              aria-label="Previous"
-            >
-              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 text-white group-hover:scale-110 transition-transform duration-200" />
-            </button>
-
-            <button
-              className="custom-next group relative w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out flex items-center justify-center"
-              aria-label="Next"
-            >
-              <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-white group-hover:scale-110 transition-transform duration-200" />
-            </button>
-          </div>
         </div>
       </div>
 

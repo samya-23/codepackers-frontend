@@ -80,14 +80,14 @@ const ContactSection = () => {
   ];
 
   const industries = [
-  { key: "education", name: "Education" },
-  { key: "healthcare", name: "Healthcare" },
-  { key: "ecommerce", name: "E-commerce" },
-  { key: "egovernance", name: "E-governance" },
-  { key: "manufacturing", name: "Manufacturing" },
-  { key: "telecom", name: "Telecom" },
-  { key: "homelandSecurity", name: "Homeland Security" }
-];
+    { key: "education", name: "Education" },
+    { key: "healthcare", name: "Healthcare" },
+    { key: "ecommerce", name: "E-commerce" },
+    { key: "egovernance", name: "E-governance" },
+    { key: "manufacturing", name: "Manufacturing" },
+    { key: "telecom", name: "Telecom" },
+    { key: "homelandSecurity", name: "Homeland Security" }
+  ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -187,7 +187,7 @@ const ContactSection = () => {
   return (
     <section
       id="contact"
-      className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
+      className="relative py-12 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
     >
       {/* Background */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
@@ -206,28 +206,28 @@ const ContactSection = () => {
         <rect width="100%" height="100%" fill="url(#dots)" />
       </svg>
 
-      <div className="relative z-10 max-w-7xl mx-auto space-y-20">
+      <div className="relative z-10 max-w-7xl mx-auto space-y-10 md:space-y-20">
         {/* Heading */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeUp}
-          className="text-center"
+          className="text-center px-2"
         >
-          <h2 className="text-5xl font-extrabold text-gray-900 font-[Inter_Tight]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 font-[Inter_Tight]">
             {t('contact.title')}{" "}
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
               {t('contact.subtitle')}
             </span>
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto font-light">
+          <p className="mt-3 md:mt-4 text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto font-light">
             {t('contact.description')}
           </p>
         </motion.div>
 
         {/* Cards - Left and Right side by side */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch px-2 sm:px-0">
           {/* Left Card */}
           <motion.div
             initial="hidden"
@@ -236,23 +236,23 @@ const ContactSection = () => {
             variants={fadeUp}
             className="flex flex-col h-full"
           >
-            <Card className="h-full flex flex-col justify-between rounded-3xl border border-gray-200 shadow-md bg-white/30 backdrop-blur-xl">
-              <CardHeader className="p-6 pb-0">
-                <CardTitle className="text-2xl font-bold text-gray-800">
+            <Card className="h-full flex flex-col justify-between rounded-2xl md:rounded-3xl border border-gray-200 shadow-md bg-white/30 backdrop-blur-xl">
+              <CardHeader className="p-4 md:p-6 pb-0">
+                <CardTitle className="text-xl md:text-2xl font-bold text-gray-800">
                   {t('contact.leftCard.title')}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-6 pt-4 text-sm text-gray-700 flex flex-col gap-8 font-inter">
+              <CardContent className="p-4 md:p-6 pt-2 md:pt-4 text-sm text-gray-700 flex flex-col gap-4 md:gap-8 font-inter">
                 {/* Benefits Grid */}
                 <div>
-                  <h4 className="text-base font-semibold text-gray-800 mb-4">
+                  <h4 className="text-sm md:text-base font-semibold text-gray-800 mb-3 md:mb-4">
                     {t('contact.leftCard.benefitsTitle')}
                   </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 md:gap-x-6 gap-y-3 md:gap-y-4">
                     {benefits.map((benefit, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
-                        <span className="text-gray-800 text-[0.95rem] font-medium leading-snug">
+                      <div key={index} className="flex items-start gap-2 md:gap-3">
+                        <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-green-500 mt-0.5" />
+                        <span className="text-gray-800 text-xs md:text-[0.95rem] font-medium leading-snug">
                           {benefit}
                         </span>
                       </div>
@@ -261,55 +261,55 @@ const ContactSection = () => {
                 </div>
 
                 {/* Horizontal Divider */}
-                <div className="border-t border-gray-300" />
+                <div className="border-t border-gray-300 my-2 md:my-0" />
 
                 {/* Industries + Contact Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8">
                   {/* Industries */}
                   <div>
-                    <h4 className="text-xs font-semibold text-gray-500 uppercase mb-2 tracking-wide">
+                    <h4 className="text-xs font-semibold text-gray-500 uppercase mb-1 md:mb-2 tracking-wide">
                       {t('contact.leftCard.industriesTitle')}
                     </h4>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-1 md:gap-2">
                       {industries.map((industry, index) => (
-  <div key={index} className="flex items-center gap-2 text-sm text-gray-800">
-    {industryIcons[industry.name] ?? (
-      <ShieldCheck className="w-4 h-4 text-gray-400" />
-    )}
-    <span>{t(`contact.industries.${industry.key}`)}</span>
-  </div>
-))}
+                        <div key={index} className="flex items-center gap-2 text-xs md:text-sm text-gray-800">
+                          {industryIcons[industry.name] ?? (
+                            <ShieldCheck className="w-3 h-3 md:w-4 md:h-4 text-gray-400" />
+                          )}
+                          <span>{t(`contact.industries.${industry.key}`)}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
                   {/* Contact Info */}
                   <div>
-                    <h4 className="text-xs font-semibold text-gray-500 uppercase mb-2 tracking-wide">
+                    <h4 className="text-xs font-semibold text-gray-500 uppercase mb-1 md:mb-2 tracking-wide">
                       {t('contact.leftCard.contactTitle')}
                     </h4>
-                    <div className="space-y-2 text-sm text-gray-700">
+                    <div className="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-700">
                       {/* Location */}
-                      <div className="flex items-center gap-3 text-gray-800 font-semibold">
+                      <div className="flex items-center gap-2 md:gap-3 text-gray-800 font-semibold">
                         <div className="bg-red-100 rounded-full p-1">
-                          <MapPin className="w-4 h-4 text-red-500" />
+                          <MapPin className="w-3 h-3 md:w-4 md:h-4 text-red-500" />
                         </div>
                         <span>India</span>
                       </div>
 
                       {/* Email 1 */}
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2 md:gap-3">
                         <div className="bg-blue-100 rounded-full p-1">
-                          <Mail className="w-4 h-4 text-blue-600" />
+                          <Mail className="w-3 h-3 md:w-4 md:h-4 text-blue-600" />
                         </div>
-                        <span className="text-gray-800">suja.sharma@codepackers.com</span>
+                        <span className="text-gray-800 break-all">suja.sharma@codepackers.com</span>
                       </div>
 
                       {/* Email 2 */}
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2 md:gap-3">
                         <div className="bg-blue-100 rounded-full p-1">
-                          <Mail className="w-4 h-4 text-blue-600" />
+                          <Mail className="w-3 h-3 md:w-4 md:h-4 text-blue-600" />
                         </div>
-                        <span className="text-gray-800">vikas.tyagi@codepackers.com</span>
+                        <span className="text-gray-800 break-all">vikas.tyagi@codepackers.com</span>
                       </div>
                     </div>
                   </div>
@@ -326,24 +326,24 @@ const ContactSection = () => {
             variants={fadeUp}
             className="flex flex-col h-full"
           >
-            <Card className="h-full flex flex-col justify-between rounded-3xl border border-gray-200 shadow-md bg-white/30 backdrop-blur-xl px-6 py-8">
-              <div className="space-y-4 text-center">
-                <h3 className="text-2xl font-bold text-gray-800">
+            <Card className="h-full flex flex-col justify-between rounded-2xl md:rounded-3xl border border-gray-200 shadow-md bg-white/30 backdrop-blur-xl px-4 md:px-6 py-6 md:py-8">
+              <div className="space-y-3 md:space-y-4 text-center">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-800">
                   {t('contact.rightCard.title')}
                 </h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-xs md:text-sm text-gray-500">
                   {t('contact.rightCard.description')}
                 </p>
               </div>
 
-              <div className="flex flex-col gap-4 mt-6">
+              <div className="flex flex-col gap-3 md:gap-4 mt-4 md:mt-6">
                 <Button
                   onClick={() =>
                     window.open(`https://wa.me/${whatsappNumber}`, "_blank", "noopener,noreferrer")
                   }
-                  className="bg-[#25D366] hover:bg-[#1DA851] text-white w-full text-sm font-semibold"
+                  className="bg-[#25D366] hover:bg-[#1DA851] text-white w-full text-xs md:text-sm font-semibold py-2 h-auto"
                 >
-                  <img src="/icons/whatsapp-icon.svg" className="w-4 h-4 mr-2" alt="whatsapp" />
+                  <img src="/icons/whatsapp-icon.svg" className="w-3 h-3 md:w-4 md:h-4 mr-2" alt="whatsapp" />
                   {t('contact.rightCard.whatsappButton')}
                 </Button>
 
@@ -351,9 +351,9 @@ const ContactSection = () => {
                   {t('contact.rightCard.orDivider')}
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4 text-left">
+                <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4 text-left">
                   <div>
-                    <Label htmlFor="name">
+                    <Label htmlFor="name" className="text-xs md:text-sm">
                       {t('contact.form.nameLabel')} <span className="text-red-500">*</span>
                     </Label>
                     <Input
@@ -361,11 +361,11 @@ const ContactSection = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder={t('contact.form.namePlaceholder')}
-                      className="text-sm"
+                      className="text-xs md:text-sm h-10 md:h-9"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="email">
+                    <Label htmlFor="email" className="text-xs md:text-sm">
                       {t('contact.form.emailLabel')} <span className="text-red-500">*</span>
                     </Label>
                     <Input
@@ -373,24 +373,24 @@ const ContactSection = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder={t('contact.form.emailPlaceholder')}
-                      className="text-sm"
+                      className="text-xs md:text-sm h-10 md:h-9"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone">
-                      {t('contact.form.phoneLabel')} <span className="text-gray-400 text-sm">({t('contact.form.phoneOptional')})</span>
+                    <Label htmlFor="phone" className="text-xs md:text-sm">
+                      {t('contact.form.phoneLabel')} <span className="text-gray-400 text-xs">({t('contact.form.phoneOptional')})</span>
                     </Label>
                     <Input
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder={t('contact.form.phonePlaceholder')}
-                      className="text-sm"
+                      className="text-xs md:text-sm h-10 md:h-9"
                     />
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white mt-2 font-semibold"
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white mt-1 md:mt-2 font-semibold py-2 h-auto"
                     disabled={
                       !/^[A-Za-z\s]+$/.test(formData.name.trim()) ||
                       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())
@@ -412,12 +412,12 @@ const ContactSection = () => {
           if (!open && !querySent) setOpenModal(null);
         }}
       >
-        <DialogContent className="sm:max-w-md bg-white rounded-2xl shadow-2xl border border-gray-200">
+        <DialogContent className="max-w-[95%] sm:max-w-md bg-white rounded-xl md:rounded-2xl shadow-2xl border border-gray-200">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-gray-800 mb-2">
+            <DialogTitle className="text-xl md:text-2xl font-bold text-gray-800 mb-1 md:mb-2">
               {openModal === "email" ? t('contact.modal.emailTitle') : t('contact.modal.whatsappTitle')}
             </DialogTitle>
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 text-xs md:text-sm">
               {t('contact.modal.description')}
             </p>
           </DialogHeader>
@@ -433,28 +433,28 @@ const ContactSection = () => {
             onClick={() =>
               setModalMessage(t('contact.modal.defaultMessage'))
             }
-            className="cursor-pointer mb-2 p-4 rounded-xl border border-gray-200 bg-slate-50 hover:bg-purple-50 transition-all duration-200"
+            className="cursor-pointer mb-2 p-3 md:p-4 rounded-lg md:rounded-xl border border-gray-200 bg-slate-50 hover:bg-purple-50 transition-all duration-200"
           >
-            <div className="flex items-start gap-3">
-              <MessageCircle className="w-5 h-5 text-purple-600 mt-1" />
-              <p className="text-sm text-gray-800 leading-snug">
+            <div className="flex items-start gap-2 md:gap-3">
+              <MessageCircle className="w-4 h-4 md:w-5 md:h-5 text-purple-600 mt-0.5" />
+              <p className="text-xs md:text-sm text-gray-800 leading-snug">
                 <span className="font-semibold">{t('contact.modal.defaultMessageLabel')}:</span> {t('contact.modal.defaultMessage')}
               </p>
             </div>
           </motion.div>
 
           <textarea
-            className="w-full mt-2 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full mt-1 md:mt-2 p-2 md:p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-xs md:text-sm"
             rows={4}
             placeholder={t('contact.modal.textareaPlaceholder')}
             value={modalMessage}
             onChange={(e) => setModalMessage(e.target.value)}
           />
 
-          <DialogFooter className="mt-4">
+          <DialogFooter className="mt-3 md:mt-4">
             <Button
               type="button"
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 h-auto"
               onClick={() => {
                 const platform = openModal!;
                 const trimmedMessage = modalMessage.trim();
