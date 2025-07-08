@@ -37,6 +37,7 @@ import "swiper/css/effect-fade";
 import "@/index.css";
 
 const HeroCarousel = () => {
+  const [isVideoReady, setIsVideoReady] = useState(false);
   const { t } = useTranslation();
   const swiperRef = useRef<SwiperCore | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -107,16 +108,29 @@ const HeroCarousel = () => {
         </defs>
       </svg>
 
-      <video
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/background.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {/* Fallback image background */}
+      {!isVideoReady && (
+  <img
+    src="/fallback_thumbnail.jpg"
+    alt="Fallback background"
+    className="absolute top-0 left-0 w-full h-full object-cover z-0"
+  />
+)}
+
+<video
+  className="absolute top-0 left-0 w-full h-full object-cover z-0"
+  autoPlay
+  loop
+  muted
+  playsInline
+  onCanPlay={() => setIsVideoReady(true)}
+  onLoadedData={() => setIsVideoReady(true)}
+>
+  <source src="/background.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+
 
       <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
 
