@@ -110,21 +110,25 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
     };
 
     const playChat = async () => {
-      setDisplayedMessages([]);
-      setInputText("");
-      setBotTyping(false);
-      setSendClicked(false);
+  setDisplayedMessages([]);
+  setInputText("");
+  setBotTyping(false);
+  setSendClicked(false);
 
-      await typeMessage(messages[0], SLOW_USER_TYPING_SPEED, false);
-      await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
+  await typeMessage(messages[0], SLOW_USER_TYPING_SPEED, false);
+  await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
 
-      await typeMessage(messages[1], FAST_AI_TYPING_SPEED, true);
-      await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
+  await typeMessage(messages[1], FAST_AI_TYPING_SPEED, true);
+  await new Promise((r) => setTimeout(r, POST_MSG_HOLD));
 
-      await typeMessage(messages[2], SLOW_USER_TYPING_SPEED, false);
+  await typeMessage(messages[2], SLOW_USER_TYPING_SPEED, false);
 
-      onLoopComplete?.();
-    };
+  // Add buffer to ensure mobile finishes render
+  await new Promise((r) => setTimeout(r, 600)); // 600ms buffer
+
+  onLoopComplete?.(); // Now fire transition
+};
+
 
     playChat();
     return () => {
