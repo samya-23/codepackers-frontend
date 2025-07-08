@@ -16,10 +16,16 @@ import { useTranslation } from 'react-i18next';
 
 const BackgroundBlob = () => (
   <>
-    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse md:opacity-20" />
-    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse md:opacity-20" />
+    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 
+      opacity-10 sm:opacity-20 rounded-full 
+      blur-md sm:blur-3xl animate-pulse" />
+      
+    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 
+      opacity-10 sm:opacity-20 rounded-full 
+      blur-md sm:blur-3xl animate-pulse" />
   </>
 );
+
 
 const PatternOverlay = () => (
   <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">

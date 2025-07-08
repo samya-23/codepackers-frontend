@@ -140,21 +140,22 @@ const HeroCarousel = () => {
           {/* Slide 1 - Intro - Optimized for mobile with reduced vertical spacing */}
 <SwiperSlide>
   <div className="flex flex-col justify-center items-center text-center h-full px-4 md:px-6 text-white relative">
-    {/* Reduced top padding for mobile only */}
-    <div className="pt-8 md:pt-0 px-4">
-      <h1 className="text-3xl md:text-6xl font-bold mb-2 md:mb-4 drop-shadow-lg leading-snug md:leading-tight">
+    
+    {/* Reduced spacing for mobile */}
+    <div className="pt-4 md:pt-0 px-4">
+      <h1 className="text-2xl md:text-6xl font-bold mb-1 md:mb-4 drop-shadow-lg leading-snug md:leading-tight">
         Codepackers Software Solutions
       </h1>
-      <p className="max-w-3xl text-sm md:text-xl mx-auto drop-shadow-md">
+      <p className="max-w-3xl text-xs md:text-xl mx-auto drop-shadow-md">
         {t("hero.intro1")}
       </p>
-      <p className="max-w-3xl text-sm md:text-xl mx-auto drop-shadow-md mt-2 md:mt-4">
+      <p className="max-w-3xl text-xs md:text-xl mx-auto drop-shadow-md mt-1 md:mt-4">
         {t("hero.intro2")}
       </p>
     </div>
 
     {/* CTA Buttons - Adjusted position for mobile */}
-    <div className="absolute bottom-8 md:bottom-16 px-4 w-full flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4">
+    <div className="absolute bottom-6 md:bottom-16 px-4 w-full flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4">
       <button
         onClick={() => swiperRef.current?.slideTo(1)}
         className="group flex items-center justify-between gap-2 w-full sm:w-auto min-w-[220px] px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
@@ -173,6 +174,7 @@ const HeroCarousel = () => {
     </div>
   </div>
 </SwiperSlide>
+
 
           {/* Slide 2 - AI Chat Preview - Fixed left side content cut */}
           <SwiperSlide>
