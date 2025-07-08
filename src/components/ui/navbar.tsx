@@ -8,12 +8,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
-
   const [language, setLanguage] = useState(() => {
     const stored = localStorage.getItem("language");
-    return stored === "es" ? "Spanish" : "English"; // fallback: English
+    return stored === "es" ? "Spanish" : "English";
   });
-
   const [langDropdown, setLangDropdown] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
@@ -91,11 +89,11 @@ const Navbar = () => {
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    setMobileOpen(false); // auto-close on mobile
+    setMobileOpen(false);
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-sm transition-colors duration-300">
+    <nav className={`fixed top-0 left-0 w-full z-50 ${isScrolled ? "bg-white/90" : "bg-white/10"} backdrop-blur-xl border-b ${isScrolled ? "border-gray-200" : "border-white/20"} shadow-sm transition-all duration-300`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
@@ -148,37 +146,34 @@ const Navbar = () => {
 
               {langDropdown && (
                 <div
-                  id="lang-dropdown-desktop"
                   className={`absolute right-0 mt-2 w-32 rounded-md shadow-lg z-50 border ${
                     isScrolled
-                      ? "bg-white text-black border-black/20"
-                      : "bg-white/10 backdrop-blur-md text-white border-white/30"
-                  }`}
+                      ? "bg-white border-gray-200"
+                      : "bg-gray-800 border-gray-600"
+                  } overflow-hidden`}
                 >
                   {["English", "Spanish"].map((lang) => (
                     <button
                       key={lang}
                       onClick={() => handleLanguageChange(lang)}
-                      className={`w-full px-4 py-2 text-left text-sm ${
+                      className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 ${
                         isScrolled
-                          ? "text-black hover:bg-gray-100"
-                          : "text-white hover:bg-white/20"
+                          ? "hover:bg-gray-100 text-gray-800"
+                          : "hover:bg-gray-700 text-white"
                       } transition ${
                         language === lang ? "font-semibold text-blue-500" : ""
                       }`}
                     >
-                      <div className="flex items-center gap-2">
-                        <img
-                          src={
-                            lang === "English"
-                              ? "/assets/flags/english.png"
-                              : "/assets/flags/spanish.png"
-                          }
-                          alt={lang}
-                          className="w-5 h-4 rounded-sm object-cover"
-                        />
-                        {lang}
-                      </div>
+                      <img
+                        src={
+                          lang === "English"
+                            ? "/assets/flags/english.png"
+                            : "/assets/flags/spanish.png"
+                        }
+                        alt={lang}
+                        className="w-5 h-4 rounded-sm object-cover"
+                      />
+                      {lang}
                     </button>
                   ))}
                 </div>
@@ -190,9 +185,9 @@ const Navbar = () => {
               <Button
                 variant="ghost"
                 onClick={goToAdmin}
-                className={`text-sm font-semibold flex items-center gap-1 border px-3 py-1.5 rounded-md backdrop-blur-lg transition-all shadow-sm ${
+                className={`text-sm font-semibold flex items-center gap-1 border px-3 py-1.5 rounded-md ${
                   isScrolled
-                    ? "text-black border-black hover:text-blue-600 hover:border-blue-600"
+                    ? "text-black border-gray-300 hover:text-blue-600 hover:border-blue-600"
                     : "text-white border-white/50 hover:text-blue-400 hover:border-blue-400"
                 }`}
               >
@@ -208,9 +203,9 @@ const Navbar = () => {
               <Button
                 variant="ghost"
                 onClick={goToAdmin}
-                className={`text-sm font-semibold flex items-center gap-1 border px-2 py-1 rounded-md backdrop-blur-lg transition-all shadow-sm ${
+                className={`text-sm font-semibold flex items-center gap-1 border px-2 py-1 rounded-md ${
                   isScrolled
-                    ? "text-black border-black hover:text-blue-600 hover:border-blue-600"
+                    ? "text-black border-gray-300 hover:text-blue-600 hover:border-blue-600"
                     : "text-white border-white/50 hover:text-blue-400 hover:border-blue-400"
                 }`}
               >
@@ -231,22 +226,28 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="md:hidden pb-4 space-y-2 text-white">
+          <div className={`md:hidden pb-4 space-y-2 ${
+            isScrolled ? "text-gray-800" : "text-white"
+          }`}>
             {navItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.id)}
-                className="block text-sm font-medium px-2 py-2 hover:text-blue-300"
+                className={`block text-sm font-medium px-2 py-2 hover:text-blue-300 w-full text-left ${
+                  isScrolled ? "hover:bg-gray-100" : "hover:bg-white/10"
+                } rounded-md`}
               >
                 {item.name}
               </button>
             ))}
 
-            {/* Language Dropdown Mobile - Removed mb-2 class */}
-            <div className="relative z-50" ref={langDropdownRef}>
+            {/* Language Dropdown Mobile */}
+            <div className="relative mb-2" ref={langDropdownRef}>
               <button
                 onClick={toggleLang}
-                className="flex items-center gap-1 text-white px-3 py-1 text-sm rounded-md hover:bg-white/10 transition"
+                className={`flex items-center gap-1 px-3 py-2 text-sm rounded-md w-full text-left ${
+                  isScrolled ? "hover:bg-gray-100" : "hover:bg-white/10"
+                }`}
               >
                 <img
                   src={
@@ -258,46 +259,41 @@ const Navbar = () => {
                   className="w-5 h-4 rounded-sm object-cover"
                 />
                 <span>{language}</span>
-                <ChevronDown size={16} />
+                <ChevronDown size={16} className="ml-auto" />
               </button>
 
               {langDropdown && (
                 <div
-                  id="lang-dropdown-mobile"
-                  className={`absolute left-0 mt-2 w-40 rounded-md shadow-lg z-50 border backdrop-blur-md overflow-hidden ${
+                  className={`mt-1 w-full rounded-md shadow-lg z-50 border ${
                     isScrolled
-                      ? "bg-white text-black border-black/20"
-                      : "bg-black/80 text-white border-white/20"
-                  }`}
+                      ? "bg-white border-gray-200"
+                      : "bg-gray-800 border-gray-600"
+                  } overflow-hidden`}
                 >
-                  <div className="max-h-40 overflow-auto">
-                    {["English", "Spanish"].map((lang) => (
-                      <button
-                        key={lang}
-                        onClick={() => handleLanguageChange(lang)}
-                        className={`w-full px-4 py-2 text-left text-sm ${
-                          isScrolled
-                            ? "text-black hover:bg-gray-100"
-                            : "text-white hover:bg-white/20"
-                        } transition ${
-                          language === lang ? "font-semibold text-blue-500" : ""
-                        }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <img
-                            src={
-                              lang === "English"
-                                ? "/assets/flags/english.png"
-                                : "/assets/flags/spanish.png"
-                            }
-                            alt={lang}
-                            className="w-5 h-4 rounded-sm object-cover"
-                          />
-                          {lang}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
+                  {["English", "Spanish"].map((lang) => (
+                    <button
+                      key={lang}
+                      onClick={() => handleLanguageChange(lang)}
+                      className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 ${
+                        isScrolled
+                          ? "hover:bg-gray-100 text-gray-800"
+                          : "hover:bg-gray-700 text-white"
+                      } transition ${
+                        language === lang ? "font-semibold text-blue-500" : ""
+                      }`}
+                    >
+                      <img
+                        src={
+                          lang === "English"
+                            ? "/assets/flags/english.png"
+                            : "/assets/flags/spanish.png"
+                        }
+                        alt={lang}
+                        className="w-5 h-4 rounded-sm object-cover"
+                      />
+                      {lang}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
@@ -307,7 +303,11 @@ const Navbar = () => {
               <Button
                 variant="outline"
                 onClick={goToAdmin}
-                className="w-full text-sm flex items-center justify-center gap-1 mt-2 text-white border-white/50 hover:border-blue-400 hover:text-blue-400"
+                className={`w-full text-sm flex items-center justify-center gap-1 mt-2 ${
+                  isScrolled
+                    ? "text-gray-800 border-gray-300 hover:border-blue-600 hover:text-blue-600"
+                    : "text-white border-white/50 hover:border-blue-400 hover:text-blue-400"
+                }`}
               >
                 <Lock size={16} />
                 {t("nav.adminPanel")}
