@@ -65,6 +65,10 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
       typingSpeed: number,
       isAI: boolean
     ) => {
+      // Adjust typing speed for mobile
+      const isMobile = window.innerWidth <= 600;
+      const adjustedSpeed = isMobile ? typingSpeed * 0.3 : typingSpeed;
+
       if (!isAI) {
         setSendClicked(true);
       } else {
@@ -92,7 +96,7 @@ const AIChatCarousel: React.FC<AIChatCarouselProps> = ({
           setInputText(typed);
         }
 
-        await new Promise((r) => setTimeout(r, typingSpeed));
+        await new Promise((r) => setTimeout(r, adjustedSpeed));
       }
 
       if (!isAI) {

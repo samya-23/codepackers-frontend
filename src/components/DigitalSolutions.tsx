@@ -16,8 +16,8 @@ import { useTranslation } from 'react-i18next';
 
 const BackgroundBlob = () => (
   <>
-    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
-    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-10 md:opacity-20 rounded-full blur-3xl animate-pulse" />
+    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-10 md:opacity-20 rounded-full blur-3xl animate-pulse" />
   </>
 );
 
@@ -28,7 +28,7 @@ const PatternOverlay = () => (
         <circle cx="1" cy="1" r="1" fill="#e2e8f0" />
       </pattern>
     </defs>
-    <rect width="100%" height="100%" fill="url(#dots)" />
+    <rect width="100%" height="100%" fill="url(#dots)" opacity="0.5" />
   </svg>
 );
 
@@ -114,7 +114,7 @@ const DigitalSolutions = () => {
                 },
               }}
               whileHover={{ scale: 1.05, rotate: 0.5 }}
-              className="flex flex-col items-center gap-2 sm:gap-4 p-3 sm:p-4 md:p-6 rounded-lg md:rounded-xl bg-white/40 border border-white/30 shadow-sm sm:shadow-md backdrop-blur-xl hover:shadow-lg sm:hover:shadow-2xl transition-all duration-300 hover:bg-white/60"
+              className="flex flex-col items-center gap-2 sm:gap-4 p-3 sm:p-4 md:p-6 rounded-lg md:rounded-xl bg-white/70 md:bg-white/40 border border-white/30 shadow-sm sm:shadow-md backdrop-blur-xl hover:shadow-lg sm:hover:shadow-2xl transition-all duration-300 hover:bg-white/60"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-lg sm:rounded-xl flex items-center justify-center shadow-sm sm:shadow-md">
                 <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
