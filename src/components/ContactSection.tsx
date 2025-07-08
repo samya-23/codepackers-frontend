@@ -51,6 +51,37 @@ const fadeUp = {
   },
 };
 
+const BackgroundBlob = () => (
+  <>
+    {/* Desktop-only blobs */}
+    <div className="hidden sm:block absolute -top-32 -left-32 w-[500px] h-[500px] 
+      bg-purple-400 rounded-full animate-pulse
+      opacity-20 blur-3xl" />
+    <div className="hidden sm:block absolute -bottom-32 -right-32 w-[500px] h-[500px] 
+      bg-blue-400 rounded-full animate-pulse
+      opacity-20 blur-3xl" />
+
+    {/* Mobile-only blobs */}
+    <div className="block sm:hidden absolute -top-28 -left-20 w-[350px] h-[350px] 
+      bg-purple-400 rounded-full animate-pulse
+      opacity-30 blur-2xl z-0" />
+    <div className="block sm:hidden absolute -bottom-28 -right-20 w-[350px] h-[350px] 
+      bg-blue-400 rounded-full animate-pulse
+      opacity-30 blur-2xl z-0" />
+  </>
+);
+
+const PatternOverlay = () => (
+  <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+    <defs>
+      <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="1" fill="#e2e8f0" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#dots)" opacity="0.5 md:opacity-100" />
+  </svg>
+);
+
 const ContactSection = () => {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -190,21 +221,8 @@ const ContactSection = () => {
       className="relative py-12 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
     >
       {/* Background */}
-      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
-      <svg className="absolute inset-0 w-full h-full pointer-events-none">
-        <defs>
-          <pattern
-            id="dots"
-            width="40"
-            height="40"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="1" cy="1" r="1" fill="#e2e8f0" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#dots)" />
-      </svg>
+      <BackgroundBlob />
+      <PatternOverlay />
 
       <div className="relative z-10 max-w-7xl mx-auto space-y-10 md:space-y-20">
         {/* Heading */}

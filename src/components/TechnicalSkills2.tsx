@@ -35,11 +35,10 @@ const techStack = [
   { name: "Kotlin", iconSrc: "/icons/kotlin_.svg" },
 ];
 
-// Background blobs with mobile-specific opacity
 const BackgroundBlob = () => (
   <>
-    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse md:opacity-20" />
-    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse md:opacity-20" />
+    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
   </>
 );
 
@@ -56,25 +55,25 @@ const TechnicalSkills2 = () => {
       <BackgroundBlob />
 
       <div className="max-w-7xl mx-auto">
-        {/* Heading Animation Match */}
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900">
             {t('technicalSkills.title')}{" "}
             <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
               {t('technicalSkills.subtitle')}
             </span>
           </h2>
-          <p className="mt-3 md:mt-4 text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto text-center">
+          <p className="mt-3 md:mt-4 text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
             {t('technicalSkills.description')}
           </p>
         </motion.div>
 
-        {/* Tech strip */}
+        {/* Tech stack strip */}
         <div className="overflow-x-auto scrollbar-none mt-8 md:mt-14">
           <motion.div
             initial="hidden"
@@ -87,7 +86,7 @@ const TechnicalSkills2 = () => {
               {techStack.concat(techStack.slice(0, 5)).map(({ name, iconSrc }, idx) => (
                 <motion.div
                   key={idx}
-                  className="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20 md:w-24 p-2 sm:p-3 bg-white rounded-lg sm:rounded-xl shadow hover:shadow-xl hover:scale-105 transition duration-300 border border-gray-100 backdrop-blur-sm"
+                  className="group flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20 md:w-24 p-2 sm:p-3 bg-white/40 rounded-xl border border-transparent hover:border-blue-400/60 shadow-[0_15px_50px_rgba(109,40,217,0.1)] hover:shadow-[0_20px_70px_rgba(59,130,246,0.2)] backdrop-blur-xl hover:scale-105 transition-all duration-500 ease-in-out"
                   animate={{ y: [0, -5, 0] }}
                   transition={{
                     duration: 3,
@@ -96,8 +95,14 @@ const TechnicalSkills2 = () => {
                     delay: idx * 0.1,
                   }}
                 >
-                  <img src={iconSrc} alt={name} className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain" />
-                  <span className="text-xs font-medium text-gray-700 text-center">{name}</span>
+                  <img
+                    src={iconSrc}
+                    alt={name}
+                    className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <span className="text-xs font-medium text-gray-700 text-center leading-tight">
+                    {name}
+                  </span>
                 </motion.div>
               ))}
             </div>

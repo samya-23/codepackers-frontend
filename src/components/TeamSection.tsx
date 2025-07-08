@@ -3,16 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Mail,
   Phone,
-  Briefcase,
-  Code,
-  Palette,
-  ShieldCheck,
-  BarChart,
-  Cpu,
-  UserCheck,
-  Headphones,
-  FlaskConical,
-  Mic,
 } from "lucide-react";
 import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
@@ -60,9 +50,13 @@ const TeamSection = () => {
       id="team"
       className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
     >
-      {/* Floating Blobs */}
-      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+      {/* Blobs: Desktop-only */}
+      <div className="hidden sm:block absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+      <div className="hidden sm:block absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+
+      {/* Blobs: Mobile-only */}
+      <div className="block sm:hidden absolute -top-28 -left-20 w-[350px] h-[350px] bg-purple-400 opacity-30 rounded-full blur-2xl animate-pulse z-0" />
+      <div className="block sm:hidden absolute -bottom-28 -right-20 w-[350px] h-[350px] bg-blue-400 opacity-30 rounded-full blur-2xl animate-pulse z-0" />
 
       {/* Dotted Grid Pattern */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">

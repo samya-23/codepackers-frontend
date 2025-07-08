@@ -54,26 +54,26 @@ const TeamComposition = () => {
     <section
       id="expertise"
       ref={sectionRef}
-      className="relative py-16 md:py-24 px-4 sm:px-6 lg:px-24 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
+      className="relative py-20 px-4 sm:px-6 lg:px-24 bg-gradient-to-br from-white via-slate-50 to-slate-100 overflow-hidden"
     >
       <BackgroundBlob />
       <PatternOverlay />
 
-      <div className="relative z-10 max-w-7xl mx-auto space-y-12 md:space-y-16">
+      <div className="relative z-10 max-w-7xl mx-auto space-y-16">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center px-2"
+          className="text-center"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 text-center">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900">
             {t('teamComposition.title')}{' '}
-            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent animate-text-glow">
               {t('teamComposition.subtitle')}
             </span>
           </h2>
-          <p className="mt-3 md:mt-4 text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto text-center">
+          <p className="mt-4 text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-2 sm:px-0">
             {t('teamComposition.description')}
           </p>
         </motion.div>
@@ -85,9 +85,9 @@ const TeamComposition = () => {
           viewport={{ once: true, amount: 0.2 }}
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 0.12 } },
+            visible: { transition: { staggerChildren: 0.1 } },
           }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-0"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 px-2 sm:px-0"
         >
           {teamRoles.map(({ icon: Icon, label }, i) => (
             <motion.div
@@ -100,13 +100,17 @@ const TeamComposition = () => {
                   transition: { duration: 0.5, ease: "easeOut" },
                 },
               }}
-              whileHover={{ scale: 1.05, rotate: 0.5 }}
-              className="flex flex-col items-center gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 rounded-lg md:rounded-xl bg-white/40 border border-white/30 shadow-sm md:shadow-md backdrop-blur-xl hover:shadow-lg md:hover:shadow-2xl transition-all duration-300 hover:bg-white/60"
+              whileHover={{
+                scale: 1.05,
+                rotate: 0.5,
+                transition: { duration: 0.3 },
+              }}
+              className="group flex flex-col items-center gap-4 p-5 rounded-2xl bg-white/40 border border-transparent hover:border-blue-400/60 shadow-[0_15px_50px_rgba(109,40,217,0.1)] hover:shadow-[0_20px_70px_rgba(59,130,246,0.2)] backdrop-blur-xl hover:scale-[1.025] transition-all duration-500 ease-in-out"
             >
-              <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-lg md:rounded-xl flex items-center justify-center shadow-sm md:shadow-md">
-                <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-xl flex items-center justify-center shadow-md group-hover:shadow-xl transition-all duration-300">
+                <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
               </div>
-              <h4 className="text-xs sm:text-sm md:text-base font-medium text-gray-800 text-center leading-tight sm:leading-snug">
+              <h4 className="text-sm sm:text-base font-medium text-gray-800 text-center leading-snug">
                 {label}
               </h4>
             </motion.div>

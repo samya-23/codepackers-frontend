@@ -56,7 +56,7 @@ const TechnicalSkills = () => {
       <BackgroundBlob />
 
       <div className="max-w-7xl mx-auto">
-        {/* Heading Animation Match */}
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -65,7 +65,7 @@ const TechnicalSkills = () => {
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 text-center">
             {t('technicalSkills.title')}{" "}
-            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent animate-text-glow">
               {t('technicalSkills.subtitle')}
             </span>
           </h2>
@@ -87,7 +87,7 @@ const TechnicalSkills = () => {
               {techStack.concat(techStack.slice(0, 5)).map(({ name, iconSrc }, idx) => (
                 <motion.div
                   key={idx}
-                  className="flex flex-col items-center gap-1 md:gap-2 w-16 md:w-24 p-2 md:p-3 bg-white rounded-lg md:rounded-xl shadow-sm hover:shadow-md md:hover:shadow-xl hover:scale-105 transition duration-300 border border-gray-100 backdrop-blur-sm"
+                  className="group flex flex-col items-center gap-1 md:gap-2 w-16 md:w-24 p-2 md:p-3 bg-white/40 border border-transparent hover:border-blue-400/60 rounded-2xl shadow-[0_15px_50px_rgba(109,40,217,0.1)] hover:shadow-[0_20px_70px_rgba(59,130,246,0.2)] backdrop-blur-xl hover:scale-105 transition-all duration-500 ease-in-out"
                   animate={{ y: [0, -5, 0] }}
                   transition={{
                     duration: 3,
@@ -99,7 +99,7 @@ const TechnicalSkills = () => {
                   <img 
                     src={iconSrc} 
                     alt={name} 
-                    className="w-8 h-8 md:w-12 md:h-12 object-contain" 
+                    className="w-8 h-8 md:w-12 md:h-12 object-contain transition-transform duration-300 group-hover:scale-110" 
                   />
                   <span className="text-xs font-medium text-gray-700 text-center leading-tight">
                     {name}
