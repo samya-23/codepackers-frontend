@@ -35,12 +35,14 @@ const techStack = [
   { name: "Kotlin", iconSrc: "/icons/kotlin_.svg" },
 ];
 
+// Background blobs hidden on mobile, shown from md and up
 const BackgroundBlob = () => (
   <>
-    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
-    <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+    <div className="hidden md:block absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-400 opacity-20 rounded-full blur-3xl animate-pulse" />
+    <div className="hidden md:block absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-blue-400 opacity-20 rounded-full blur-3xl animate-pulse" />
   </>
 );
+
 
 const TechnicalSkills2 = () => {
   const { t } = useTranslation();
