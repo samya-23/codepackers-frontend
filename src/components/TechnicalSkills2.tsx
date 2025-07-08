@@ -44,6 +44,7 @@ const BackgroundBlob = () => (
 );
 
 
+
 const TechnicalSkills2 = () => {
   const { t } = useTranslation();
   const sectionRef = useRef(null);

@@ -155,10 +155,11 @@ const HeroCarousel = () => {
     </div>
 
     {/* CTA Buttons - Adjusted position for mobile */}
-    <div className="absolute bottom-6 md:bottom-16 px-4 w-full flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4">
+    <div className="absolute bottom-4 md:bottom-16 px-2 w-full flex flex-col sm:flex-row justify-center items-stretch gap-2 md:gap-4">
       <button
         onClick={() => swiperRef.current?.slideTo(1)}
-        className="group flex items-center justify-between gap-2 w-full sm:w-auto min-w-[220px] px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
+        className="group flex items-center justify-between gap-1 w-full sm:w-auto px-4 py-2 md:px-6 md:py-3 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
+
       >
         <span>{t("hero.cta.alaap")}</span>
         <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform duration-200" />
@@ -166,7 +167,8 @@ const HeroCarousel = () => {
 
       <button
         onClick={() => swiperRef.current?.slideTo(3)}
-        className="group flex items-center justify-between gap-2 w-full sm:w-auto min-w-[220px] px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
+        className="group flex items-center justify-between gap-1 w-full sm:w-auto px-4 py-2 md:px-6 md:py-3 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm md:text-base font-medium shadow-md hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-in-out"
+
       >
         <span>{t("hero.cta.pustak")}</span>
         <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform duration-200" />
