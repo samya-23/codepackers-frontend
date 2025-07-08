@@ -16,13 +16,21 @@ import { useTranslation } from 'react-i18next';
 
 const BackgroundBlob = () => (
   <>
+    {/* Desktop-only blobs (UNCHANGED) */}
     <div className="hidden sm:block absolute -top-32 -left-32 w-[500px] h-[500px] 
       bg-purple-400 rounded-full animate-pulse
       opacity-20 blur-3xl" />
-
     <div className="hidden sm:block absolute -bottom-32 -right-32 w-[500px] h-[500px] 
       bg-blue-400 rounded-full animate-pulse
       opacity-20 blur-3xl" />
+
+    {/* Mobile-only blobs (NEWLY ADDED) */}
+    <div className="block sm:hidden absolute -top-28 -left-20 w-[350px] h-[350px] 
+      bg-purple-400 rounded-full animate-pulse
+      opacity-30 blur-2xl z-0" />
+    <div className="block sm:hidden absolute -bottom-28 -right-20 w-[350px] h-[350px] 
+      bg-blue-400 rounded-full animate-pulse
+      opacity-30 blur-2xl z-0" />
   </>
 );
 
