@@ -242,8 +242,8 @@ const Navbar = () => {
               </button>
             ))}
 
-            {/* Language Dropdown Mobile */}
-            <div className="relative z-50 mb-2" ref={langDropdownRef}>
+            {/* Language Dropdown Mobile - Removed mb-2 class */}
+            <div className="relative z-50" ref={langDropdownRef}>
               <button
                 onClick={toggleLang}
                 className="flex items-center gap-1 text-white px-3 py-1 text-sm rounded-md hover:bg-white/10 transition"
