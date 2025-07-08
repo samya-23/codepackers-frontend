@@ -51,18 +51,6 @@ const HeroCarousel = () => {
       .catch((err) => console.error("Error loading Pustak Lottie:", err));
   }, []);
 
-  const handleSlideChange = (swiper: SwiperCore) => {
-    const index = swiper.realIndex;
-    setActiveIndex(index);
-
-    if (index === 1) {
-      setChatLoopKey((prev) => prev + 1);
-    }
-
-    if (index === 3) {
-      setPustakLoopKey((prev) => prev + 1);
-    }
-  };
 
   const alaapFeatures = [
     [<Bot size={32} stroke="url(#icon-gradient)" />, t("alaap.features.0")],
@@ -91,11 +79,21 @@ const HeroCarousel = () => {
     [<Briefcase size={32} stroke="url(#icon-gradient)" />, t("pustak.features.10")],
     [<BusFront size={32} stroke="url(#icon-gradient)" />, t("pustak.features.11")],
   ];
-  useEffect(() => {
-  if (activeIndex === 1) {
-    swiperRef.current?.autoplay?.stop(); // stop autoplay on entering chat slide
+  const handleSlideChange = (swiper: SwiperCore) => {
+  const index = swiper.realIndex;
+  setActiveIndex(index);
+
+  // 🛑 Stop autoplay immediately when chat slide loads
+  if (index === 1) {
+    swiperRef.current?.autoplay?.stop();
+    setChatLoopKey((prev) => prev + 1);
   }
-}, [activeIndex]);
+
+  if (index === 3) {
+    setPustakLoopKey((prev) => prev + 1);
+  }
+};
+
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -234,9 +232,10 @@ const HeroCarousel = () => {
   loopKey={chatLoopKey}
   run={activeIndex === 1}
   onLoopComplete={() => {
-    swiperRef.current?.autoplay?.start(); // resume after all typing is done
+    swiperRef.current?.autoplay?.start(); // resume only after typing finishes
   }}
 />
+
 
       </div>
     </div>
