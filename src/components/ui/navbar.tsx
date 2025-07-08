@@ -203,7 +203,20 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-4">
+            {showAdmin && (
+              <Button
+                variant="ghost"
+                onClick={goToAdmin}
+                className={`text-sm font-semibold flex items-center gap-1 border px-2 py-1 rounded-md backdrop-blur-lg transition-all shadow-sm ${
+                  isScrolled
+                    ? "text-black border-black hover:text-blue-600 hover:border-blue-600"
+                    : "text-white border-white/50 hover:text-blue-400 hover:border-blue-400"
+                }`}
+              >
+                <Lock size={16} className="mb-[1px]" />
+              </Button>
+            )}
             <button
               onClick={toggleMenu}
               className={`hover:text-blue-300 ${
