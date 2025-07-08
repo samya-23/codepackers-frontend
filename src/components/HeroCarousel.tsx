@@ -199,14 +199,14 @@ const HeroCarousel = () => {
 </SwiperSlide>
 
 
-          {/* Slide 2 - AI Chat Preview - Fixed left side content cut */}
+          {/* Slide 2 - AI Chat Preview - Fixed desktop view */}
 <SwiperSlide>
-  <div className="flex justify-center items-center h-full text-white px-4 pt-16 pb-12 overflow-x-hidden">
-    <div className="w-full flex flex-col md:flex-row justify-center items-center min-h-full px-2 py-4">
+  <div className="flex justify-center items-center h-full text-white px-4 md:px-8 pt-16 md:pt-0 pb-12 md:pb-0 overflow-x-hidden">
+    <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center min-h-full px-4 md:px-10 py-4 md:py-8">
       
-      {/* Text - Better spacing and scaling for mobile */}
-      <div className="w-full text-center md:text-left px-2 mb-6 md:mb-0">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-4 leading-snug">
+      {/* Text Section - Desktop optimized */}
+      <div className="w-full text-center md:text-left px-2 md:px-8 mb-8 md:mb-0 md:w-1/2">
+        <h2 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6 leading-snug md:leading-tight">
           <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text block">
             {t("alaap.title")}
           </span>
@@ -215,11 +215,11 @@ const HeroCarousel = () => {
           </span>
         </h2>
 
-        <p className="text-sm mb-4 max-w-xl mx-auto md:mx-0">
+        <p className="text-sm md:text-base mb-4 md:mb-6 max-w-xl mx-auto md:mx-0">
           {t("alaap.description")}
         </p>
 
-        <div className="flex flex-wrap items-center gap-2 mb-4 text-xs font-medium justify-center md:justify-start">
+        <div className="flex flex-wrap items-center gap-2 md:gap-4 mb-6 text-xs md:text-sm font-medium justify-center md:justify-start">
           <span className="flex items-center gap-1">
             <span>💬</span> {t("alaap.points.0")}
           </span>
@@ -235,13 +235,14 @@ const HeroCarousel = () => {
           href="https://www.aptilab.in/signin"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg text-sm"
+          className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-3 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg text-sm md:text-base"
         >
-          {t("alaap.tryAgent")} <ArrowRight className="w-4 h-4" />
+          {t("alaap.tryAgent")} <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
         </a>
       </div>
 
-      <div className="w-full px-2 md:px-0 md:w-[560px] mx-auto transition-all duration-500 ease-in-out">
+      {/* Chat Preview - Desktop optimized */}
+      <div className="w-full md:w-1/2 px-2 md:px-0 mx-auto transition-all duration-500 ease-in-out">
         <AIChatCarousel
           loopKey={chatLoopKey}
           run={activeIndex === 1}
