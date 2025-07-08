@@ -181,52 +181,54 @@ const HeroCarousel = () => {
 
           {/* Slide 2 - AI Chat Preview - Fixed left side content cut */}
           <SwiperSlide>
-            <div className="flex justify-center items-center h-full text-white px-4 md:px-8 py-12 md:py-0">
-              <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center min-h-full px-0 md:px-10 py-4 md:py-8">
-                {/* Text - Adjusted padding for mobile */}
-                <div className="text-center md:text-left px-4 md:px-8 mb-8 md:mb-0">
-                  <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 leading-snug md:leading-tight">
-                    <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
-                      {t("alaap.title")}
-                    </span>
-                    <br />
-                    <span className="text-white">
-                      {t("alaap.subtitle")}
-                    </span>
-                  </h2>
+  <div className="flex justify-center items-center h-full text-white px-4 md:px-8 py-12 md:py-0 overflow-x-hidden">
+    <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-center items-center min-h-full px-4 md:px-10 py-4 md:py-8">
+      
+      {/* Text - Fixed padding and alignment */}
+      <div className="w-full text-center md:text-left px-4 md:px-8 mb-8 md:mb-0">
+        <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 leading-snug md:leading-tight">
+          <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
+            {t("alaap.title")}
+          </span>
+          <br />
+          <span className="text-white">
+            {t("alaap.subtitle")}
+          </span>
+        </h2>
 
-                  <p className="text-sm md:text-lg mb-4 md:mb-6 max-w-xl mx-auto md:mx-0">
-                    {t("alaap.description")}
-                  </p>
+        <p className="text-sm md:text-lg mb-4 md:mb-6 max-w-xl mx-auto md:mx-0">
+          {t("alaap.description")}
+        </p>
 
-                  <div className="flex flex-col sm:flex-row sm:flex-wrap items-center md:items-start gap-2 md:gap-4 mb-6 text-xs md:text-sm font-medium justify-center md:justify-start">
-                    <span className="flex items-center gap-1">
-                      <span>💬</span> {t("alaap.points.0")}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <span>🎤</span> {t("alaap.points.1")}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <span>🌐</span> {t("alaap.points.2")}
-                    </span>
-                  </div>
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-center md:items-start gap-2 md:gap-4 mb-6 text-xs md:text-sm font-medium justify-center md:justify-start">
+          <span className="flex items-center gap-1">
+            <span>💬</span> {t("alaap.points.0")}
+          </span>
+          <span className="flex items-center gap-1">
+            <span>🎤</span> {t("alaap.points.1")}
+          </span>
+          <span className="flex items-center gap-1">
+            <span>🌐</span> {t("alaap.points.2")}
+          </span>
+        </div>
 
-                  <a
-                    href="https://www.aptilab.in/signin"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2 md:px-6 md:py-3 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg text-sm md:text-base"
-                  >
-                    {t("alaap.tryAgent")}<ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
-                  </a>
-                </div>
+        <a
+          href="https://www.aptilab.in/signin"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-5 py-2 md:px-6 md:py-3 rounded-full font-semibold shadow-md transition text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 hover:shadow-lg text-sm md:text-base"
+        >
+          {t("alaap.tryAgent")} <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
+        </a>
+      </div>
 
-                <div className="w-full px-0 md:px-0 md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto transition-all duration-500 ease-in-out">
-                  <AIChatCarousel loopKey={chatLoopKey} run={activeIndex === 1} />
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
+      <div className="w-full px-4 md:px-0 md:w-[560px] lg:w-[640px] xl:w-[720px] mx-auto transition-all duration-500 ease-in-out">
+        <AIChatCarousel loopKey={chatLoopKey} run={activeIndex === 1} />
+      </div>
+    </div>
+  </div>
+</SwiperSlide>
+
 
           {/* Slide 3 - Alaap Features */}
           <SwiperSlide>
